@@ -5,8 +5,8 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore rvm / rbenv config files
-.ruby-version
-.ruby-gemset
+#.ruby-version
+#.ruby-gemset
 
 # Ignore bundler config.
 /.bundle
