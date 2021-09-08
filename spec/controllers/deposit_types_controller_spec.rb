@@ -192,7 +192,7 @@ describe DepositTypesController do
           .and_return(false)
 
         put :update, params: {
-          id:           dt.id,
+          id: dt.id,
           deposit_type: { display_name: 'New Name' }
         }
 

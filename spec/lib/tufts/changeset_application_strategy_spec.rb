@@ -24,7 +24,7 @@ RSpec.describe Tufts::ChangesetApplicationStrategy do
 
     it 'sets the changeset' do
       strategy = described_class.for(:overwrite,
-                                     model:     model,
+                                     model: model,
                                      changeset: changeset)
       expect(strategy.changeset).to eql changeset
     end

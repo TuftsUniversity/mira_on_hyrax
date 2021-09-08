@@ -41,12 +41,12 @@ module Tufts
 
       private
 
-      ##
-      # @private Register new class when inherited
-      def inherited(other)
-        @subclasses << other
-        super
-      end
+        ##
+        # @private Register new class when inherited
+        def inherited(other)
+          @subclasses << other
+          super
+        end
     end
 
     ##

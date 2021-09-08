@@ -86,9 +86,9 @@ describe ContributeController do
 
     describe 'POST #create' do
       let(:params) do
-        { contribution: { title:       'Sample',
+        { contribution: { title: 'Sample',
                           description: 'Description',
-                          creator:     'Someone' } }
+                          creator: 'Someone' } }
       end
 
       it 'redirects when no deposit type is specified' do
@@ -127,10 +127,10 @@ describe ContributeController do
           allow(Time.zone).to receive(:now).and_return(now)
 
           post :create, params: {
-            contribution: { title:       'Sample',
+            contribution: { title: 'Sample',
                             description: 'Description of goes here',
-                            creator:     'Mickey Mouse',
-                            attachment:  uploaded_file },
+                            creator: 'Mickey Mouse',
+                            attachment: uploaded_file },
             deposit_type: deposit_type.id
           }
 
@@ -143,9 +143,9 @@ describe ContributeController do
         end
 
         it 'requires a file attachments' do
-          params = { contribution: { title:       'Sample',
+          params = { contribution: { title: 'Sample',
                                      description: 'Description of uploaded file goes here',
-                                     creator:      user.display_name },
+                                     creator: user.display_name },
                      deposit_type: deposit_type }
 
           post :create, params: params

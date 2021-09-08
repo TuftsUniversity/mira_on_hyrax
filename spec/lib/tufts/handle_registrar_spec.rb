@@ -75,7 +75,7 @@ describe Tufts::HandleRegistrar do
     context 'when there is an error registering the handle' do
       subject(:service) do
         described_class.new(connection: error_connection.new,
-                            builder:    fake_builder.new)
+                            builder: fake_builder.new)
       end
 
       let(:error_connection) do

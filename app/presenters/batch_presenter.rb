@@ -3,17 +3,17 @@
 class BatchPresenter
   ##
   # Review Statuses
-  REVIEW_STATUSES = { complete:   'Complete'.freeze,
+  REVIEW_STATUSES = { complete: 'Complete'.freeze,
                       incomplete: 'Incomplete'.freeze }.freeze
 
   ##
   # Job Statuses
-  JOB_STATUSES = { new:         'New'.freeze,
+  JOB_STATUSES = { new: 'New'.freeze,
                    unavailable: 'Unavailable'.freeze,
-                   queued:      'Queued'.freeze,
-                   working:     'In Progress'.freeze,
-                   partial:     'Partially Completed'.freeze,
-                   completed:   'Completed'.freeze }.freeze
+                   queued: 'Queued'.freeze,
+                   working: 'In Progress'.freeze,
+                   partial: 'Partially Completed'.freeze,
+                   completed: 'Completed'.freeze }.freeze
 
   ##
   # @!attribute object [rw]
@@ -27,7 +27,7 @@ class BatchPresenter
   end
 
   class << self
-    REGISTRY = { XmlImport      => XmlImportPresenter,
+    REGISTRY = { XmlImport => XmlImportPresenter,
                  MetadataExport => MetadataExportPresenter }.freeze
 
     ##

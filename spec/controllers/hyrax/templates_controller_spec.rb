@@ -69,9 +69,9 @@ RSpec.describe Hyrax::TemplatesController, :clean, type: :controller do
 
     describe 'PUT #update' do
       let(:params) do
-        { id:             template.name,
+        { id: template.name,
           generic_object: { template_name: template_name,
-                            title:         [title] } }
+                            title: [title] } }
       end
 
       let(:title)         { 'Comet in Moominland' }

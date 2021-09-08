@@ -33,19 +33,19 @@ Rails.application.routes.draw do
     resources :eads, only: [:index]
     resources :metadata_exports,
               controller: 'hyrax/metadata_exports',
-              only:       [:create]
+              only: [:create]
     resources :metadata_imports,
               controller: 'hyrax/metadata_imports',
-              only:       [:new, :create]
+              only: [:new, :create]
     resources :xml_imports,
               controller: 'hyrax/xml_imports',
-              only:       [:show, :create, :new, :edit, :update]
+              only: [:show, :create, :new, :edit, :update]
     resources :templates,
               controller: 'hyrax/templates',
-              only:       [:index, :destroy, :edit, :update, :new]
+              only: [:index, :destroy, :edit, :update, :new]
     resources :template_updates,
               controller: 'hyrax/template_updates',
-              only:       [:index, :new, :create]
+              only: [:index, :new, :create]
 
     get '/metadata_exports/:id/download', to: 'hyrax/metadata_exports#download'
 

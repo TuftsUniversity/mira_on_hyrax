@@ -128,8 +128,8 @@ module Tufts
                               object.class.model_name.singular_route_key,
                               nil,
                               :url,
-                              id:     object.id,
-                              host:   config['hostname'],
+                              id: object.id,
+                              host: config['hostname'],
                               anchor: nil)
       end
 

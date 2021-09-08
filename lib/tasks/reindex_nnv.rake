@@ -10,8 +10,8 @@ namespace :tufts do
         begin
                 puts "Reindexing: #{v.id}"
                 v.update_index
-              rescue StandardError => e
-                puts e.message
+        rescue StandardError => e
+          puts e.message
               end
       else
         puts "#{v.id} ok: #{iiif}"

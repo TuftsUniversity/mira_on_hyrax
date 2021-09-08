@@ -7,8 +7,8 @@ class Hyrax::MetadataImportsController < ApplicationController
     import = MetadataImport.new(import_params)
     if import.save # upload the file
       import.update!(batch: Batch.create(batchable: import,
-                                         creator:   current_user,
-                                         ids:       import.ids.to_a))
+                                         creator: current_user,
+                                         ids: import.ids.to_a))
       import.batch.enqueue!
       redirect_to main_app.batch_path(import.batch)
     else

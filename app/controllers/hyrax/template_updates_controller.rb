@@ -8,8 +8,8 @@ module Hyrax
       end
       update       = TemplateUpdate.new(template_update_params)
       update.batch = Batch.create(batchable: update,
-                                  creator:   current_user,
-                                  ids:       update.ids)
+                                  creator: current_user,
+                                  ids: update.ids)
       update.save
       update.batch.enqueue!
 

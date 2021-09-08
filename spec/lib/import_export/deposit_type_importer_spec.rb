@@ -37,24 +37,24 @@ describe DepositTypeImporter do
     pdf = DepositType.where(display_name: 'PDF Document').first
     expect(pdf)
       .to have_attributes(deposit_agreement: 'Agreement for a PDF',
-                          deposit_view:      'capstone_project')
+                          deposit_view: 'capstone_project')
 
     audio = DepositType.where(display_name: 'Audio File').first
     expect(audio)
       .to have_attributes(deposit_agreement: 'Agreement for Audio',
-                          deposit_view:      'honors_thesis')
+                          deposit_view: 'honors_thesis')
 
     photo = DepositType.where(display_name: 'Photograph').first
     expect(photo)
       .to have_attributes(deposit_agreement: 'Agreement for a Photo',
-                          deposit_view:      'generic_deposit')
+                          deposit_view: 'generic_deposit')
   end
 
   it 'updates existing deposit types' do
     DepositType.delete_all
     importer = described_class.new(test_import_file)
     pdf = FactoryGirl.create(:deposit_type,
-                             display_name:      'PDF Document',
+                             display_name: 'PDF Document',
                              deposit_agreement: 'old text')
 
     expect { importer.import_from_csv }
@@ -65,7 +65,7 @@ describe DepositTypeImporter do
 
     expect(pdf)
       .to have_attributes(deposit_agreement: 'Agreement for a PDF',
-                          deposit_view:      'capstone_project')
+                          deposit_view: 'capstone_project')
   end
 
   it 'doesnt create duplicate deposit types' do

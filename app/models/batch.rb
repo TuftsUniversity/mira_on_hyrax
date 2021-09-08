@@ -34,8 +34,8 @@ class Batch < ApplicationRecord
     jobs = ActiveJobStatus::JobBatch.find(batch_id: id)
     return jobs.add_jobs(job_ids: id_map.values) if jobs
 
-    ActiveJobStatus::JobBatch.new(batch_id:   id,
-                                  job_ids:    id_map.values,
+    ActiveJobStatus::JobBatch.new(batch_id: id,
+                                  job_ids: id_map.values,
                                   store_data: true)
   end
 
@@ -74,8 +74,8 @@ class Batch < ApplicationRecord
     def object
       @object ||= begin
         ActiveFedora::Base.find(id)
-      rescue Ldp::Gone, ActiveFedora::ObjectNotFoundError, ArgumentError
-        nil
+                  rescue Ldp::Gone, ActiveFedora::ObjectNotFoundError, ArgumentError
+                    nil
       end
     end
 
@@ -115,8 +115,8 @@ class Batch < ApplicationRecord
     # @return [ActiveJobStatus::JobBatch]
     def job_batch(writable: false)
       ActiveJobStatus::JobBatch.find(batch_id: id) ||
-        ActiveJobStatus::JobBatch.new(batch_id:   id,
-                                      job_ids:    [],
+        ActiveJobStatus::JobBatch.new(batch_id: id,
+                                      job_ids: [],
                                       store_data: writable)
     end
 

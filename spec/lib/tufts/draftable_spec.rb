@@ -14,8 +14,8 @@ RSpec.describe Tufts::Draftable do
   end
 
   let(:change_map) do
-    { title:      ['Comet in Moominland'],
-      subject:    ['Moomins', 'Snorks'],
+    { title: ['Comet in Moominland'],
+      subject: ['Moomins', 'Snorks'],
       characters: ['Moomin', 'Moominpapa', 'Snorkmaiden', 'Little My'] }
   end
 

@@ -8,8 +8,8 @@ namespace :tufts do
       puts('example usage: rake tufts:update_stewards some_pids.txt')
     else
       updates = {
-        'DCA' =>     'dca',
-        'Tisch' =>   'tisch',
+        'DCA' => 'dca',
+        'Tisch' => 'tisch',
         'Tisch Library' => 'tisch',
         '' => 'tisch'
       }

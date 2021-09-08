@@ -5,8 +5,8 @@ module Hyrax
 
       export       = MetadataExport.new
       export.batch = Batch.create(batchable: export,
-                                  creator:   current_user,
-                                  ids:       ids)
+                                  creator: current_user,
+                                  ids: ids)
 
       export.save!
       export.batch.enqueue!

@@ -7,8 +7,8 @@ module Hyrax
     def create
       @import       = XmlImport.new(import_params)
       @import.batch = Batch.create(batchable: @import,
-                                   creator:   current_user,
-                                   ids:       [])
+                                   creator: current_user,
+                                   ids: [])
       if @import.save
         redirect_to main_app.xml_import_path(@import)
       else

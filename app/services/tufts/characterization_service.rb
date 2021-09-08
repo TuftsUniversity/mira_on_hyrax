@@ -5,13 +5,13 @@ require 'fastimage'
 module Tufts
   class CharacterizationService
     FIELDS = {
-      resolution_unit:            [:ifd0, 'ResolutionUnit'],
-      bits_per_sample:            [:ifd0, 'BitsPerSample'],
-      samples_per_pixel:          [:ifd0, 'SamplesPerPixel'],
-      x_resolution:               [:ifd0, 'XResolution'],
-      y_resolution:               [:ifd0, 'YResolution'],
-      height:                     [:ifd0, 'ImageHeight'],
-      width:                      [:ifd0, 'ImageWidth']
+      resolution_unit: [:ifd0, 'ResolutionUnit'],
+      bits_per_sample: [:ifd0, 'BitsPerSample'],
+      samples_per_pixel: [:ifd0, 'SamplesPerPixel'],
+      x_resolution: [:ifd0, 'XResolution'],
+      y_resolution: [:ifd0, 'YResolution'],
+      height: [:ifd0, 'ImageHeight'],
+      width: [:ifd0, 'ImageWidth']
     }.freeze
 
     def self.run(object, source)

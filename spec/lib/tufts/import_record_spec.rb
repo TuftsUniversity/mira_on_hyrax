@@ -51,11 +51,11 @@ RSpec.describe Tufts::ImportRecord do
       include_context 'with metadata'
 
       let(:expected_attributes) do
-        { title:                 [title],
-          creator:               ['Unknown'],
-          personal_name:         ['Mayer, Jean'],
-          corporate_name:        ['Office of the President'],
-          visibility:            'open',
+        { title: [title],
+          creator: ['Unknown'],
+          personal_name: ['Mayer, Jean'],
+          corporate_name: ['Office of the President'],
+          visibility: 'open',
           member_of_collections: collections }
       end
 

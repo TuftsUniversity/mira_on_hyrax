@@ -19,10 +19,10 @@ describe Tufts::ImportService, :workflow, :clean do
   end
 
   it 'has file, import and object_ids attributes' do
-    is_expected.to have_attributes(file:      files.first,
-                                   import:    import,
+    is_expected.to have_attributes(file: files.first,
+                                   import: import,
                                    object_id: object_id,
-                                   files:     files)
+                                   files: files)
   end
 
   describe '#import_object!' do
@@ -77,7 +77,7 @@ describe Tufts::ImportService, :workflow, :clean do
 
           expect(result)
             .to have_attributes(representative: have_attributes(title: ['pdf-sample.pdf']),
-                                transcript:     have_attributes(title: ['2.pdf']))
+                                transcript: have_attributes(title: ['2.pdf']))
         end
       end
     end

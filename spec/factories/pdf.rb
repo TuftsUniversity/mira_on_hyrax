@@ -15,9 +15,9 @@ FactoryGirl.define do
     factory :published_pdf do
       after(:create) do |work, evaluator|
         Tufts::WorkflowStatus
-          .publish(work:         work,
+          .publish(work: work,
                    current_user: evaluator.user,
-                   comment:      'Published by :published_pdf factory in `after_create` hook.')
+                   comment: 'Published by :published_pdf factory in `after_create` hook.')
       end
     end
   end

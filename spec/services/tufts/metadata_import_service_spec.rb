@@ -24,7 +24,7 @@ describe Tufts::MetadataImportService, :workflow, :clean do
   end
 
   it 'has import and object_ids attributes' do
-    is_expected.to have_attributes(import:    import,
+    is_expected.to have_attributes(import: import,
                                    object_id: object.id)
   end
 

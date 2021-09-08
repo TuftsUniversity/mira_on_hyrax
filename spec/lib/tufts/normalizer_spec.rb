@@ -20,18 +20,18 @@ RSpec.describe Tufts::Normalizer do
 
     let(:params) do
       { concern:
-        { 'string'           => "moomin   \n\t   ",
+        { 'string' => "moomin   \n\t   ",
           'array_of_strings' => ['moomin', "moomin\t ", "moomin   \n\t   "],
-          'description'      => "moomin  \n\t   papa",
-          'abstract'         => ['moomin', "moomin\t ", "moomin  \n\t   papa"] } }
+          'description' => "moomin  \n\t   papa",
+          'abstract' => ['moomin', "moomin\t ", "moomin  \n\t   papa"] } }
     end
 
     it 'edits the params with whitespace normalization' do
       expect { controller.normalize_whitespace_hash_of_hash(params) }
         .to change { params[:concern] }
-        .to include('string'           => 'moomin', 'description' => "moomin\n papa",
+        .to include('string' => 'moomin', 'description' => "moomin\n papa",
                     'array_of_strings' => ['moomin', "moomin", "moomin"],
-                    'abstract'         => ['moomin', "moomin", "moomin\n papa"])
+                    'abstract' => ['moomin', "moomin", "moomin\n papa"])
     end
   end
 
