@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'import_export/deposit_type_importer'
 
 RSpec.feature 'DepositType seed' do
-
   let(:deposit_types) { CSV.read('./config/deposit_type_seed.csv', headers: true) }
   let(:known_display_name) { deposit_types.first.field("display_name") }
 
