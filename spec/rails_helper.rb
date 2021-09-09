@@ -129,6 +129,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     Tufts::WorkflowSetup.setup
+    Rails.application.load_seed
   end
 
   config.before do |example|
