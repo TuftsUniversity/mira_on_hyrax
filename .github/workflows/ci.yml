@@ -21,6 +21,7 @@ jobs:
       DB_DATABASE: epigaea_test
       DB_USER: root
       DB_PASSWORD: root
+      TRAVIS: true
 
     services:
       redis:
