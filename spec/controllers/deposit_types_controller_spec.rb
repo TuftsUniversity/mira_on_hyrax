@@ -7,6 +7,11 @@ describe DepositTypesController do
 
   before { DepositType.destroy_all }
 
+  after(:all) do
+    importer = DepositTypeImporter.new('./config/deposit_type_seed.csv')
+    importer.import_from_csv
+  end
+
   context 'a non-admin user' do
     let(:user) { FactoryGirl.create(:user) }
 
