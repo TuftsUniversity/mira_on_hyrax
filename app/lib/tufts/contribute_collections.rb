@@ -22,7 +22,7 @@ module Tufts
 
     def create
       default = Hyrax::CollectionType.find_or_create_default_collection_type
-      admin_set = Hyrax::CollectionType.find_or_create_admin_set_type
+      #admin_set = Hyrax::CollectionType.find_or_create_admin_set_type
       @seed_data.each_key do |collection_id|
         find_or_create_collection(collection_id, default)
       end
