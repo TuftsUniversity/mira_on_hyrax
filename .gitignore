@@ -6,7 +6,7 @@
 
 # Ignore rvm / rbenv config files
 #.ruby-version
-#.ruby-gemset
+.ruby-gemset
 
 # Ignore bundler config.
 /.bundle
