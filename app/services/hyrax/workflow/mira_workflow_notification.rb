@@ -31,7 +31,7 @@ module Hyrax
       end
 
       def embargo?
-        (@work.embargo && !@work.embargo.embargo_release_date.nil?) ? true : false
+        @work.embargo && !@work.embargo.embargo_release_date.nil? ? true : false
       end
 
       def contact_email
