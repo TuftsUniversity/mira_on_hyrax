@@ -91,7 +91,7 @@ class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
   private
 
     def file_is_correctly_formatted
-      return unless metadata_file_changed?
+      return unless will_save_change_to_attribute?(:metadata_file)
       number_of_errors_to_display = 5
       validation_errors = parser.validate!
       validation_errors_count = validation_errors.count
@@ -105,7 +105,7 @@ class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
     #   Hyrax::UploadedFile to have polymorphic relations. There may be a
     #   better solution.
     def uploaded_files_exist
-      return unless uploaded_file_ids_changed?
+      return unless will_save_change_to_attribute?(:uploaded_file_ids)
       Hyrax::UploadedFile.find(*uploaded_file_ids)
     rescue ActiveRecord::RecordNotFound => err
       errors.add(:uploaded_file_ids, err.message)

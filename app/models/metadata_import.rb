@@ -65,7 +65,7 @@ class MetadataImport < ApplicationRecord
   end
 
   def file_is_correctly_formatted
-    return unless metadata_file_changed?
+    return unless will_save_change_to_attribute?(:metadata_file)
     number_of_errors_to_display = 5
     validation_errors = parser.validate!('metadata')
     validation_errors_count = validation_errors.count
