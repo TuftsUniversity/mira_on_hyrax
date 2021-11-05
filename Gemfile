@@ -82,8 +82,8 @@ gem 'ladle'
 gem 'mysql2'
 gem 'react-rails'
 gem 'redis-activesupport', '~> 5.0.4'
+gem 'redis-rack', '2.1.3' # https://github.com/redis-store/redis-store/issues/336 remove after upgrade
 gem 'redis-rails' # Will install several other redis-* gems
-gem 'redis-rack', '2.1.3' #https://github.com/redis-store/redis-store/issues/336 remove after upgrade
 gem 'rsolr', '>= 1.0'
 gem 'sanitize', '5.0.0' # Upgrade further
 gem 'sidekiq'
