@@ -12,7 +12,7 @@ gem 'exiftool_vendored'
 # gem 'fedora-migrate', path: '../fedora-migrate'
 gem 'fastimage'
 gem 'hydra-role-management'
-gem 'hyrax', '2.5.1'
+gem 'hyrax', '2.8.0'
 gem 'mimemagic', '0.3.10'
 gem 'nokogiri', '>=1.8.2' # 1.8.2 fixes security issue https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-15412
 gem 'okcomputer'
@@ -84,7 +84,7 @@ gem 'react-rails'
 gem 'redis-activesupport', '~> 5.0.4'
 gem 'redis-rails' # Will install several other redis-* gems
 gem 'rsolr', '>= 1.0'
-gem 'sanitize', '~> 4.6', '>= 4.6.3'
+gem 'sanitize', '5.0.0' # Upgrade further
 gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sidekiq-limit_fetch'
