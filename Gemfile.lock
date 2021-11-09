@@ -6,8 +6,8 @@ GIT
 
 GIT
   remote: https://github.com/TuftsUniversity/tufts-curation
-  revision: befcfdcc3c13dd62c7d34187b25b94cd38e5f471
-  tag: v1.2.7
+  revision: 167a5aec66d8949148cf519a4aa1471bd642801f
+  tag: v1.2.8
   specs:
     tufts-curation (0.1.0)
       active-fedora (>= 11.5, <= 12.99)
@@ -1019,4 +1019,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   2.2.27
+   2.2.30

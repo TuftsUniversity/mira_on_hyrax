@@ -3,7 +3,9 @@ require_dependency Hyrax::Engine.root.join('app', 'controllers', 'hyrax', 'file_
 
 module Hyrax
   class FileSetsController < ApplicationController
-    ##
+    # Use our FileSetEditForm
+    self.form_class = Tufts::FileSetEditForm
+
     # Patch method to send the clear_image_cache directive to TDL when a binary is updated.
     def update
       if attempt_update
