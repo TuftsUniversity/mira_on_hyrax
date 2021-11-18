@@ -20,7 +20,7 @@ gem 'pdf-reader'
 gem 'rack', '2.0.8'
 gem 'rack-protection', '~> 2.0.1' # 2.0.1 fixes security issue https://github.com/sinatra/sinatra/pull/1379
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.7'
+gem 'rails', '~> 5.2'
 gem 'rmagick', '2.16.0'
 
 # Use sqlite3 as the database for Active Record
@@ -81,9 +81,6 @@ gem 'handle-system', git: 'https://github.com/TuftsUniversity/handle.git'
 gem 'ladle'
 gem 'mysql2'
 gem 'react-rails'
-gem 'redis-activesupport', '~> 5.0.4'
-gem 'redis-rack', '2.1.3' # https://github.com/redis-store/redis-store/issues/336 remove after upgrade
-gem 'redis-rails' # Will install several other redis-* gems
 gem 'rsolr', '>= 1.0'
 gem 'sanitize', '5.0.0' # Upgrade further
 gem 'sidekiq'
