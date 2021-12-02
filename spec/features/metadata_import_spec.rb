@@ -136,7 +136,7 @@ RSpec.feature 'Import Metadata', :clean, js: true, batch: true do
         attach_file 'metadata_file', file
         click_button 'Next'
 
-        item =   ActiveFedora::Base.find(find('.record_id').text)
+        item = ActiveFedora::Base.find(find('.record_id').text)
 
         expect(item.member_of_collections).to contain_exactly(*collections)
       end

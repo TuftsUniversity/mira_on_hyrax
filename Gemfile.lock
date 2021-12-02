@@ -1025,7 +1025,7 @@ DEPENDENCIES
   ffaker
   handle-system!
   hydra-role-management
-  hyrax (= 2.9.6)
+  hyrax (~> 2.9)
   jbuilder (~> 2.5)
   jquery-rails
   ladle
