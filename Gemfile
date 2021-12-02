@@ -12,7 +12,7 @@ gem 'exiftool_vendored'
 # gem 'fedora-migrate', path: '../fedora-migrate'
 gem 'fastimage'
 gem 'hydra-role-management'
-gem 'hyrax', '2.9.0'
+gem 'hyrax', '~> 2.9'
 gem 'mimemagic', '0.3.10'
 gem 'nokogiri', '>=1.8.2' # 1.8.2 fixes security issue https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-15412
 gem 'okcomputer'
