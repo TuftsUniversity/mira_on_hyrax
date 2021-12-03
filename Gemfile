@@ -17,8 +17,6 @@ gem 'mimemagic', '0.3.10'
 gem 'nokogiri', '>=1.8.2' # 1.8.2 fixes security issue https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-15412
 gem 'okcomputer'
 gem 'pdf-reader'
-gem 'rack', '2.0.8'
-gem 'rack-protection', '~> 2.0.1' # 2.0.1 fixes security issue https://github.com/sinatra/sinatra/pull/1379
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2'
 gem 'rmagick', '2.16.0'
@@ -26,7 +24,7 @@ gem 'rmagick', '2.16.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem "puma", ">= 4.3.9"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
