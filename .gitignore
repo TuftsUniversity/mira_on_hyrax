@@ -59,9 +59,6 @@ config/tufts.yml
 # Rubymine
 .idea
 
-# Local development
-Gemfile.local
-
 # migration reports
 migration_report/
 
