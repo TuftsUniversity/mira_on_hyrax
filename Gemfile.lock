@@ -310,8 +310,8 @@ GEM
       exiftool (>= 0.7.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
-    factory_bot_rails (4.11.0)
-      factory_bot (~> 4.11.0)
+    factory_bot_rails (4.11.1)
+      factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
     faraday (0.17.4)
       multipart-post (>= 1.2, < 3)
@@ -993,7 +993,7 @@ DEPENDENCIES
   devise_ldap_authenticatable
   dotenv-rails
   exiftool_vendored
-  factory_bot_rails (= 4.11.0)
+  factory_bot_rails (= 4.11.1)
   fastimage
   fcrepo_wrapper
   ffaker
