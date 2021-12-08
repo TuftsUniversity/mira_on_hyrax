@@ -7,7 +7,7 @@ RSpec.feature 'Export Metadata', :clean, js: true, batch: true do
   let(:other)    { create(:pdf) }
 
   context 'with logged in user' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
 
     before do
       ActiveJob::Base.queue_adapter = :test
@@ -33,7 +33,7 @@ RSpec.feature 'Export Metadata', :clean, js: true, batch: true do
       let(:contents) { '<?xml version="1.0" encoding="UTF-8"?><blah></blah>' }
       let(:filename) { 'moomin.xml' }
 
-      let!(:export) { FactoryGirl.create(:metadata_export, filename: filename) }
+      let!(:export) { FactoryBot.create(:metadata_export, filename: filename) }
 
       before { File.open(export.path, 'w') { |f| f.write(contents) } }
       after  { File.delete(export.path) }

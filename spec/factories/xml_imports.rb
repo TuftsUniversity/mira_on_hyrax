@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :xml_import do
     metadata_file File.open('spec/fixtures/files/mira_xml.xml')
 

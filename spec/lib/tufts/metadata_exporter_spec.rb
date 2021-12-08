@@ -4,7 +4,7 @@ RSpec.describe Tufts::MetadataExporter do
   subject(:exporter) { described_class.new(ids: ids, builder: builder) }
   let(:builder)      { fake_builder.new }
   let(:ids)          { models.map(&:id) }
-  let(:models)       { FactoryGirl.create_list(:generic_object, 3) }
+  let(:models)       { FactoryBot.create_list(:generic_object, 3) }
 
   let(:fake_builder) do
     Class.new do
@@ -82,7 +82,7 @@ RSpec.describe Tufts::MetadataExporter do
   context 'with ordered fields' do
     let(:desc_list) { ['desc1', 'desc2', 'desc3'] }
     let(:creator_list) { ['creator1', 'creator2', 'creator3'] }
-    let(:pdf) { FactoryGirl.create(:pdf, description: desc_list, creator: creator_list) }
+    let(:pdf) { FactoryBot.create(:pdf, description: desc_list, creator: creator_list) }
     let(:ids) { [pdf.id] }
     let(:builder) { Tufts::XmlMetadataBuilder.new }
     let(:namespaces) { { dc11: 'http://purl.org/dc/elements/1.1/' } }

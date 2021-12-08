@@ -3,9 +3,9 @@ include Warden::Test::Helpers
 
 RSpec.feature 'Add a work to a collection', :clean, js: true do
   context 'as logged in admin user' do
-    let(:admin) { FactoryGirl.create(:admin) }
-    let(:work) { FactoryGirl.actor_create(:image, user: admin, displays_in: ['dl']) }
-    let!(:collection) { FactoryGirl.create(:collection_lw) }
+    let(:admin) { FactoryBot.create(:admin) }
+    let(:work) { FactoryBot.actor_create(:image, user: admin, displays_in: ['dl']) }
+    let!(:collection) { FactoryBot.create(:collection_lw) }
     let(:title) { FFaker::Book.title }
     let(:ead_id) { 'fake_ead_id' }
 

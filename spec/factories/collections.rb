@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   # Tests that create a Fedora Object are very slow.  This factory lets you control which parts of the object ecosystem
   # get built.
   #
@@ -258,9 +258,9 @@ FactoryGirl.define do
     # @param [Class] evaluator holding the transient properties for the current build/creation process
     def self.process_collection_type_settings(collection, evaluator)
       if evaluator.collection_type_settings.present?
-        collection.collection_type = FactoryGirl.create(:collection_type, *evaluator.collection_type_settings)
+        collection.collection_type = FactoryBot.create(:collection_type, *evaluator.collection_type_settings)
       elsif collection.collection_type_gid.blank?
-        collection.collection_type = FactoryGirl.create(:user_collection_type)
+        collection.collection_type = FactoryBot.create(:user_collection_type)
       end
     end
 
@@ -274,11 +274,11 @@ FactoryGirl.define do
     # @param [Boolean] if true, force the permission template to be created
     def self.process_with_permission_template(collection, evaluator, force = false)
       return unless force || evaluator.with_permission_template || RSpec.current_example.metadata[:with_nested_reindexing]
-      collection.id ||= FactoryGirl.generate(:object_id)
+      collection.id ||= FactoryBot.generate(:object_id)
       attributes = { source_id: collection.id }
       attributes[:manage_users] = user_managers(evaluator.with_permission_template, evaluator.user)
       attributes = evaluator.with_permission_template.merge(attributes) if evaluator.with_permission_template.respond_to?(:merge)
-      FactoryGirl.create(:permission_template, attributes) unless Hyrax::PermissionTemplate.find_by(source_id: collection.id)
+      FactoryBot.create(:permission_template, attributes) unless Hyrax::PermissionTemplate.find_by(source_id: collection.id)
     end
 
     # Process the with_nesting_attributes transient property such that...
@@ -313,7 +313,7 @@ FactoryGirl.define do
     # @param [Class] evaluator holding the transient properties for the current build/creation process
     # @returns the collection's solr document with permissions added
     def self.solr_document_with_permissions(collection, evaluator)
-      collection.id ||= FactoryGirl.generate(:object_id)
+      collection.id ||= FactoryBot.generate(:object_id)
       collection.edit_users = user_managers(evaluator.with_permission_template, evaluator.user)
       collection.edit_groups = group_managers(evaluator.with_permission_template)
       collection.read_users = user_viewers(evaluator.with_permission_template) +

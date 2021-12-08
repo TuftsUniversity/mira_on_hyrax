@@ -2,10 +2,10 @@ require 'rails_helper'
 include Warden::Test::Helpers
 
 RSpec.feature 'Import Metadata', :clean, js: true, batch: true do
-  let!(:objects) { FactoryGirl.create_list(:pdf, 2) }
+  let!(:objects) { FactoryBot.create_list(:pdf, 2) }
   let(:object)   { objects.first }
   let(:other)    { objects[1] }
-  let(:user) { FactoryGirl.create(:admin) }
+  let(:user) { FactoryBot.create(:admin) }
   let(:mira_export_ids) { ['sx61dm28w', '37720c723', 'cz30ps66x', 'hh63sv88v', 'k0698748f'] }
 
   before { ActiveJob::Base.queue_adapter = :test }
@@ -17,7 +17,7 @@ RSpec.feature 'Import Metadata', :clean, js: true, batch: true do
       before do
         # All of the files we are updating must exist before the metadata import object can be created
         mira_export_ids.each do |id|
-          FactoryGirl.create(:pdf, id: id)
+          FactoryBot.create(:pdf, id: id)
         end
       end
       let(:file) { file_fixture('mira_export.xml') }
@@ -34,7 +34,7 @@ RSpec.feature 'Import Metadata', :clean, js: true, batch: true do
     context 'date_modified field' do
       let(:work_id) { 'date_testing_id' }
       let(:work_title) { ['Original Title'] }
-      let(:work) { FactoryGirl.create(:pdf, id: work_id, title: work_title) }
+      let(:work) { FactoryBot.create(:pdf, id: work_id, title: work_title) }
       let(:file) { file_fixture('metadata_import_date_testing.xml') }
       scenario 'is updated after metadata import' do
         ActiveJob::Base.queue_adapter = :inline

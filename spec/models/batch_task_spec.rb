@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BatchTask, type: :model do
-  subject(:batchable) { FactoryGirl.build(:batch_task) }
+  subject(:batchable) { FactoryBot.build(:batch_task) }
 
   it_behaves_like 'a batchable'
 
@@ -12,7 +12,7 @@ RSpec.describe BatchTask, type: :model do
   end
 
   describe '#enqueue!' do
-    let(:batch) { FactoryGirl.create(:batch, ids: [id]) }
+    let(:batch) { FactoryBot.create(:batch, ids: [id]) }
     let(:id)    { 'FAKE_ID' }
 
     before { batchable.batch = batch }
@@ -34,14 +34,14 @@ RSpec.describe BatchTask, type: :model do
   end
 
   describe '#ids' do
-    let(:batch) { FactoryGirl.create(:batch) }
+    let(:batch) { FactoryBot.create(:batch) }
 
     it 'is empty' do
       expect(batchable.ids).to be_empty
     end
 
     context 'with a batch' do
-      let(:batch) { FactoryGirl.create(:batch) }
+      let(:batch) { FactoryBot.create(:batch) }
 
       before { batchable.batch = batch }
 

@@ -8,7 +8,7 @@ RSpec.feature 'Apply a Template', :clean, js: true do
   after { Tufts::Template.all.each(&:delete) }
 
   context 'with logged in user' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
 
     before { login_as user }
 

@@ -3,13 +3,13 @@ require 'rails_helper'
 describe Tufts::ImportService, :workflow, :clean do
   subject(:service) { described_class.new(files: files, import: import, object_id: object_id) }
 
-  let(:files)          { [FactoryGirl.create(:hyrax_uploaded_file)] }
-  let(:import)         { FactoryGirl.create(:xml_import, uploaded_file_ids: files.map(&:id)) }
-  let(:object)         { FactoryGirl.build(:pdf, id: object_id) }
+  let(:files)          { [FactoryBot.create(:hyrax_uploaded_file)] }
+  let(:import)         { FactoryBot.create(:xml_import, uploaded_file_ids: files.map(&:id)) }
+  let(:object)         { FactoryBot.build(:pdf, id: object_id) }
   let(:object_id)      { SecureRandom.uuid }
-  let(:collection1)     { FactoryGirl.create(:collection_lw, id: 'a_collection_id') }
-  let(:collection2)     { FactoryGirl.create(:collection_lw, id: 'another_collection_id') }
-  let(:collections)    { collection_ids.map { |id| FactoryGirl.create(:collection_lw, id: id) }.to_a }
+  let(:collection1)     { FactoryBot.create(:collection_lw, id: 'a_collection_id') }
+  let(:collection2)     { FactoryBot.create(:collection_lw, id: 'another_collection_id') }
+  let(:collections)    { collection_ids.map { |id| FactoryBot.create(:collection_lw, id: id) }.to_a }
   let(:collection_ids) { import.records.first.collections }
 
   before do
@@ -57,18 +57,18 @@ describe Tufts::ImportService, :workflow, :clean do
       end
 
       context 'with types' do
-        let(:object) { FactoryGirl.build(:pdf, id: object_id) }
-        let(:user)   { FactoryGirl.create(:admin) }
+        let(:object) { FactoryBot.build(:pdf, id: object_id) }
+        let(:user)   { FactoryBot.create(:admin) }
 
         let(:import) do
-          FactoryGirl.create(:xml_import,
+          FactoryBot.create(:xml_import,
                              metadata_file: File.open(file_fixture('mira_xml_file_types.xml')),
                              uploaded_file_ids: files.map(&:id))
         end
 
         let(:files) do
-          [FactoryGirl.create(:hyrax_uploaded_file,  user: user),
-           FactoryGirl.create(:second_uploaded_file, user: user)]
+          [FactoryBot.create(:hyrax_uploaded_file,  user: user),
+           FactoryBot.create(:second_uploaded_file, user: user)]
         end
 
         it 'adds a representative and transcript' do

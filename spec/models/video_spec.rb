@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Video do
-  let(:work) { FactoryGirl.build(:video) }
+  let(:work) { FactoryBot.build(:video) }
   it_behaves_like 'a work with Tufts metadata attributes'
 
   it_behaves_like 'a draftable model' do

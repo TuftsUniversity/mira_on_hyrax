@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Batch, type: :model, batch: true do
-  subject(:batch) { FactoryGirl.create(:batch) }
+  subject(:batch) { FactoryBot.create(:batch) }
 
   it { is_expected.to have_attributes(creator: an_instance_of(User)) }
   it { is_expected.to have_attributes(user: an_instance_of(User)) }
@@ -55,7 +55,7 @@ RSpec.describe Batch, type: :model, batch: true do
 
   describe '#ids' do
     context 'with no ids' do
-      subject(:batch) { FactoryGirl.build(:batch, ids: nil) }
+      subject(:batch) { FactoryBot.build(:batch, ids: nil) }
       it { is_expected.to have_attributes(ids: be_empty) }
     end
 
@@ -83,7 +83,7 @@ RSpec.describe Batch, type: :model, batch: true do
     end
 
     context 'with no ids' do
-      subject(:batch) { FactoryGirl.build(:batch, ids: nil) }
+      subject(:batch) { FactoryBot.build(:batch, ids: nil) }
 
       it 'is empty' do
         expect(batch.items.first).to be_nil
@@ -93,8 +93,8 @@ RSpec.describe Batch, type: :model, batch: true do
 
   describe described_class::Item do
     subject(:batch_item) { described_class.new(batch.ids.first, batch.id) }
-    let(:batch)          { FactoryGirl.create(:batch, ids: [object.id]) }
-    let(:object)         { FactoryGirl.create(:generic_object) }
+    let(:batch)          { FactoryBot.create(:batch, ids: [object.id]) }
+    let(:object)         { FactoryBot.create(:generic_object) }
     let(:job_id)         { :FAKE_JOB_ID }
 
     let(:fake_store) do

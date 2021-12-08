@@ -9,7 +9,7 @@ RSpec.feature 'Fletcher School Capstone ProjectF', :clean, js: true do
     let(:csv_path) { Rails.root.join('config', 'deposit_type_seed.csv').to_s }
     let(:importer) { DepositTypeImporter.new(csv_path) }
     let(:test_pdf) { Rails.root.join('spec', 'fixtures', 'files', 'pdf-sample.pdf') }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     let(:title) { FFaker::Movie.unique.title }
     let(:abstract) { FFaker::Book.description }
     before do

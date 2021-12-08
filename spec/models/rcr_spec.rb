@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Rcr do
-  let(:work) { FactoryGirl.build(:rcr) }
+  let(:work) { FactoryBot.build(:rcr) }
   it_behaves_like 'a work with Tufts metadata attributes'
 
   it_behaves_like 'a draftable model' do

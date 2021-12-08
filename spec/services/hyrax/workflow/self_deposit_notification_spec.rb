@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Hyrax::Workflow::SelfDepositNotification do
-  let(:depositor) { FactoryGirl.create(:user) }
-  let!(:admin)    { FactoryGirl.create(:admin) }
-  let(:work)      { FactoryGirl.create(:pdf, depositor: depositor.user_key) }
+  let(:depositor) { FactoryBot.create(:user) }
+  let!(:admin)    { FactoryBot.create(:admin) }
+  let(:work)      { FactoryBot.create(:pdf, depositor: depositor.user_key) }
 
   let(:recipients) do
     { 'to' => [depositor] }

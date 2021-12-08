@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :image do
     title ["Image: #{FFaker::Movie.title}"]
     creator ["Image Creator"]

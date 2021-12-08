@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Collection, type: :model do
-  subject(:collection) { FactoryGirl.build(:collection_lw) }
+  subject(:collection) { FactoryBot.build(:collection_lw) }
 
   it_behaves_like 'a record with ordered fields' do
     let(:work) { collection }

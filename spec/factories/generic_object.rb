@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :generic_object do
     title ['Test']
     visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC

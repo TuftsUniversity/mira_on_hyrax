@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe MetadataExport, type: :model do
-  subject(:batchable) { FactoryGirl.create(:metadata_export) }
+  subject(:batchable) { FactoryBot.create(:metadata_export) }
 
   it_behaves_like 'a batchable'
 
   it { is_expected.to have_attributes(batch_type: 'Export') }
 
   describe '#enqueue!' do
-    subject(:batchable) { FactoryGirl.create(:metadata_export, batch: batch) }
+    subject(:batchable) { FactoryBot.create(:metadata_export, batch: batch) }
 
-    let(:batch)   { FactoryGirl.create(:batch, ids: ids) }
+    let(:batch)   { FactoryBot.create(:batch, ids: ids) }
     let(:ids)     { objects.map(&:id) }
-    let(:objects) { FactoryGirl.create_list(:pdf, 2) }
+    let(:objects) { FactoryBot.create_list(:pdf, 2) }
 
     it 'returns the same job id for all objects' do
       expect(batchable.enqueue!.values.uniq)

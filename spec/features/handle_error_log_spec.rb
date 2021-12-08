@@ -3,7 +3,7 @@ include Warden::Test::Helpers
 
 RSpec.feature 'Display Handle errors on the log page', js: true do
   context 'a logged in admin' do
-    let(:admin) { FactoryGirl.create(:admin) }
+    let(:admin) { FactoryBot.create(:admin) }
     before { login_as admin }
     describe 'viewing the error log as an admin' do
       scenario do
@@ -17,7 +17,7 @@ RSpec.feature 'Display Handle errors on the log page', js: true do
     end
   end
   context 'a logged in non-admin user' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     before { login_as user }
 
     describe 'viewing the error log as a non-admin user' do

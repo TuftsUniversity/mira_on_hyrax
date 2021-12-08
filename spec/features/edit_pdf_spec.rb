@@ -3,11 +3,11 @@ include Warden::Test::Helpers
 
 RSpec.feature 'Edit a PDF', js: true do
   context 'an admin user' do
-    let(:admin) { FactoryGirl.create(:admin) }
+    let(:admin) { FactoryBot.create(:admin) }
     before { login_as admin }
 
     let(:pdf) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :pdf,
         creator: ['creator A', 'creator B'],
         description: ['desc A', 'desc B', 'desc C']

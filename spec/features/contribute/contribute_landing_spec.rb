@@ -8,7 +8,7 @@ RSpec.feature 'Self Deposit', :clean, js: true do
   context "all deposit types" do
     let(:csv_path) { Rails.root.join('config', 'deposit_type_seed.csv').to_s }
     let(:importer) { DepositTypeImporter.new(csv_path) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     before do
       importer.import_from_csv

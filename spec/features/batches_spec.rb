@@ -3,10 +3,10 @@ include Warden::Test::Helpers
 
 RSpec.feature 'viewing the batches page', :clean, js: true do
   context 'a logged in admin user' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
     before do
       login_as user
-      rand(25..100).times { FactoryGirl.create(:batch) }
+      rand(25..100).times { FactoryBot.create(:batch) }
       visit '/batches'
     end
 

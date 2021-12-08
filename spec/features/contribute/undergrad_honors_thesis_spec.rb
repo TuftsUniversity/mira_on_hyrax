@@ -4,7 +4,7 @@ include Warden::Test::Helpers
 require 'import_export/deposit_type_importer'
 
 RSpec.feature 'submit an Undergraduate Honors Thesis contribution', js: true do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   let(:csv_path) { Rails.root.join('config', 'deposit_type_seed.csv').to_s }
   let(:importer) { DepositTypeImporter.new(csv_path) }
   let(:pdf_path) { Rails.root.join('spec', 'fixtures', 'hello.pdf') }

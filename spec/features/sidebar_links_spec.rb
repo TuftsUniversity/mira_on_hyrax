@@ -4,7 +4,7 @@ include Warden::Test::Helpers
 
 RSpec.feature 'Links in the dashboard sidebar', :clean, js: true do
   context 'a logged in admin user' do
-    let(:admin) { FactoryGirl.create(:admin) }
+    let(:admin) { FactoryBot.create(:admin) }
 
     before { login_as admin }
 
@@ -25,7 +25,7 @@ RSpec.feature 'Links in the dashboard sidebar', :clean, js: true do
   end
 
   context 'a logged in non-admin user' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     before { login_as user }
 

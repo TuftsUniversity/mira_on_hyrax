@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Image do
-  let(:work) { FactoryGirl.build(:image) }
+  let(:work) { FactoryBot.build(:image) }
   it_behaves_like 'a work with Tufts metadata attributes'
 
   it_behaves_like 'a draftable model' do

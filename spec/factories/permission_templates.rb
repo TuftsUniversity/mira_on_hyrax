@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :permission_template, class: Hyrax::PermissionTemplate do
     # Given that there is a one to one strong relation between permission_template and admin_set,
     # with a unique index on the source_id, I don't want to have duplication in source_id
@@ -68,7 +68,7 @@ FactoryGirl.define do
   class AccessHelper
     def self.create_access(permission_template_id, agent_type, access, agent_ids)
       agent_ids.each do |agent_id|
-        FactoryGirl.create(:permission_template_access,
+        FactoryBot.create(:permission_template_access,
                            access,
                            permission_template: permission_template_id,
                            agent_type: agent_type,

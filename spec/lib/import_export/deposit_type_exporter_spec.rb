@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe DepositTypeExporter do
-  let(:pdf_type) { FactoryGirl.create(:deposit_type, display_name: pdf_name, deposit_agreement: pdf_agreement, deposit_view: pdf_view, license_name: pdf_license) }
-  let(:audio_type) { FactoryGirl.create(:deposit_type, display_name: audio_name, deposit_agreement: audio_agreement, license_name: audio_license, deposit_view: audio_view) }
+  let(:pdf_type) { FactoryBot.create(:deposit_type, display_name: pdf_name, deposit_agreement: pdf_agreement, deposit_view: pdf_view, license_name: pdf_license) }
+  let(:audio_type) { FactoryBot.create(:deposit_type, display_name: audio_name, deposit_agreement: audio_agreement, license_name: audio_license, deposit_view: audio_view) }
 
   describe 'initialize' do
     it 'sets the export_dir' do

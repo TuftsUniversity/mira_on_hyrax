@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Tei do
-  let(:work) { FactoryGirl.build(:tei) }
+  let(:work) { FactoryBot.build(:tei) }
   it_behaves_like 'a work with Tufts metadata attributes'
 
   it_behaves_like 'a draftable model' do

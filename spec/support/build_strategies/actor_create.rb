@@ -1,6 +1,6 @@
 class ActorCreate
   def initialize
-    @association_strategy = FactoryGirl.strategy_by_name(:create).new
+    @association_strategy = FactoryBot.strategy_by_name(:create).new
   end
 
   delegate :association, to: :@association_strategy

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Tufts::QrStatusController, type: :controller do
-  let(:model) { FactoryGirl.build(:pdf) }
+  let(:model) { FactoryBot.build(:pdf) }
 
   before { model.save }
 

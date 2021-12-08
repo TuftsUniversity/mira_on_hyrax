@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BatchPresenter, :batch do
   subject(:presenter) { described_class.new(batch) }
-  let(:batch)         { FactoryGirl.build(:batch) }
+  let(:batch)         { FactoryBot.build(:batch) }
 
   it { is_expected.to delegate_method(:created_at).to(:object) }
   it { is_expected.to delegate_method(:id).to(:object) }

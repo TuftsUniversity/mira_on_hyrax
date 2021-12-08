@@ -5,7 +5,7 @@ describe Tufts::MetadataImportService, :workflow, :clean do
   let(:file) { File.open('spec/fixtures/files/mira_export.xml') }
   let(:mira_export_ids) { ['sx61dm28w', '37720c723', 'cz30ps66x', 'hh63sv88v', 'k0698748f'] }
   let(:import) do
-    FactoryGirl.create(:metadata_import, metadata_file: file)
+    FactoryBot.create(:metadata_import, metadata_file: file)
   end
 
   let(:object) do
@@ -15,7 +15,7 @@ describe Tufts::MetadataImportService, :workflow, :clean do
   # All of the files we are updating must exist before the metadata import object can be created
   before do
     mira_export_ids.each do |id|
-      FactoryGirl.create(:pdf, id: id)
+      FactoryBot.create(:pdf, id: id)
     end
   end
 
@@ -38,7 +38,7 @@ describe Tufts::MetadataImportService, :workflow, :clean do
     context 'when existing attributes are removed from metadata file' do
       let(:file) { File.open(File.join(fixture_path, 'files', 'record_123.xml')) }
       let!(:object) do
-        FactoryGirl.create(
+        FactoryBot.create(
           :pdf,
           id: '123',
           title: ['Moomin'],

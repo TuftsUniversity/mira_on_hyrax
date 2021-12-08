@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Tufts::MetadataFileUploader do
   subject(:uploader) { described_class.new(model, :metadata_file) }
   let(:file)         { StringIO.new('moomin') }
-  let(:model)        { FactoryGirl.create(:xml_import) }
+  let(:model)        { FactoryBot.create(:xml_import) }
 
   before do
     allow(Collection).to receive(:find).and_return(true)
@@ -14,7 +14,7 @@ RSpec.describe Tufts::MetadataFileUploader do
   end
 
   describe '#filename' do
-    let(:other_model)    { FactoryGirl.create(:xml_import) }
+    let(:other_model)    { FactoryBot.create(:xml_import) }
     let(:other_uploader) { described_class.new(other_model, :metadata_file) }
     let(:test_file)      { File.open(file_fixture('mira_xml.xml')) }
 

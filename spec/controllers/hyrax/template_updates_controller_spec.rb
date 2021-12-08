@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Hyrax::TemplateUpdatesController, type: :controller do
   let(:ids)   { [model.id] }
-  let(:model) { FactoryGirl.create(:generic_object) }
+  let(:model) { FactoryBot.create(:generic_object) }
 
   context 'as admin' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
 
     before { sign_in user }
 
@@ -36,7 +36,7 @@ RSpec.describe Hyrax::TemplateUpdatesController, type: :controller do
     end
 
     describe 'POST #create' do
-      let(:update) { FactoryGirl.build(:template_update) }
+      let(:update) { FactoryBot.build(:template_update) }
 
       it 'enqueues jobs' do
         ActiveJob::Base.queue_adapter = :test

@@ -1,4 +1,4 @@
 RSpec.shared_context 'as admin' do
-  let(:user) { FactoryGirl.create(:admin) }
+  let(:user) { FactoryBot.create(:admin) }
   before     { sign_in user }
 end

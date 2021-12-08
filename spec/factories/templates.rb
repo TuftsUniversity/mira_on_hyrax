@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :template, class: Tufts::Template do
     name 'Moomin Template'
 

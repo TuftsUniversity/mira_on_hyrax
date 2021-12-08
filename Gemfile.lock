@@ -308,10 +308,10 @@ GEM
       json
     exiftool_vendored (11.51.0)
       exiftool (>= 0.7.0)
-    factory_girl (4.9.0)
+    factory_bot (4.11.1)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
+    factory_bot_rails (4.11.0)
+      factory_bot (~> 4.11.0)
       railties (>= 3.0.0)
     faraday (0.17.4)
       multipart-post (>= 1.2, < 3)
@@ -993,7 +993,7 @@ DEPENDENCIES
   devise_ldap_authenticatable
   dotenv-rails
   exiftool_vendored
-  factory_girl_rails
+  factory_bot_rails (= 4.11.0)
   fastimage
   fcrepo_wrapper
   ffaker

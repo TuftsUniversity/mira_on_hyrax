@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Ead do
-  subject(:model) {  FactoryGirl.build(:ead) }
+  subject(:model) {  FactoryBot.build(:ead) }
   let(:work) { model }
 
   it_behaves_like 'a work with Tufts metadata attributes'

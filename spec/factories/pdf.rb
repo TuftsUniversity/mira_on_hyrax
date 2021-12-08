@@ -1,6 +1,6 @@
 require 'ffaker'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :pdf do
     id { Noid::Rails::Service.new.mint }
     title [FFaker::Book.title]

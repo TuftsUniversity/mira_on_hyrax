@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :batch_task do
     batch_type 'Publish'
   end

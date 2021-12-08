@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Tufts::WorkflowStatus, :workflow, :clean do
-  let(:current_user)    { FactoryGirl.create(:admin) }
+  let(:current_user)    { FactoryBot.create(:admin) }
   let(:workflow_status) { subject }
 
   let(:work) do
