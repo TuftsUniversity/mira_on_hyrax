@@ -6,8 +6,8 @@ FactoryBot.define do
     sequence :username do |n|
       "#{FFaker::Internet.user_name}#{n}"
     end
-    password 'password'
-    display_name FFaker::Name.name
+    password { 'password' }
+    display_name { FFaker::Name.name }
     after(:create) { |user| user.remove_role(:admin) }
 
     factory :admin do
