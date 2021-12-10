@@ -13,7 +13,7 @@ module Hyrax
       def self.source_ids_for_user(access:, ability:, source_type: nil, exclude_groups: [])
         scope = PermissionTemplateAccess.for_user(ability: ability, access: access, exclude_groups: exclude_groups)
                                         .joins(:permission_template)
-        ids = scope.pluck('DISTINCT source_id')
+        ids = scope.pluck(Arel.sql('DISTINCT source_id'))
         return ids unless source_type
         filter_source(source_type: source_type, ids: ids)
       end
@@ -29,13 +29,7 @@ module Hyrax
                   "_query_:\"{!raw f=has_model_ssim}Collection\""
                 end
         query += " AND #{id_clause}"
-        # Rails.logger.error "QUERY: #{query}"
-
         ActiveFedora::SolrService.query(query, fl: 'id', rows: ids.count, method: :post).map do |hit|
-          # E, [2019-12-23T11:27:33.850762 #38039] ERROR -- : [d4a74b21-8a12-46e4-9f30-1962df773b63] HIT: {"id"=>"td96k255b"}
-          # E, [2019-12-23T11:27:33.850870 #38039] ERROR -- : [d4a74b21-8a12-46e4-9f30-1962df773b63] HIT iD: td96k255b
-          # Rails.logger.error "HIT: #{hit}"
-          # Rails.logger.error "HIT iD: #{hit['id']}"
           hit['id'] unless hit.empty?
         end
       end

@@ -32,3 +32,6 @@ module Epigaea
   end
 end
 Rails.application.routes.default_url_options[:host] = ENV["RAILS_HOST"]
+
+# https://apidock.com/rails/v5.2.3/ActiveRecord/ConnectionAdapters/SQLite3Adapter/represent_boolean_as_integer/class
+Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
