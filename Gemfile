@@ -91,7 +91,7 @@ group :development, :test do
   gem 'capybara-maleficent', require: false
   gem 'capybara-screenshot'
   gem 'database_cleaner'
-  gem 'factory_bot_rails', '4.11.1'
+  gem 'factory_bot_rails', '5.1.1'
   gem 'fcrepo_wrapper'
   gem 'ffaker'
   gem 'poltergeist'
