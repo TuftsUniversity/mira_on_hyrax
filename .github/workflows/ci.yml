@@ -33,7 +33,6 @@ jobs:
           --health-retries 5
         ports:
           - 6379:6379
-      mysql:
     strategy:
       fail-fast: false
       matrix:
@@ -74,7 +73,8 @@ jobs:
         chmod u=u+x $HOME/fits-1.0.5/fits.sh
     - name: Set up MySQL
       run: |
-        sudo /etc/init.d/mysql start
+        sudo systemctl enable mysql.service
+        sudo systemctl start mysql.service
         mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
     - name: Configure test environment
       run: |
