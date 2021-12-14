@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby-version: ['2.6']
+        ruby-version: ['2.6.2']
         experimental: [false]
         include:
           - ruby-version: 2.7
