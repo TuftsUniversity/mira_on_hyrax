@@ -24,7 +24,7 @@ FactoryBot.define do
 
   factory :populated_pdf, class: Pdf do
     title { [FFaker::Book.title] }
-    subject { [ FFaker::Lorem.word, FFaker::Lorem.word ] }
+    subject { [FFaker::Lorem.word, FFaker::Lorem.word] }
     visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
     displays_in { ['nowhere'] }
     rights_statement { ['http://bostonhistory.org/photorequest.html'] }

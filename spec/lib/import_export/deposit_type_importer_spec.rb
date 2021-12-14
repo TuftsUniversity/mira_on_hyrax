@@ -54,8 +54,8 @@ describe DepositTypeImporter do
     DepositType.delete_all
     importer = described_class.new(test_import_file)
     pdf = FactoryBot.create(:deposit_type,
-                             display_name: 'PDF Document',
-                             deposit_agreement: 'old text')
+                            display_name: 'PDF Document',
+                            deposit_agreement: 'old text')
 
     expect { importer.import_from_csv }
       .to change { DepositType.count }

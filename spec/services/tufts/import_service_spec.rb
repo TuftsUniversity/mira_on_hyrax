@@ -62,8 +62,8 @@ describe Tufts::ImportService, :workflow, :clean do
 
         let(:import) do
           FactoryBot.create(:xml_import,
-                             metadata_file: File.open(file_fixture('mira_xml_file_types.xml')),
-                             uploaded_file_ids: files.map(&:id))
+                            metadata_file: File.open(file_fixture('mira_xml_file_types.xml')),
+                            uploaded_file_ids: files.map(&:id))
         end
 
         let(:files) do

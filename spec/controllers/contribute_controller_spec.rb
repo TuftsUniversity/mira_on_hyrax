@@ -48,8 +48,8 @@ describe ContributeController do
       describe 'with valid deposit_type' do
         let(:deposit_type) do
           FactoryBot.create(:deposit_type,
-                             display_name: 'Test Option',
-                             deposit_view: 'generic_deposit')
+                            display_name: 'Test Option',
+                            deposit_view: 'generic_deposit')
         end
 
         render_views

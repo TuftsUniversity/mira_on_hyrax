@@ -19,9 +19,9 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
     let(:uploads) do
       # run these in a different order from the xml to confirm looping logic
       [FactoryBot.create(:hyrax_uploaded_file,
-                          file: File.open('spec/fixtures/files/2.pdf')),
+                         file: File.open('spec/fixtures/files/2.pdf')),
        FactoryBot.create(:hyrax_uploaded_file,
-                          file: File.open('spec/fixtures/files/3.pdf')),
+                         file: File.open('spec/fixtures/files/3.pdf')),
        FactoryBot.create(:hyrax_uploaded_file)]
     end
   end
@@ -115,7 +115,7 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
 
     let(:file) do
       FactoryBot.create(:hyrax_uploaded_file,
-                         file: File.open('spec/fixtures/files/2.pdf'))
+                        file: File.open('spec/fixtures/files/2.pdf'))
     end
 
     before { ActiveJob::Base.queue_adapter = :test }
@@ -151,7 +151,7 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
     context 'when a file is re-uploaded' do
       let(:duplicate_file) do
         FactoryBot.create(:hyrax_uploaded_file,
-                           file: File.open('spec/fixtures/files/2.pdf'))
+                          file: File.open('spec/fixtures/files/2.pdf'))
       end
 
       before do
@@ -172,7 +172,7 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
     let(:uploads) do
       [upload,
        FactoryBot.create(:hyrax_uploaded_file,
-                          file: File.open(file_fixture('3.pdf')))]
+                         file: File.open(file_fixture('3.pdf')))]
     end
 
     before { import.uploaded_file_ids = ids }

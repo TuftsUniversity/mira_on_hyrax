@@ -97,7 +97,7 @@ jobs:
       run: |
         bundle exec rake hydra:test_server &
         sleep 150        
-    - name: Rubbocop
+    - name: Rubocop
       run: |
         bundle exec rubocop
     - name: Compile assets

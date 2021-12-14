@@ -98,9 +98,9 @@ RSpec.describe Hyrax::XmlImportsController, type: :controller do
       let(:uploads) do
         [FactoryBot.create(:hyrax_uploaded_file),
          FactoryBot.create(:hyrax_uploaded_file,
-                            file: File.open(file_fixture('3.pdf'))),
+                           file: File.open(file_fixture('3.pdf'))),
          FactoryBot.create(:hyrax_uploaded_file,
-                            file: File.open('spec/fixtures/hello.pdf'))]
+                           file: File.open('spec/fixtures/hello.pdf'))]
       end
 
       it 'enqueues jobs only for matching files' do
@@ -129,7 +129,7 @@ RSpec.describe Hyrax::XmlImportsController, type: :controller do
       let(:uploads) do
         [FactoryBot.create(:hyrax_uploaded_file),
          FactoryBot.create(:hyrax_uploaded_file,
-                            file: File.open(file_fixture('2.pdf')))]
+                           file: File.open(file_fixture('2.pdf')))]
       end
 
       it 'enqueues jobs for the matching file' do
