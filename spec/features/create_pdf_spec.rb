@@ -34,9 +34,6 @@ RSpec.feature 'Create a PDF', :clean, js: true do
       find('#with_files_submit').click
       click_link "Descriptions"
       choose('pdf_visibility_open')
-      find('body').click
-      sleep(5)
-
       fill_in "Title", with: "Example Title   ", match: :prefer_exact
       find(:xpath, '//option[contains(text(), "nowhere")]').select_option
       fill_in 'Abstract', with: 'Abstract'
