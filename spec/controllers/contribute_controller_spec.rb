@@ -28,14 +28,14 @@ describe ContributeController do
       it 'returns http success' do
         get :index
 
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
     describe 'GET #license' do
       it 'returns http success' do
         get 'license'
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
