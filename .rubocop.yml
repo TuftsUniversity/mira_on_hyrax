@@ -11,6 +11,7 @@ AllCops:
     - app/models/concerns/hyrax/ability.rb
     - lib/active_fedora/solr_service.rb
     - spec/fixtures/**/*
+    - app/services/hyrax/workflow/permission_query.rb #temporary, patched from hyrax
 Metrics/AbcSize:
   Exclude:
     - app/models/xml_import.rb

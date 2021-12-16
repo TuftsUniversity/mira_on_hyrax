@@ -2,7 +2,6 @@ require_dependency Hyrax::Engine.root.join('app', 'presenters', 'hyrax', 'collec
 
 module Hyrax
   class CollectionPresenter
-
     # Terms is the list of fields displayed by
     # app/views/collections/_show_descriptions.html.erb
     #
