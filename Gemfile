@@ -98,6 +98,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
+  gem 'webdrivers', '~> 4.0', require: false
   gem 'shoulda-matchers', '~> 4.5.1'
   gem 'simplecov'
   gem 'simplecov-lcov', '~> 0.8.0'

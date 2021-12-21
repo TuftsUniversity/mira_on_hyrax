@@ -30,6 +30,7 @@ require 'capybara/poltergeist'
 require 'database_cleaner'
 require 'active_fedora/cleaner'
 require 'selenium-webdriver'
+require 'webdrivers/chromedriver'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -77,17 +78,21 @@ Capybara.register_driver(:poltergeist) do |app|
   Capybara::Poltergeist::Driver.new(app, poltergeist_options)
 end
 
-# Capybara.register_driver :chrome do |app|
-#  profile = Selenium::WebDriver::Chrome::Profile.new
-#  Capybara::Selenium::Driver.new(app, :browser => :chrome, profile: profile)
-# end
-Capybara.javascript_driver = :poltergeist
-
-Capybara.register_driver :chrome do |app|
-  profile = Selenium::WebDriver::Chrome::Profile.new
-  profile['extensions.password_manager_enabled'] = false
-  Capybara::Selenium::Driver.new(app, browser: :chrome, profile: profile)
+# Adding chromedriver for js testing.
+Capybara.register_driver :headless_chrome do |app|
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.headless!
+  browser_options.args << '--window-size=1920,1080'
+  browser_options.add_preference(:download, prompt_for_download: false, default_directory: DownloadHelpers::PATH.to_s)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
+
+# For debugging JS tests - some tests involving mouse movements require headless mode.
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.javascript_driver = :headless_chrome
 
 Capybara.default_max_wait_time = 20
 
