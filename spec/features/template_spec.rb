@@ -56,7 +56,10 @@ RSpec.feature 'Apply a Template', :clean, js: true do
 
     scenario 'delete a template' do
       visit '/templates'
-      click_link 'Delete'
+
+      accept_alert do
+        click_link 'Delete'
+      end
 
       expect(page).not_to have_content template.name
     end

@@ -74,7 +74,7 @@ RSpec.feature 'Faculty Scholarship', :clean, js: true do
       select 'Faculty Scholarship', from: 'deposit_type'
       click_button "Begin"
       attach_file('contribution_attachment', test_pdf)
-      fill_in "contribution_title", with: "\t Space   non normalized \n  title    "
+      fill_in "contribution_title", with: " Space   non normalized \n  title    "
       fill_in "contribution_abstract", with: " A short   description    with  \t wonky spaces   "
       fill_in "contribution_bibliographic_citation", with: " bibliographic   citation  \n with     spaces    "
       click_button "Agree & Deposit"
