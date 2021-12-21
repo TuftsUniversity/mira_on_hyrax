@@ -1,5 +1,6 @@
 require 'rails_helper'
 include Warden::Test::Helpers
+include DownloadHelpers
 
 RSpec.feature 'Export Metadata', :clean, js: true, batch: true do
   let!(:objects) { [object, other] }
@@ -13,6 +14,10 @@ RSpec.feature 'Export Metadata', :clean, js: true, batch: true do
       ActiveJob::Base.queue_adapter = :test
 
       login_as user
+    end
+
+    after(:all) do
+      clear_downloads
     end
 
     scenario 'export metadata for selected items' do
@@ -41,9 +46,9 @@ RSpec.feature 'Export Metadata', :clean, js: true, batch: true do
       scenario 'downloading an export' do
         visit "batches/#{export.batch.id}"
         click_on(filename)
-
-        expect(page.response_headers['Content-Disposition'])
-          .to include 'attachment'
+        wait_for_download
+        expect(downloads.length).to eq(1)
+        expect(download).to match(/.*\.xml/)
       end
     end
   end
