@@ -56,7 +56,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 # Uses faster rack_test driver when JavaScript support not needed
 Capybara.default_driver = :rack_test
-Capybara::Screenshot.autosave_on_failure = fals
+Capybara::Screenshot.autosave_on_failure = false
 
 # Adding chromedriver for js testing.
 Capybara.register_driver :headless_chrome do |app|
