@@ -94,7 +94,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'fcrepo_wrapper'
   gem 'ffaker'
-  gem 'poltergeist'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
