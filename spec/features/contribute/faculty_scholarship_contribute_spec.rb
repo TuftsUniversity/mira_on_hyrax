@@ -35,12 +35,6 @@ RSpec.feature 'Faculty Scholarship', :clean, js: true do
       attach_file('contribution_attachment', test_pdf)
       fill_in "contribution_title", with: title
       fill_in "contribution_bibliographic_citation", with: bibliographic_citation
-      # click_button "Add Another Author"
-      # fill_in "Other Authors", with: coauthor1
-      # page.all(:fillable_field, 'contribution[contributor][]')[0].set(coauthor1)
-      # click_button "Add Another Author"
-      # page.all(:fillable_field, 'contribution[contributor][]')[1].set(coauthor2)
-      select '2 years', from: 'contribution_embargo'
       fill_in "contribution_abstract", with: abstract
       click_button "Agree & Deposit"
       expect(page).to have_content 'Your deposit has been submitted for approval.'
@@ -48,7 +42,6 @@ RSpec.feature 'Faculty Scholarship', :clean, js: true do
       created_pdf = Pdf.where(title: title).first
       expect(created_pdf.title.first).to eq title
       expect(created_pdf.creator.first).to eq "Name with Spaces"
-      # expect(created_pdf.contributor).to contain_exactly coauthor1, coauthor2
       expect(created_pdf.depositor).to eq user.user_key
       expect(created_pdf.admin_set.title.first).to eq "Default Admin Set"
       expect(created_pdf.active_workflow.name).to eq "mira_publication_workflow"
