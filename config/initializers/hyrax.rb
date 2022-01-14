@@ -85,10 +85,10 @@ Hyrax.config do |config|
   # config.redis_namespace = "hyrax"
 
   # Path to the file characterization tool
-  config.fits_path = "fits.sh"
+  config.fits_path = "/opt/fits/fits.sh"
 
   # Path to the file derivatives creation tool
-  config.libreoffice_path = "/usr/local/hydra/squashfs-root/soffice" if Rails.env == 'production' || Rails.env == 'stage'
+  config.libreoffice_path = "/opt/libreoffice7.2/program/soffice" if Rails.env == 'production' || Rails.env == 'stage'
 
   # Option to enable/disable full text extraction from PDFs
   # Default is true, set to false to disable full text extraction
