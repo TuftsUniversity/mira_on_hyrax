@@ -131,7 +131,7 @@ GEM
     bixby (2.0.0)
       rubocop (= 0.63.1)
       rubocop-rspec (= 1.31.0)
-    blacklight (6.20.0)
+    blacklight (6.24.0)
       bootstrap-sass (~> 3.2)
       deprecation
       globalid
@@ -980,7 +980,7 @@ DEPENDENCIES
   active_job_status (~> 1.2.1)
   activejob-uniqueness (= 0.2.0)
   bixby
-  blacklight (~> 6.20.0)
+  blacklight (= 6.24.0)
   blacklight_advanced_search
   byebug
   capybara
@@ -1042,7 +1042,7 @@ DEPENDENCIES
   whenever
 
 RUBY VERSION
-   ruby 2.6.2p47
+   ruby 2.7.2p137
 
 BUNDLED WITH
    2.2.32
