@@ -39,7 +39,7 @@ jobs:
         ruby-version: ['2.6.2']
         experimental: [false]
         include:
-          - ruby-version: ['2.7.2']
+          - ruby-version: 2.7.2
             experimental: true
 
     steps:
