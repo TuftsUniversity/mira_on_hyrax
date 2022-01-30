@@ -57,6 +57,7 @@ config/fedora3.yml
 config/handle.yml
 config/pdf_pages.yml
 config/tufts.yml
+config/sidekiq.yml
 # Rubymine
 .idea
 
