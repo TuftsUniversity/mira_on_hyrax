@@ -93,14 +93,14 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Configure the application strorage directories
-  config.drafts_storage_dir    = Pathname.new('/usr/local/hydra/mira-data/current/drafts')
-  config.exports_storage_dir   = Pathname.new('/usr/local/hydra/mira-data/current/exports')
-  config.templates_storage_dir = Pathname.new('/usr/local/hydra/mira-data/current/templates')
-  config.metadata_upload_dir   = Pathname.new('/usr/local/hydra/mira-data/current/metadata')
+  config.drafts_storage_dir    = Pathname.new('/usr/local/samvera/mira-data/current/drafts')
+  config.exports_storage_dir   = Pathname.new('/usr/local/samvera/mira-data/current/exports')
+  config.templates_storage_dir = Pathname.new('/usr/local/samvera/mira-data/current/templates')
+  config.metadata_upload_dir   = Pathname.new('/usr/local/samvera/mira-data/current/metadata')
 end
 
 Hyrax.config do |config|
-  config.derivatives_path = Pathname.new('/usr/local/hydra/mira-data/current/derivatives')
-  config.upload_path = ->() { Pathname.new('/usr/local/hydra/mira-data/current/uploads') }
-  config.cache_path  = ->() { Pathname.new('/usr/local/hydra/mira-data/current/cache') }
+  config.derivatives_path = Pathname.new('/usr/local/samvera/mira-data/current/derivatives')
+  config.upload_path = ->() { Pathname.new('/usr/local/samvera/mira-data/current/uploads') }
+  config.cache_path  = ->() { Pathname.new('/usr/local/samvera/mira-data/current/cache') }
 end
