@@ -167,7 +167,7 @@ Hyrax.config do |config|
   # config.owner_permission_levels = { "Edit Access" => "edit" }
 
   # Path to the ffmpeg tool
-  config.ffmpeg_path = 'ffmpeg'
+  config.ffmpeg_path = '/opt/ffmpeg/bin/ffmpeg'
 
   # Max length of FITS messages to display in UI
   config.fits_message_length = 25
