@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   class WorksController < ApplicationController
     include Hyrax::WorksControllerBehavior
@@ -18,13 +19,13 @@ module Tufts
 
     private
 
-      def redirect_non_admins
-        redirect_to root_url unless current_user && current_user.admin?
-      end
+    def redirect_non_admins
+      redirect_to root_url unless current_user&.admin?
+    end
 
-      def delete_draft(params)
-        work = ActiveFedora::Base.find(params['id'])
-        work.delete_draft
-      end
+    def delete_draft(params)
+      work = ActiveFedora::Base.find(params['id'])
+      work.delete_draft
+    end
   end
 end

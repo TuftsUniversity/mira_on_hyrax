@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # A service for updating a persistent resource based on a `MetadataImport`.

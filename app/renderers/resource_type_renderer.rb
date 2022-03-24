@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ResourceTypeRenderer < Hyrax::Renderers::AttributeRenderer
   SERVICE = Tufts::ResourceTypeService
 

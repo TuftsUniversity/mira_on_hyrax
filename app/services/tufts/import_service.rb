@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # A service for creating a persistent resource based on a
@@ -70,20 +71,20 @@ module Tufts
 
     private
 
-      ##
-      # @private
-      # @return [HashWithIndifferentAccess]
-      def attributes
-        { uploaded_files: file_ids,
-          thumbnail: record.thumbnail,
-          transcript: record.transcript,
-          representative: record.representative }.with_indifferent_access
-      end
+    ##
+    # @private
+    # @return [HashWithIndifferentAccess]
+    def attributes
+      { uploaded_files: file_ids,
+        thumbnail: record.thumbnail,
+        transcript: record.transcript,
+        representative: record.representative }.with_indifferent_access
+    end
 
-      ##
-      # @private
-      def file_ids
-        files.empty? ? [file.id] : files.map(&:id)
-      end
+    ##
+    # @private
+    def file_ids
+      files.empty? ? [file.id] : files.map(&:id)
+    end
   end
 end

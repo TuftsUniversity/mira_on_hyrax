@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'shellwords'
 require 'mimemagic'
 require 'fastimage'
@@ -46,21 +47,21 @@ module Tufts
 
     private
 
-      # Calls the Vendored Exif Tool with appriorate arguments and returns the hash
-      def exif_data
-        Exiftool.new(@source, '-a -u -g1').to_hash
-      end
+    # Calls the Vendored Exif Tool with appriorate arguments and returns the hash
+    def exif_data
+      Exiftool.new(@source, '-a -u -g1').to_hash
+    end
 
-      def map_fields_to_properties(exif_data)
-        {}.tap do |hash|
-          FIELDS.each_key do |field|
-            hash[field.to_s] = exif_data.dig(*FIELDS[field])
-          end
-        end.compact
-      end
+    def map_fields_to_properties(exif_data)
+      {}.tap do |hash|
+        FIELDS.each_key do |field|
+          hash[field.to_s] = exif_data.dig(*FIELDS[field])
+        end
+      end.compact
+    end
 
-      def append_property_value(property, value)
-        @object.send("#{property}=", value)
-      end
+    def append_property_value(property, value)
+      @object.send("#{property}=", value)
+    end
   end
 end

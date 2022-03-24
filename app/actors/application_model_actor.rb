@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A base actor which model actors in this application should inherit from.
 #

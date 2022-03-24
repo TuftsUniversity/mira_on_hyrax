@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ActiveFedora::File::Streaming
   # @param range [String] the Range HTTP header
   # @return [Stream] an object that responds to each
@@ -48,8 +49,8 @@ module ActiveFedora::File::Streaming
 
   private
 
-    # @return [String] current authorization token from Ldp::Client
-    def authorization_key
-      ldp_source.client.http.headers.fetch("Authorization", nil)
-    end
+  # @return [String] current authorization token from Ldp::Client
+  def authorization_key
+    ldp_source.client.http.headers.fetch("Authorization", nil)
+  end
 end

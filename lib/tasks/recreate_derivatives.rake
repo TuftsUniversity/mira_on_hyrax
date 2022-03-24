@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :derivatives do
   desc "Recreate derivatives for all Pdfs"
   task recreate_all_pdfs: :environment do

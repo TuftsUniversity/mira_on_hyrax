@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   module TuftsHelperBehavior
     # @return [String] only search the catalog, not dashboard

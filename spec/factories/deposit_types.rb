@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 FactoryBot.define do
   factory :deposit_type do
     sequence(:display_name) { |n| "Deposit Type No. #{n}" }

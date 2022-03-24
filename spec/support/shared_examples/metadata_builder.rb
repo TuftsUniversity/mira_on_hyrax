@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 shared_examples 'a MetadataBuilder' do
   subject(:builder) { described_class.new }
 

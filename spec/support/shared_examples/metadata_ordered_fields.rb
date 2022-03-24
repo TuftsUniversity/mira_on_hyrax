@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 shared_examples 'a record with ordered fields' do
   describe 'ordered descriptions' do
     let(:desc_a) { 'AAA' }

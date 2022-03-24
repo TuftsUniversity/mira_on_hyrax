@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 # rubocop:disable Lint/HandleExceptions
@@ -63,7 +64,7 @@ describe Tufts::HandleRegistrar do
 
         begin
           service.register!(object: object)
-        rescue described_class::NullIdError; end # no-op
+        rescue described_class::NullIdError; end # rubocop:disable Lint/SuppressedException
       end
 
       it 'reraises the error' do
@@ -101,7 +102,7 @@ describe Tufts::HandleRegistrar do
 
         begin
           service.register!(object: object)
-        rescue Handle::HandleError; end # no-op
+        rescue Handle::HandleError; end # rubocop:disable Lint/SuppressedException
       end
 
       it 're-raises errors' do
@@ -112,7 +113,7 @@ describe Tufts::HandleRegistrar do
       it 'results in blank identifier' do
         begin
           service.register!(object: object)
-        rescue Handle::HandleError; end # no-op
+        rescue Handle::HandleError; end # rubocop:disable Lint/SuppressedException
 
         expect(object.identifier).to be_blank
       end

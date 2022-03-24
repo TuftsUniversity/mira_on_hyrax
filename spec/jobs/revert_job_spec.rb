@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe RevertJob, :workflow, type: :job do
@@ -26,7 +27,7 @@ RSpec.describe RevertJob, :workflow, type: :job do
 
     it 'sets the workflow status to published' do
       expect(work.draft_saved?).to eq(true)
-      RevertJob.perform_now(work.id)
+      described_class.perform_now(work.id)
       expect(work.draft_saved?).to eq(false)
     end
   end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Hyrax
   module Workflow
     # A notification for a single item. Accepts an ActiveFedora::Base object

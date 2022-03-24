@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 module Tufts
   class WorkflowSetup
-    MIRA_WORKFLOW_NAME = 'mira_publication_workflow'.freeze
+    MIRA_WORKFLOW_NAME = 'mira_publication_workflow'
 
     def self.setup
       Tufts::WorkflowSetup.new.setup

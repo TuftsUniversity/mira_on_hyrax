@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'active_fedora'
 
 namespace :tufts do
@@ -26,7 +27,7 @@ namespace :tufts do
         msg = id + ': '
 
         begin
-          next unless id.present?
+          next if id.blank?
 
           work = ActiveFedora::Base.find(id)
           rights = work[:steward].to_s

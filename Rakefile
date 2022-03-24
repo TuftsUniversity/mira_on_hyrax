@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
@@ -56,23 +57,21 @@ desc "apply_embargos"
 task apply_embargos: :environment do
   puts "Loading File"
   CSV.foreach("/usr/local/hydra/epigaea/apply_embargos.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    begin
-      pid = row[1]
-      embargo = row[0]
-      a = ActiveFedora::Base.find(pid)
-      a.visibility = 'restricted'
-      a.visibility_during_embargo = 'restricted'
-      a.visibility_after_embargo 'open'
-      a.embargo_release_date = embargo
-      a.save!
-    rescue ActiveFedora::RecordInvalid
-      a.visibility = 'open'
-      a.deactivate_embargo!
-      a.embargo.save
-      a.save!
-    rescue ActiveFedora::ObjectNotFoundError
-      puts "ERROR not found #{pid}"
-    end
+    pid = row[1]
+    embargo = row[0]
+    a = ActiveFedora::Base.find(pid)
+    a.visibility = 'restricted'
+    a.visibility_during_embargo = 'restricted'
+    a.visibility_after_embargo 'open'
+    a.embargo_release_date = embargo
+    a.save!
+  rescue ActiveFedora::RecordInvalid
+    a.visibility = 'open'
+    a.deactivate_embargo!
+    a.embargo.save
+    a.save!
+  rescue ActiveFedora::ObjectNotFoundError
+    puts "ERROR not found #{pid}"
   end
 end
 
@@ -160,14 +159,12 @@ desc "strip subjects"
 task strip_subjects: :environment do
   puts "Loading File"
   CSV.foreach("/usr/local/hydra/epigaea/strip_subjects.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    begin
-      pid = row[0]
-      a = ActiveFedora::Base.find(pid)
-      a.subject = []
-      a.save!
-    rescue ActiveFedora::ObjectNotFoundError
-      puts "ERROR not found #{pid}"
-    end
+    pid = row[0]
+    a = ActiveFedora::Base.find(pid)
+    a.subject = []
+    a.save!
+  rescue ActiveFedora::ObjectNotFoundError
+    puts "ERROR not found #{pid}"
   end
 end
 
@@ -250,17 +247,15 @@ desc "eradicate records by f4 pid from records_to_eradicate.txt"
 task eradicate_records_from_file: :environment do
   pids = File.open("records_to_eradicate.txt").read
   pids.each_line do |pid|
-    begin
-      puts "Get #{pid}"
-      work = ActiveFedora::Base.find(pid.squish)
-      work.delete
-      ActiveFedora::Base.eradicate(pid.squish)
-    rescue ActiveFedora::ObjectNotFoundError
-      # no-op
-      puts "#{pid} doesn't exist"
-    rescue Ldp::Gone
-      puts "#{pid} doesn't exist"
-    end
+    puts "Get #{pid}"
+    work = ActiveFedora::Base.find(pid.squish)
+    work.delete
+    ActiveFedora::Base.eradicate(pid.squish)
+  rescue ActiveFedora::ObjectNotFoundError
+    # no-op
+    puts "#{pid} doesn't exist"
+  rescue Ldp::Gone
+    puts "#{pid} doesn't exist"
   end
 end
 
@@ -333,17 +328,15 @@ desc "add to collection"
 task add_to_collection_descriptions: :environment do
   puts "Loading File"
   CSV.foreach("/usr/local/hydra/epigaea/eads.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    begin
-      pid = row[0]
-      obj = ActiveFedora::Base.find(pid)
-      col = Collection.find("vd66vz89n")
+    pid = row[0]
+    obj = ActiveFedora::Base.find(pid)
+    col = Collection.find("vd66vz89n")
 
-      obj.member_of_collections << col
+    obj.member_of_collections << col
 
-      obj.save!
-    rescue ActiveFedora::ObjectNotFoundError
-      puts "ERROR not found #{pid}"
-    end
+    obj.save!
+  rescue ActiveFedora::ObjectNotFoundError
+    puts "ERROR not found #{pid}"
   end
 end
 
@@ -351,17 +344,15 @@ desc "safely add to collection"
 task safe_add_to_collection: :environment do
   puts "Loading File"
   CSV.foreach("/usr/local/hydra/epigaea/to_move.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    begin
-      pid = row[0]
-      obj = ActiveFedora::Base.find(pid)
-      col = Collection.find("8910jt56k")
+    pid = row[0]
+    obj = ActiveFedora::Base.find(pid)
+    col = Collection.find("8910jt56k")
 
-      obj.member_of_collections << col
+    obj.member_of_collections << col
 
-      obj.save!
-    rescue ActiveFedora::ObjectNotFoundError
-      puts "ERROR not found #{pid}"
-    end
+    obj.save!
+  rescue ActiveFedora::ObjectNotFoundError
+    puts "ERROR not found #{pid}"
   end
 end
 
@@ -369,14 +360,12 @@ desc "set_steward_to_tisch"
 task set_steward_to_tisch: :environment do
   puts "Loading File"
   CSV.foreach("/usr/local/hydra/epigaea/tisch.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    begin
-      pid = row[0]
-      obj = ActiveFedora::Base.find(pid)
-      obj.steward = "tisch"
-      obj.save!
-    rescue ActiveFedora::ObjectNotFoundError
-      puts "ERROR not found #{pid}"
-    end
+    pid = row[0]
+    obj = ActiveFedora::Base.find(pid)
+    obj.steward = "tisch"
+    obj.save!
+  rescue ActiveFedora::ObjectNotFoundError
+    puts "ERROR not found #{pid}"
   end
 end
 
@@ -384,21 +373,19 @@ desc "remove_from_collection"
 task remove_from_collection: :environment do
   puts "Loading File"
   CSV.foreach("/usr/local/hydra/epigaea/to_remove.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    begin
-      pid = row[0]
-      obj = ActiveFedora::Base.find(pid)
-      mem_of = obj.member_of_collections
-      c = Collection.find('gx41mw94n')
-      mem_of.delete(c)
-      mem_of.each do |mem|
-        puts "adding : #{mem.id}"
-        item = ActiveFedora::Base.find(mem.id)
-        obj.member_of_collections << item
-      end
-      obj.save!
-    rescue ActiveFedora::ObjectNotFoundError
-      puts "ERROR not found #{pid}"
+    pid = row[0]
+    obj = ActiveFedora::Base.find(pid)
+    mem_of = obj.member_of_collections
+    c = Collection.find('gx41mw94n')
+    mem_of.delete(c)
+    mem_of.each do |mem|
+      puts "adding : #{mem.id}"
+      item = ActiveFedora::Base.find(mem.id)
+      obj.member_of_collections << item
     end
+    obj.save!
+  rescue ActiveFedora::ObjectNotFoundError
+    puts "ERROR not found #{pid}"
   end
 end
 
@@ -406,31 +393,29 @@ desc "ead matching"
 task ead_matching: :environment do
   puts "Loading File"
   CSV.foreach("/usr/local/hydra/epigaea/eads.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    begin
-      pid = row[0]
-      title = row[1]
-      obj = ActiveFedora::Base.find(pid)
-      cols = Collection.where(title_tesim: title)
-      col_desc = Collection.find('vd66vz89n')
+    pid = row[0]
+    title = row[1]
+    obj = ActiveFedora::Base.find(pid)
+    cols = Collection.where(title_tesim: title)
+    col_desc = Collection.find('vd66vz89n')
 
-      if cols.empty?
-        puts "EAD #{pid} has no matching collection"
-        a = Collection.new(title: [title])
-        a.apply_depositor_metadata 'apruit01'
-        a.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
-        a.save!
-        a = a.reload
-        obj.member_of_collections = [a, col_desc]
-      else
-        puts "EAD #{pid} has a matching collection and can be added."
-        col = cols.first
-        obj.member_of_collections = [col, col_desc]
-      end
-
-      obj.save!
-    rescue ActiveFedora::ObjectNotFoundError
-      puts "ERROR not found #{pid}"
+    if cols.empty?
+      puts "EAD #{pid} has no matching collection"
+      a = Collection.new(title: [title])
+      a.apply_depositor_metadata 'apruit01'
+      a.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+      a.save!
+      a = a.reload
+      obj.member_of_collections = [a, col_desc]
+    else
+      puts "EAD #{pid} has a matching collection and can be added."
+      col = cols.first
+      obj.member_of_collections = [col, col_desc]
     end
+
+    obj.save!
+  rescue ActiveFedora::ObjectNotFoundError
+    puts "ERROR not found #{pid}"
   end
 end
 
@@ -438,13 +423,11 @@ desc "publish objects"
 task publish_objects: :environment do
   puts "Loading File"
   CSV.foreach("/usr/local/hydra/epigaea/publish_objects.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    begin
-      pid = row[0]
-      # a = ActiveFedora::Base.find(pid)
-      PublishJob.perform_later(pid)
-    rescue ActiveFedora::ObjectNotFoundError
-      puts "ERROR not found #{pid}"
-    end
+    pid = row[0]
+    # a = ActiveFedora::Base.find(pid)
+    PublishJob.perform_later(pid)
+  rescue ActiveFedora::ObjectNotFoundError
+    puts "ERROR not found #{pid}"
   end
 end
 
@@ -452,13 +435,11 @@ desc "sipity updates"
 task sipity_updates: :environment do
   puts "Loading File"
   CSV.foreach("/usr/local/hydra/epigaea/sipity_updates.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    begin
-      pid = row[0]
-      a = ActiveFedora::Base.find(pid)
-      puts "insert into sipity_entities (proxy_for_global_id, workflow_id, workflow_state_id, created_at, updated_at) values ('gid://epigaea/#{a.class}/#{pid}',1,2, NOW(), NOW());"
-    rescue ActiveFedora::ObjectNotFoundError
-      puts "ERROR not found #{pid}"
-    end
+    pid = row[0]
+    a = ActiveFedora::Base.find(pid)
+    puts "insert into sipity_entities (proxy_for_global_id, workflow_id, workflow_state_id, created_at, updated_at) values ('gid://epigaea/#{a.class}/#{pid}',1,2, NOW(), NOW());"
+  rescue ActiveFedora::ObjectNotFoundError
+    puts "ERROR not found #{pid}"
   end
 end
 
@@ -589,7 +570,7 @@ task apply_genre: :environment do
   file = File.read('genre.json')
   data_hash = JSON.parse(file)
   data_hash["response"]["docs"].each do |doc|
-    next if doc['genre_tesim'].nil? || doc['genre_tesim'].empty?
+    next if doc['genre_tesim'].blank?
     id = doc['id'].gsub("draft:", "tufts:")
     obj = ActiveFedora::Base.where(legacy_pid_tesim: id)
     next if obj.empty?
@@ -770,7 +751,7 @@ task put_objects_in_workflow: :environment do
       Hyrax::Workflow::WorkflowActionService.run(subject: subject, action: sipity_workflow_action, comment: "Migrated from Fedora 3")
     rescue NoMethodError
       tries -= 1
-      if tries > 0
+      if tries.positive?
         sleep(5.seconds)
         retry
       else

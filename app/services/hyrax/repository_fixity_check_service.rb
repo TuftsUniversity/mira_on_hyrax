@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Hyrax
   class RepositoryFixityCheckService
     # This is a service that folks can use in their own rake tasks,
@@ -7,16 +8,14 @@ module Hyrax
       results = ActiveFedora::SolrService.query(ActiveFedora::SolrQueryBuilder.construct_query(has_model_ssim: "FileSet"), rows: 500_000, fl: 'id')
       ids = results.map { |o| o['id'] }
       ids.each do |fs|
-        begin
-          file_set = ::FileSet.find(fs)
-          Hyrax::FileSetFixityCheckService.new(file_set).fixity_check
-        rescue ActiveFedora::ObjectNotFoundError
-          # no-op
-          Rails.logger.info "#{fs} doesn't exist"
-        rescue Ldp::Gone
-          # no-op
-          Rails.logger.info "#{fs} doesn't exist"
-        end
+        file_set = ::FileSet.find(fs)
+        Hyrax::FileSetFixityCheckService.new(file_set).fixity_check
+      rescue ActiveFedora::ObjectNotFoundError
+        # no-op
+        Rails.logger.info "#{fs} doesn't exist"
+      rescue Ldp::Gone
+        # no-op
+        Rails.logger.info "#{fs} doesn't exist"
       end
     end
 

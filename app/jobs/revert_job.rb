@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A job to revert a draft for an object
 class RevertJob < BatchableJob

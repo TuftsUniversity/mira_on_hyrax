@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'net/smtp'
 
 # Monitor sidekiq queue latency. Queue latency is the difference between when the

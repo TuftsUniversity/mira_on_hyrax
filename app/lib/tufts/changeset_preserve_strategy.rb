@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # A changeset application strategy that preserves existing data.
@@ -65,8 +66,8 @@ module Tufts
 
     private
 
-      def config_for(predicate:)
-        model.class.properties.find { |_, v| v.predicate == predicate }
-      end
+    def config_for(predicate:)
+      model.class.properties.find { |_, v| v.predicate == predicate }
+    end
   end
 end

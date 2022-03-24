@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   module StewardService
     mattr_accessor :authority

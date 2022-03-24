@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A job to register handles and save it to the object.
 #
@@ -20,7 +21,7 @@ class IndexChildrenJob < ApplicationJob
 
   private
 
-    def reindex_nested_relationships_for(id:, extent:)
-      Hyrax.config.nested_relationship_reindexer.call(id: id, extent: extent)
-    end
+  def reindex_nested_relationships_for(id:, extent:)
+    Hyrax.config.nested_relationship_reindexer.call(id: id, extent: extent)
+  end
 end

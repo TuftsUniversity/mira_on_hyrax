@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'carrierwave'
 
 module Tufts
@@ -24,11 +25,11 @@ module Tufts
 
     private
 
-      def token
-        token_name = :"@#{mounted_as}_token"
+    def token
+      token_name = :"@#{mounted_as}_token"
 
-        model.instance_variable_get(token_name) ||
-          model.instance_variable_set(token_name, SecureRandom.uuid)
-      end
+      model.instance_variable_get(token_name) ||
+        model.instance_variable_set(token_name, SecureRandom.uuid)
+    end
   end
 end

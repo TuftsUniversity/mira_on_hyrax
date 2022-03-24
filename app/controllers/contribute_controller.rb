@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ContributeController < ApplicationController
   include GisHelper
   include Tufts::Normalizer

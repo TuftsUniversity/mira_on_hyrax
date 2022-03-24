@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   class MetadataService < Hyrax::FormMetadataService
     def self.multiple?(model_class, field)

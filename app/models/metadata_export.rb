@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A model for managing and batch metadata exports.
 #
@@ -8,9 +9,9 @@ class MetadataExport < ApplicationRecord
   #   @return [String]
   # @!attribute batch [rw]
   #   @return [Batch]
-  has_one :batch, as: :batchable, inverse_of: :batchable
+  has_one :batch, as: :batchable, inverse_of: :batchable # rubocop:disable Rails/HasManyOrHasOneDependent
 
-  TYPE_STRING = 'Export'.freeze
+  TYPE_STRING = 'Export'
 
   ##
   # @return [String]

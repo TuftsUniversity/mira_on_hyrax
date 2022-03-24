@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module GisHelper
   def self.degrees
     { bachelors: 'Bachelors', masters: 'Masters', phd: 'PhD', facstaff: 'Faculty/Staff' }

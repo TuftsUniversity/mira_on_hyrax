@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'byebug'
 
 module Tufts
@@ -25,9 +26,9 @@ module Tufts
        Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED,
        Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE].freeze
 
-    THUMBNAIL_VALUE      = 'thumbnail'.freeze
-    TRANSCRIPT_VALUE     = 'transcript'.freeze
-    REPRESENTATIVE_VALUE = 'representative'.freeze
+    THUMBNAIL_VALUE      = 'thumbnail'
+    TRANSCRIPT_VALUE     = 'transcript'
+    REPRESENTATIVE_VALUE = 'representative'
 
     ##
     # @!attribute mapping [rw]
@@ -197,53 +198,53 @@ module Tufts
 
     private
 
-      def file_by_type(type)
-        return '' if metadata.nil?
+    def file_by_type(type)
+      return '' if metadata.nil?
 
-        file_node =
-          metadata
-          .xpath("./tufts:filename[@type=\"#{type}\"]", mapping.namespaces)
-          .first
+      file_node =
+        metadata
+        .xpath("./tufts:filename[@type=\"#{type}\"]", mapping.namespaces)
+        .first
 
-        file_node.try(:content) || ''
-      end
+      file_node.try(:content) || ''
+    end
 
-      def singular_properties
-        @singular_properties =
-          GenericObject
-          .properties.select { |_, cf| cf.try(:multiple?) == false }
-          .keys.map(&:to_sym)
-      end
+    def singular_properties
+      @singular_properties =
+        GenericObject
+        .properties.select { |_, cf| cf.try(:multiple?) == false }
+        .keys.map(&:to_sym)
+    end
 
-      def sanitize_import_field(values)
-        if values
-          if values.is_a?(Array)
-            ary = []
-            values.each do |v|
-              ary << Tufts::InputSanitizer.sanitize(v)
-            end
-
-            values = ary
-          else
-            values = Tufts::InputSanitizer.sanitize(values.to_s)
+    def sanitize_import_field(values)
+      if values
+        if values.is_a?(Array)
+          ary = []
+          values.each do |v|
+            ary << Tufts::InputSanitizer.sanitize(v)
           end
+
+          values = ary
+        else
+          values = Tufts::InputSanitizer.sanitize(values.to_s)
         end
-        values
       end
+      values
+    end
 
-      def values_for(field:)
-        values =
-          metadata
-          .xpath("./#{field.namespace}:#{field.name}", @mapping.namespaces)
-          .children
-        return nil if values.empty?
+    def values_for(field:)
+      values =
+        metadata
+        .xpath("./#{field.namespace}:#{field.name}", @mapping.namespaces)
+        .children
+      return nil if values.empty?
 
-        values = values.map(&:content)
-        values = values.first if singular_properties.include?(field.property)
-        values = normalize_import_field(field, values)
-        values = sanitize_import_field(values)
-        values
-      end
+      values = values.map(&:content)
+      values = values.first if singular_properties.include?(field.property)
+      values = normalize_import_field(field, values)
+      values = sanitize_import_field(values)
+      values
+    end
   end
   # rubocop:enable Metrics/ClassLength
 end

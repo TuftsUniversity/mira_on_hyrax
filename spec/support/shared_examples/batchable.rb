@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 shared_examples 'a batchable' do
   let(:batch) { FactoryBot.create(:batch, ids: ids) }
   let(:ids)   { [] }

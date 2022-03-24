@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   class JobItemStore
     def self.key_for(object_id:, batch_id:)

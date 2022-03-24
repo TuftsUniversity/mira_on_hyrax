@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CharacterizeJob < Hyrax::ApplicationJob
   queue_as Hyrax.config.ingest_queue_name
 
@@ -14,15 +15,15 @@ class CharacterizeJob < Hyrax::ApplicationJob
     Rails.logger.debug "Ran characterization on #{file_set.characterization_proxy.id} (#{file_set.characterization_proxy.mime_type})"
     file_set.characterization_proxy.save!
     file_set.update_index
-    file_set.parent.in_collections.each(&:update_index) if file_set.parent
+    file_set.parent&.in_collections&.each(&:update_index)
     CreateDerivativesJob.perform_later(file_set, file_id, filepath)
   end
 
   private
 
-    def run_local_characterization_services(file_set, source)
-      Tufts::CharacterizationService.run(file_set.characterization_proxy, source)
-      PdfPagesJob.perform_later(file_set) if file_set.mime_type == 'application/pdf'
-      Rails.logger.debug "Ran Tufts::CharacterizationService on #{file_set.id} (#{file_set.mime_type})"
-    end
+  def run_local_characterization_services(file_set, source)
+    Tufts::CharacterizationService.run(file_set.characterization_proxy, source)
+    PdfPagesJob.perform_later(file_set) if file_set.mime_type == 'application/pdf'
+    Rails.logger.debug "Ran Tufts::CharacterizationService on #{file_set.id} (#{file_set.mime_type})"
+  end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Converts UploadedFiles into FileSets and attaches them to works.
 class AttachTypedFilesToWorkJob < AttachFilesToWorkJob
   # @param [ActiveFedora::Base] work - the work object

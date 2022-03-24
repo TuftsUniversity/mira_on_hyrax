@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class GisPoster < GenericTischDeposit
   self.attributes = [:title, :degrees, :schools, :departments, :courses, :methodological_keywords, :geonames,
                      :term, :year, :topics, :geonames_placeholder,
@@ -30,24 +31,24 @@ class GisPoster < GenericTischDeposit
 
   private
 
-    def assign_date_created(term)
-      case term
-      when 'Fall'
-        @year + '-09-01 00:00:00 -0400'
-      when 'Summer'
-        @year + '-06-01 00:00:00 -0400'
-      when 'Spring'
-        @year + '-01-01 00:00:00 -0500'
-      else
-        @year + '-01-01 00:00:00 -0500'
-      end
+  def assign_date_created(term)
+    case term
+    when 'Fall'
+      @year + '-09-01 00:00:00 -0400'
+    when 'Summer'
+      @year + '-06-01 00:00:00 -0400'
+    when 'Spring'
+      @year + '-01-01 00:00:00 -0500'
+    else
+      @year + '-01-01 00:00:00 -0500'
     end
+  end
 
-    def description
-      (send(:degrees).nil? ? [] : Array(send(:degrees))) + (send(:courses).nil? ? [] : Array(send(:courses)))
-    end
+  def description
+    (send(:degrees).nil? ? [] : Array(send(:degrees))) + (send(:courses).nil? ? [] : Array(send(:courses)))
+  end
 
-    def corpname
-      (send(:schools).nil? ? [] : Array(send(:schools))) + (send(:departments).nil? ? [] : Array(send(:departments)))
-    end
+  def corpname
+    (send(:schools).nil? ? [] : Array(send(:schools))) + (send(:departments).nil? ? [] : Array(send(:departments)))
+  end
 end

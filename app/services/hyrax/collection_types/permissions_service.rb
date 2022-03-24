@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Patching to add Arel to various pluck calls, solving:
 #    Dangerous query method (method whose arguments are used as raw SQL) called with non-attribute argument(s)
 # This can be removed when updating to Hyrax 3, as it is resolved in the source there.

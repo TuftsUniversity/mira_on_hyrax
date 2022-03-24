@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   module HasTranscriptForm
     def transcript_files(type)

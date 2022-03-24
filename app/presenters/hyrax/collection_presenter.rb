@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_dependency Hyrax::Engine.root.join('app', 'presenters', 'hyrax', 'collection_presenter').to_s
 
 module Hyrax

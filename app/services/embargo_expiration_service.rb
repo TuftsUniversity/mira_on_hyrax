@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # An automated service that:
 # 1. Checks the repository for works that will expire in 60 days, 7 days, or today
 # 2. If a work expires in 60 days or 7 days, send the appropriate notification

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 require 'ladle'
 
 desc 'Start a ladle server'
-task :ladle do
+task ladle: :environment do
   conf_path = Rails.root.join('config')
   ldap_port = Rails.application.config_for(:ldap)['port']
 

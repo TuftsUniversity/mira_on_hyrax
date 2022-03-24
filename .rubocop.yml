@@ -2,7 +2,7 @@
 inherit_gem:
   bixby: bixby_default.yml
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.7
   Exclude:
     - db/**/*
     - script/**/*
@@ -12,6 +12,12 @@ AllCops:
     - lib/active_fedora/solr_service.rb
     - spec/fixtures/**/*
     - app/services/hyrax/workflow/permission_query.rb #temporary, patched from hyrax
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - stage
 Metrics/AbcSize:
   Exclude:
     - app/models/xml_import.rb
@@ -31,7 +37,7 @@ Metrics/ClassLength:
   Exclude:
     - app/lib/tufts/importer.rb
     - app/controllers/catalog_controller.rb
-Metrics/LineLength:
+Layout/LineLength:
   Exclude:
     - app/lib/tufts/importer.rb
     - spec/controllers/tufts/draft_controller_spec.rb

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :import do
   desc 'Import deposit types from a CSV file'
   task :deposit_types, [:import_file] => :environment do |_t, args|

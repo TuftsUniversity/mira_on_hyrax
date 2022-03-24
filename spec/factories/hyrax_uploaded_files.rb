@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 FactoryBot.define do
   factory :hyrax_uploaded_file, class: Hyrax::UploadedFile do
     user

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 shared_examples 'an importer' do
   subject(:importer) { described_class.new(file: file) }
 

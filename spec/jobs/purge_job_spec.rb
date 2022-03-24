@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe PurgeJob, :workflow, type: :job do
@@ -26,7 +27,7 @@ RSpec.describe PurgeJob, :workflow, type: :job do
       work.title = ['test']
       work.save
       expect(Pdf.count).to eq(1)
-      PurgeJob.perform_now(work.id)
+      described_class.perform_now(work.id)
       expect(Pdf.count).to eq(0)
     end
   end
