@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'byebug'
 
 # rubocop:disable Metrics/MethodLength
@@ -40,108 +41,108 @@ module Tufts
 
     private
 
-      def process_file_set(file_set)
-        initialize_obj_directory(file_set)
-        write_pdf_locally(file_set)
-        pdf_path = get_local_pdf_path(file_set).to_s
-        write_metadata_file(file_set, pdf_path)
-        write_pages(file_set, pdf_path)
-        true
+    def process_file_set(file_set)
+      initialize_obj_directory(file_set)
+      write_pdf_locally(file_set)
+      pdf_path = get_local_pdf_path(file_set).to_s
+      write_metadata_file(file_set, pdf_path)
+      write_pages(file_set, pdf_path)
+      true
+    end
+
+    def write_blank_page(file_set, pdf_pages)
+      @logger.info("Writing Blank Page...")
+      png = ChunkyPNG::Image.new(page_width(pdf_pages).to_i, page_height(pdf_pages).to_i, ChunkyPNG::Color::TRANSPARENT)
+      png_path = get_png_path(file_set, 0)
+      png.save(png_path, interlace: true)
+      @logger.info("Done Writing Blank Page...")
+    end
+
+    def write_pages(file_set, pdf_path)
+      pdf_pages = Magick::Image.read(pdf_path + page_suffix(0)) do
+        self.units = Magick::PixelsPerInchResolution
+        self.density = "300"
       end
 
-      def write_blank_page(file_set, pdf_pages)
-        @logger.info("Writing Blank Page...")
-        png = ChunkyPNG::Image.new(page_width(pdf_pages).to_i, page_height(pdf_pages).to_i, ChunkyPNG::Color::TRANSPARENT)
-        png_path = get_png_path(file_set, 0)
-        png.save(png_path, interlace: true)
-        @logger.info("Done Writing Blank Page...")
-      end
-
-      def write_pages(file_set, pdf_path)
-        pdf_pages = Magick::Image.read(pdf_path + page_suffix(0)) do
+      write_blank_page(file_set, pdf_pages)
+      count = page_count(pdf_path).to_i
+      (0..(count - 1)).each do |pdf_page_number|
+        pdf_page = Magick::Image.read(pdf_path + page_suffix(pdf_page_number)) do
           self.units = Magick::PixelsPerInchResolution
           self.density = "300"
         end
 
-        write_blank_page(file_set, pdf_pages)
-        count = page_count(pdf_path).to_i
-        (0..(count - 1)).each do |pdf_page_number|
-          pdf_page = Magick::Image.read(pdf_path + page_suffix(pdf_page_number)) do
-            self.units = Magick::PixelsPerInchResolution
-            self.density = "300"
-          end
-
-          # pdf_pages.each do |pdf_page|
-          png_path = get_png_path(file_set, (pdf_page_number.to_i + 1).to_s)
-          @logger.info('Writing ' + png_path.to_s)
-          pdf_page[0].write(png_path) do
-            self.quality = 100
-            self.units = Magick::PixelsPerInchResolution
-            self.density = "200"
-          end
-
-          pdf_page[0].destroy! # this is important - without it RMagick can occasionally be left in a state that causes subsequent failures
-        end
-
-        @logger.info('Successfully completed ' + file_set.id)
-      end
-
-      def page_suffix(number)
-        str_num = number.to_s
-        "[" + str_num + "]"
-      end
-
-      def initialize_obj_directory(file_set)
-        FileUtils.mkdir_p File.join(@pages_root, file_set.id)
-      end
-
-      def write_metadata_file(file_set, pdf_path)
-        pdf_pages = Magick::Image.read(pdf_path + "[0]") do
+        # pdf_pages.each do |pdf_page|
+        png_path = get_png_path(file_set, (pdf_page_number.to_i + 1).to_s)
+        @logger.info('Writing ' + png_path.to_s)
+        pdf_page[0].write(png_path) do
+          self.quality = 100
           self.units = Magick::PixelsPerInchResolution
-          self.density = "300"
+          self.density = "200"
         end
-        @logger.info('Found ' + (page_count(pdf_path).to_i + 1).to_s + ' pages (' + page_width(pdf_pages) + ' x ' + page_height(pdf_pages) + ').')
-        meta_path = File.join(@pages_root, file_set.id, 'book.json')
-        json = create_meta_json(pdf_pages, pdf_path)
-        @logger.info('Writing ' + json + ' to ' + meta_path + '.')
-        File.open(meta_path, 'w') { |file| file.puts(json) }
+
+        pdf_page[0].destroy! # this is important - without it RMagick can occasionally be left in a state that causes subsequent failures
       end
 
-      def create_meta_json(pdf_pages, pdf_path)
-        '{"page_width":"' + page_width(pdf_pages) + '","page_height":"' + page_height(pdf_pages) + '","page_count":"' + (page_count(pdf_path).to_i + 1).to_s + '"}'
-      end
+      @logger.info('Successfully completed ' + file_set.id)
+    end
 
-      def page_height(pdf_pages)
-        pdf_pages[0].rows.to_s
-      end
+    def page_suffix(number)
+      str_num = number.to_s
+      "[" + str_num + "]"
+    end
 
-      def page_width(pdf_pages)
-        pdf_pages[0].columns.to_s
-      end
+    def initialize_obj_directory(file_set)
+      FileUtils.mkdir_p File.join(@pages_root, file_set.id)
+    end
 
-      def page_count(pdf_path)
-        reader = PDF::Reader.new(pdf_path)
-        reader.page_count.to_s
+    def write_metadata_file(file_set, pdf_path)
+      pdf_pages = Magick::Image.read(pdf_path + "[0]") do
+        self.units = Magick::PixelsPerInchResolution
+        self.density = "300"
       end
+      @logger.info('Found ' + (page_count(pdf_path).to_i + 1).to_s + ' pages (' + page_width(pdf_pages) + ' x ' + page_height(pdf_pages) + ').')
+      meta_path = File.join(@pages_root, file_set.id, 'book.json')
+      json = create_meta_json(pdf_pages, pdf_path)
+      @logger.info('Writing ' + json + ' to ' + meta_path + '.')
+      File.open(meta_path, 'w') { |file| file.puts(json) }
+    end
 
-      def get_png_path(file_set, page_number)
-        target_filename = file_set.id + '_' + page_number.to_s + ".png"
-        File.join(@pages_root, file_set.id, target_filename)
-      end
+    def create_meta_json(pdf_pages, pdf_path)
+      '{"page_width":"' + page_width(pdf_pages) + '","page_height":"' + page_height(pdf_pages) + '","page_count":"' + (page_count(pdf_path).to_i + 1).to_s + '"}'
+    end
 
-      def get_local_pdf_path(file_set)
-        target_filename = file_set.id + ".pdf"
-        File.join(@pages_root, file_set.id, target_filename)
-      end
+    def page_height(pdf_pages)
+      pdf_pages[0].rows.to_s
+    end
 
-      def write_pdf_locally(file_set)
-        record = File.new(get_local_pdf_path(file_set), 'wb')
+    def page_width(pdf_pages)
+      pdf_pages[0].columns.to_s
+    end
 
-        @logger.info "Writing fileset to #{record}"
-        record.write file_set.original_file.content
-        record.flush
-        record.close
-      end
+    def page_count(pdf_path)
+      reader = PDF::Reader.new(pdf_path)
+      reader.page_count.to_s
+    end
+
+    def get_png_path(file_set, page_number)
+      target_filename = file_set.id + '_' + page_number.to_s + ".png"
+      File.join(@pages_root, file_set.id, target_filename)
+    end
+
+    def get_local_pdf_path(file_set)
+      target_filename = file_set.id + ".pdf"
+      File.join(@pages_root, file_set.id, target_filename)
+    end
+
+    def write_pdf_locally(file_set)
+      record = File.new(get_local_pdf_path(file_set), 'wb')
+
+      @logger.info "Writing fileset to #{record}"
+      record.write file_set.original_file.content
+      record.flush
+      record.close
+    end
   end
 end
 # rubocop:enable Metrics/MethodLength

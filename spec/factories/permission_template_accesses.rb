@@ -1,4 +1,5 @@
-FactoryGirl.define do
+# frozen_string_literal: true
+FactoryBot.define do
   factory :permission_template_access, class: Hyrax::PermissionTemplateAccess do
     permission_template
     trait :manage do

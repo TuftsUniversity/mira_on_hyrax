@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # An importer for MIRA XML.
@@ -62,21 +63,21 @@ module Tufts
 
     private
 
-      # Note: We don't need to call `file.close` here
-      # because carrierwave's `file.read` method will
-      # close it.
-      def doc
-        file.rewind if file.respond_to? :rewind
-        Nokogiri::XML(file.read)
-      end
+    # Note: We don't need to call `file.close` here
+    # because carrierwave's `file.read` method will
+    # close it.
+    def doc
+      file.rewind if file.respond_to? :rewind
+      Nokogiri::XML(file.read)
+    end
 
-      def metadata_nodes
-        root = doc.root
+    def metadata_nodes
+      root = doc.root
 
-        return [] if root.nil?
+      return [] if root.nil?
 
-        root.xpath('//xmlns:record/xmlns:metadata/xmlns:mira_import',
-                   root.namespaces)
-      end
+      root.xpath('//xmlns:record/xmlns:metadata/xmlns:mira_import',
+                 root.namespaces)
+    end
   end
 end

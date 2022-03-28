@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # @abstract Concrete implementions require an `#apply` method.

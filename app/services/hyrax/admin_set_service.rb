@@ -49,22 +49,22 @@ module Hyrax
 
     private
 
-      # @param [Symbol] access :read or :edit
-      def builder(access)
-        search_builder.new(context, access).rows(100)
-      end
+    # @param [Symbol] access :read or :edit
+    def builder(access)
+      search_builder.new(context, access).rows(100)
+    end
 
-      # Count number of files from admin set works
-      # @param [Array] results Solr search result
-      # @return [Hash] admin set id keys and file count values
-      def count_files(results)
-        file_counts = Hash.new(0)
-        results['response']['docs'].each do |doc|
-          doc['admin_set_member_ssim'].each do |id|
-            file_counts[id] += doc.fetch('file_set_ids_ssim', []).length
-          end
+    # Count number of files from admin set works
+    # @param [Array] results Solr search result
+    # @return [Hash] admin set id keys and file count values
+    def count_files(results)
+      file_counts = Hash.new(0)
+      results['response']['docs'].each do |doc|
+        doc['admin_set_member_ssim'].each do |id|
+          file_counts[id] += doc.fetch('file_set_ids_ssim', []).length
         end
-        file_counts
       end
+      file_counts
+    end
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   class Terms
     SHARED_TERMS = [:title, :displays_in, :abstract, :accrual_policy, :admin_start_date,

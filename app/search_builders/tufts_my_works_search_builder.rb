@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TuftsMyWorksSearchBuilder < Hyrax::My::WorksSearchBuilder
   # Override default behavior so admin users can see unpublished works in the dashboard
   def only_active_works(solr_parameters)

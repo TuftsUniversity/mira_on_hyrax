@@ -1,17 +1,18 @@
+# frozen_string_literal: true
 require 'rails_helper'
 include Warden::Test::Helpers
 
 RSpec.feature 'deposit and publication', :clean, :workflow do
-  let(:depositing_user)  { FactoryGirl.create(:user) }
-  let!(:publishing_user) { FactoryGirl.create(:admin) }
+  let(:depositing_user)  { FactoryBot.create(:user) }
+  let!(:publishing_user) { FactoryBot.create(:admin) }
 
   let(:work) do
-    FactoryGirl
+    FactoryBot
       .actor_create(:image, user: depositing_user, displays_in: ['dl'], createdby: [Contribution::SELFDEP])
   end
 
   let(:batch_work) do
-    FactoryGirl.actor_create(:image, title: ['A Batch Work'], user: depositing_user, displays_in: ['dl'])
+    FactoryBot.actor_create(:image, title: ['A Batch Work'], user: depositing_user, displays_in: ['dl'])
   end
 
   context 'a logged in user' do

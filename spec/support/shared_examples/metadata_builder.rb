@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 shared_examples 'a MetadataBuilder' do
   subject(:builder) { described_class.new }
 
   describe '#add' do
     let(:object)        { objects.first }
-    let(:objects)       { FactoryGirl.create_list(:pdf, 2) }
+    let(:objects)       { FactoryBot.create_list(:pdf, 2) }
     let(:property_keys) { objects.first.class.properties.keys }
 
     let(:values) do

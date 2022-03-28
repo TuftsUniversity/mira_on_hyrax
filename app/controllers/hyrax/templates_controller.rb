@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Hyrax
   class TemplatesController < ApplicationController
     def index
@@ -56,8 +57,8 @@ module Hyrax
 
     private
 
-      def object_params
-        Hyrax::TemplateForm.model_attributes(params.require(:generic_object))
-      end
+    def object_params
+      Hyrax::TemplateForm.model_attributes(params.require(:generic_object))
+    end
   end
 end

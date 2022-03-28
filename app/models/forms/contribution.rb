@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Contribution
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -15,7 +16,7 @@ class Contribution
 
   self.attributes = [:title, :abstract, :creator, :contributor, :bibliographic_citation, :subject, :attachment, :tufts_license, :embargo]
 
-  SELFDEP = 'selfdep'.freeze
+  SELFDEP = 'selfdep'
 
   def persisted?
     false

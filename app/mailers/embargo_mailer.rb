@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class EmbargoMailer < ApplicationMailer
   default from: 'dlsystems@elist.tufts.edu'
   def embargo_email(user, subject, body)

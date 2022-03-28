@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe Tufts::Terms do
   describe 'shared_terms' do
     it 'an array of terms' do

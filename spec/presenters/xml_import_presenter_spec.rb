@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe XmlImportPresenter, :batch do
   subject(:presenter) { described_class.new(import) }
-  let(:batch)         { FactoryGirl.build(:batch, ids: []) }
-  let(:import)        { FactoryGirl.build(:xml_import, batch: batch) }
+  let(:batch)         { FactoryBot.build(:batch, ids: []) }
+  let(:import)        { FactoryBot.build(:xml_import, batch: batch) }
 
   before do
     allow(Collection).to receive(:find).and_return(true)
@@ -29,10 +30,10 @@ RSpec.describe XmlImportPresenter, :batch do
     end
 
     context 'with files' do
-      subject(:import) { FactoryGirl.create(:xml_import) }
+      subject(:import) { FactoryBot.create(:xml_import) }
 
       let(:file) do
-        FactoryGirl
+        FactoryBot
           .create(:hyrax_uploaded_file,
                   file: File.open(file_fixture(filename)))
       end
@@ -59,12 +60,12 @@ RSpec.describe XmlImportPresenter, :batch do
 
     context 'when queued' do
       let(:import) do
-        FactoryGirl
+        FactoryBot
           .create(:xml_import, batch: batch, uploaded_file_ids: [file.id])
       end
 
       let(:file) do
-        FactoryGirl
+        FactoryBot
           .create(:hyrax_uploaded_file, file: File.open(file_fixture('2.pdf')))
       end
 

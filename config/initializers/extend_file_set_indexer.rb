@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 Hyrax::FileSetIndexer.class_eval do
   def generate_solr_document

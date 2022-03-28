@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ImportFileNotFoundError < StandardError; end
 class ImportFileFormatError   < StandardError; end
 
@@ -20,7 +21,7 @@ class DepositTypeImporter
       attrs = strip_whitespace(row.to_hash)
       log_row_message(attrs)
       dt = DepositType.where(display_name: attrs['display_name']).first_or_create
-      dt.update_attributes!(attrs)
+      dt.update!(attrs)
     end
 
     log_end_message
@@ -45,7 +46,7 @@ protected
   end
 
   def validate_import_file_format
-    raise ImportFileFormatError, 'Must be a *.csv file' unless @import_file =~ /^.*\.csv$/i
+    raise ImportFileFormatError, 'Must be a *.csv file' unless /^.*\.csv$/i.match?(@import_file)
   end
 
   def strip_whitespace(hash)

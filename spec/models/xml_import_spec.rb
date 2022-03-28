@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
-  subject(:import) { FactoryGirl.build(:xml_import) }
+  subject(:import) { FactoryBot.build(:xml_import) }
 
   before do
     allow(Collection).to receive(:find).and_return(true)
@@ -12,17 +13,17 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
 
   it_behaves_like 'a batchable' do
     subject(:batchable) do
-      FactoryGirl.create(:xml_import, uploaded_file_ids: uploads.map(&:id))
+      FactoryBot.create(:xml_import, uploaded_file_ids: uploads.map(&:id))
     end
     let(:service) { instance_double(::Noid::Rails::Service, mint: noid) }
     let(:noid) { 'wd3763094' }
     let(:uploads) do
       # run these in a different order from the xml to confirm looping logic
-      [FactoryGirl.create(:hyrax_uploaded_file,
-                          file: File.open('spec/fixtures/files/2.pdf')),
-       FactoryGirl.create(:hyrax_uploaded_file,
-                          file: File.open('spec/fixtures/files/3.pdf')),
-       FactoryGirl.create(:hyrax_uploaded_file)]
+      [FactoryBot.create(:hyrax_uploaded_file,
+                         file: File.open('spec/fixtures/files/2.pdf')),
+       FactoryBot.create(:hyrax_uploaded_file,
+                         file: File.open('spec/fixtures/files/3.pdf')),
+       FactoryBot.create(:hyrax_uploaded_file)]
     end
   end
 
@@ -40,7 +41,7 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
   end
 
   describe '#metadata_file' do
-    subject(:import)  { FactoryGirl.build(:xml_import, metadata_file: nil) }
+    subject(:import)  { FactoryBot.build(:xml_import, metadata_file: nil) }
     let(:file)        { file_fixture('mira_xml.xml') }
 
     it 'is an uploader' do
@@ -52,7 +53,7 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
 
   describe '#uploaded_file_ids' do
     let(:ids)    { ['1', '2'] }
-    let(:upload) { FactoryGirl.create(:hyrax_uploaded_file) }
+    let(:upload) { FactoryBot.create(:hyrax_uploaded_file) }
 
     it 'sets uploaded file ids' do
       expect { import.uploaded_file_ids.concat(ids) }
@@ -71,10 +72,10 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
 
   describe '#uploaded_files' do
     subject(:import) do
-      FactoryGirl.build(:xml_import, uploaded_file_ids: files.map(&:id))
+      FactoryBot.build(:xml_import, uploaded_file_ids: files.map(&:id))
     end
 
-    let(:files) { FactoryGirl.create_list(:hyrax_uploaded_file, 3) }
+    let(:files) { FactoryBot.create_list(:hyrax_uploaded_file, 3) }
 
     it 'has the correct files' do
       expect(import.uploaded_files).to contain_exactly(*files)
@@ -90,7 +91,7 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
 
     context 'when empty' do
       subject(:import) do
-        FactoryGirl.create(:xml_import, uploaded_file_ids: [])
+        FactoryBot.create(:xml_import, uploaded_file_ids: [])
       end
 
       it 'is empty' do
@@ -110,12 +111,12 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
 
   describe '#enqueue!' do
     subject(:import) do
-      FactoryGirl.create(:xml_import, uploaded_file_ids: [file.id])
+      FactoryBot.create(:xml_import, uploaded_file_ids: [file.id])
     end
 
     let(:file) do
-      FactoryGirl.create(:hyrax_uploaded_file,
-                         file: File.open('spec/fixtures/files/2.pdf'))
+      FactoryBot.create(:hyrax_uploaded_file,
+                        file: File.open('spec/fixtures/files/2.pdf'))
     end
 
     before { ActiveJob::Base.queue_adapter = :test }
@@ -136,7 +137,7 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
 
     context 'when no files have been uploaded' do
       subject(:import) do
-        FactoryGirl.create(:xml_import, uploaded_file_ids: [])
+        FactoryBot.create(:xml_import, uploaded_file_ids: [])
       end
 
       it 'gives an empty result' do
@@ -150,8 +151,8 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
 
     context 'when a file is re-uploaded' do
       let(:duplicate_file) do
-        FactoryGirl.create(:hyrax_uploaded_file,
-                           file: File.open('spec/fixtures/files/2.pdf'))
+        FactoryBot.create(:hyrax_uploaded_file,
+                          file: File.open('spec/fixtures/files/2.pdf'))
       end
 
       before do
@@ -167,12 +168,12 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
 
   describe '#record_ids' do
     let(:ids)    { uploads.map(&:id) }
-    let(:upload) { FactoryGirl.create(:hyrax_uploaded_file) }
+    let(:upload) { FactoryBot.create(:hyrax_uploaded_file) }
 
     let(:uploads) do
       [upload,
-       FactoryGirl.create(:hyrax_uploaded_file,
-                          file: File.open(file_fixture('3.pdf')))]
+       FactoryBot.create(:hyrax_uploaded_file,
+                         file: File.open(file_fixture('3.pdf')))]
     end
 
     before { import.uploaded_file_ids = ids }
@@ -200,7 +201,7 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
 
       it 'skips duplicated filenames' do
         import.save
-        same_filename = FactoryGirl.create(:hyrax_uploaded_file)
+        same_filename = FactoryBot.create(:hyrax_uploaded_file)
         import.uploaded_file_ids.concat([same_filename.id])
 
         expect { import.save }.not_to change { import.record_ids }
@@ -209,7 +210,7 @@ RSpec.describe XmlImport, :batch, :clean, :workflow, type: :model do
       context 'with non-matching filenames' do
         let(:ids) { [non_matching_file.id] }
         let(:non_matching_file) do
-          FactoryGirl
+          FactoryBot
             .create(:hyrax_uploaded_file,
                     file: File.open('spec/fixtures/files/mira_xml.xml'))
         end

@@ -1,6 +1,5 @@
-require 'factory_girl'
-
-FactoryGirl.define do
+# frozen_string_literal: true
+FactoryBot.define do
   factory :user do
     sequence :email do |n|
       "#{n}#{FFaker::Internet.email}"
@@ -8,8 +7,8 @@ FactoryGirl.define do
     sequence :username do |n|
       "#{FFaker::Internet.user_name}#{n}"
     end
-    password 'password'
-    display_name FFaker::Name.name
+    password { 'password' }
+    display_name { FFaker::Name.name }
     after(:create) { |user| user.remove_role(:admin) }
 
     factory :admin do

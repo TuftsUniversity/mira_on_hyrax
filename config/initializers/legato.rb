@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # Special loading needed in development environment for analytics.
 # See https://github.com/samvera/hyrax/wiki/Analytics-workaround-for-non-production-environments
-if Rails.env == 'development'
+if Rails.env.development?
   Rails.application.config.after_initialize do
     # If Google Analytics are enabled, pre-load the models which rely on
     # Legato::Model.extended(base) dynamic profile method generation. Non-production

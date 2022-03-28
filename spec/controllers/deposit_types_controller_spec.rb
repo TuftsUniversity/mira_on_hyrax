@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'import_export/deposit_type_exporter'
 
 # rubocop:disable RSpec/MultipleExpectations
 describe DepositTypesController do
-  let(:dt) { FactoryGirl.create(:deposit_type, display_name: 'DT') }
+  let(:dt) { FactoryBot.create(:deposit_type, display_name: 'DT') }
 
   before { DepositType.destroy_all }
 
@@ -13,7 +14,7 @@ describe DepositTypesController do
   end
 
   context 'a non-admin user' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     before { sign_in user }
 
@@ -45,7 +46,7 @@ describe DepositTypesController do
   end
 
   context 'an admin user' do
-    let(:admin) { FactoryGirl.create(:admin) }
+    let(:admin) { FactoryBot.create(:admin) }
 
     before { sign_in admin }
 
@@ -134,7 +135,7 @@ describe DepositTypesController do
 
     describe 'destroy' do
       it 'succeeds' do
-        dt2 = FactoryGirl.create(:deposit_type, display_name: 'other type')
+        dt2 = FactoryBot.create(:deposit_type, display_name: 'other type')
         delete :destroy, params: { id: dt2.id }
         expect(DepositType.count).to eq 0
       end
@@ -142,7 +143,7 @@ describe DepositTypesController do
 
     describe 'create' do
       it 'succeeds' do
-        post :create, params: { deposit_type: FactoryGirl.attributes_for(:deposit_type, display_name: 'New Type', deposit_view: 'generic_deposit') }
+        post :create, params: { deposit_type: FactoryBot.attributes_for(:deposit_type, display_name: 'New Type', deposit_view: 'generic_deposit') }
         expect(DepositType.count).to eq 1
         new_type = DepositType.where(display_name: 'New Type').first
         expect(response).to redirect_to(deposit_type_path(new_type))

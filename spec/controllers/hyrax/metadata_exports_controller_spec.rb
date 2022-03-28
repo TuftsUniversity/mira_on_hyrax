@@ -1,11 +1,12 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Hyrax::MetadataExportsController, type: :controller do
   let(:ids)    { models.map(&:id) }
-  let(:models) { FactoryGirl.create_list(:generic_object, 2) }
+  let(:models) { FactoryBot.create_list(:generic_object, 2) }
 
   context 'as admin' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
 
     before { sign_in user }
 
@@ -26,7 +27,7 @@ RSpec.describe Hyrax::MetadataExportsController, type: :controller do
     end
 
     describe 'GET #download' do
-      subject(:export) { FactoryGirl.create(:metadata_export) }
+      subject(:export) { FactoryBot.create(:metadata_export) }
       let(:params)     { { id: export.id } }
 
       it 'returns 404' do
@@ -35,7 +36,7 @@ RSpec.describe Hyrax::MetadataExportsController, type: :controller do
 
       context 'with a filename' do
         subject(:export) do
-          FactoryGirl.create(:metadata_export, filename: filename)
+          FactoryBot.create(:metadata_export, filename: filename)
         end
 
         let(:contents) { 'moomin moomin' }

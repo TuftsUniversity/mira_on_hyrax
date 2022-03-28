@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'tufts/workflow_setup'
 
 RSpec.describe Tufts::WorkflowSetup do
   let(:w) { described_class.new }
-  let(:admin_user) { FactoryGirl.create(:admin) }
+  let(:admin_user) { FactoryBot.create(:admin) }
 
   it "sets the default admin set to use the mira workflow and runs idempotently" do
     w.set_default_workflow

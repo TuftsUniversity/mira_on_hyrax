@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A generic batchable to support simple batch cases.
 #
@@ -11,7 +12,7 @@ class BatchTask < ApplicationRecord
   #   @return [Batch]
   # @!attribute batch_type [rw]
   #   @return [String]
-  has_one :batch, as: :batchable, inverse_of: :batchable
+  has_one :batch, as: :batchable, inverse_of: :batchable # rubocop:disable Rails/HasManyOrHasOneDependent
 
   BATCH_TYPES = {
     publish: PublishJob,

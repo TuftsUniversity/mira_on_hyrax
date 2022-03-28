@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe Tufts::DisplaysInService do
   describe 'select_options' do
     subject(:displays_in_service) { described_class.select_options }

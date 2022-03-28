@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'ffaker'
 include Warden::Test::Helpers
 
 RSpec.feature 'submit an Undergraduate Summer Scholars contribution' do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   let(:csv_path) { Rails.root.join('config', 'deposit_type_seed.csv').to_s }
   let(:importer) { DepositTypeImporter.new(csv_path) }
   let(:pdf_path) { Rails.root.join('spec', 'fixtures', 'hello.pdf') }

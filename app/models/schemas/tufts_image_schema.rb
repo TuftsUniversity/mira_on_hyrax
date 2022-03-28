@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Schemas
   class TuftsImageSchema < ActiveTriples::Schema
     property :bits_per_sample, predicate: ::RDF::Vocab::EXIF.bitsPerSample

@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe UnpublishJob, :workflow, type: :job do
   subject(:job) { described_class }
-  let(:pdf)     { FactoryGirl.create(:pdf) }
+  let(:pdf)     { FactoryBot.create(:pdf) }
 
   before { ActiveJob::Base.queue_adapter = :test }
 
@@ -16,8 +17,8 @@ RSpec.describe UnpublishJob, :workflow, type: :job do
   end
 
   context "workflow transition" do
-    let(:work) { FactoryGirl.actor_create(:pdf, user: depositing_user) }
-    let(:depositing_user) { FactoryGirl.create(:user) }
+    let(:work) { FactoryBot.actor_create(:pdf, user: depositing_user) }
+    let(:depositing_user) { FactoryBot.create(:user) }
 
     it 'sets the workflow status to published' do
       PublishJob.perform_now(work.id)

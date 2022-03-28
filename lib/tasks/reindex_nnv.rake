@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rake'
 
 namespace :tufts do
@@ -6,7 +7,7 @@ namespace :tufts do
     VotingRecord.find_each do |v|
       solr_doc = SolrDocument.find(v.id)
       iiif = solr_doc["iiif_page_images_ssim"]
-      if iiif.nil? || iiif.empty?
+      if iiif.blank?
         begin
                 puts "Reindexing: #{v.id}"
                 v.update_index

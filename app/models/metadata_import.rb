@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class MetadataImport < ApplicationRecord
   ##
   # @!attribute metadata_file [rw]
@@ -15,9 +16,9 @@ class MetadataImport < ApplicationRecord
   ##
   # @!attribute batch [rw]
   #   @return [Batch]
-  has_one :batch, as: :batchable, inverse_of: :batchable
+  has_one :batch, as: :batchable, inverse_of: :batchable # rubocop:disable Rails/HasManyOrHasOneDependent
 
-  TYPE_STRING = 'Metadata Import'.freeze
+  TYPE_STRING = 'Metadata Import'
 
   ##
   # @!method record?

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'sidekiq-limit_fetch'
 require 'sidekiq/web'
 auth = if Rails.application.config_for(:redis)["password"]

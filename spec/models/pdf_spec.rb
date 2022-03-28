@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Pdf do
-  let(:work) { FactoryGirl.build(:pdf) }
+  let(:work) { FactoryBot.build(:pdf) }
   it_behaves_like 'a work with Tufts metadata attributes'
 
   it_behaves_like 'a draftable model' do
@@ -15,7 +16,7 @@ RSpec.describe Pdf do
   it { expect(described_class.human_readable_type).to eq 'PDF' }
 
   context 'when it is in a batch' do
-    let!(:batch) { FactoryGirl.create(:batch, ids: [work.id]) }
+    let!(:batch) { FactoryBot.create(:batch, ids: [work.id]) }
 
     it 'indexes the batches' do
       expect(work.to_solr['batch_tesim']).to contain_exactly(batch.id)

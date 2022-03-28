@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Hyrax::BatchesController, type: :controller do
-  let(:batch) { FactoryGirl.create(:batch) }
+  let(:batch) { FactoryBot.create(:batch) }
 
   context 'as admin' do
     include_context 'as admin'
@@ -49,7 +50,7 @@ RSpec.describe Hyrax::BatchesController, type: :controller do
     end
 
     describe 'GET #show' do
-      let(:batch) { FactoryGirl.create(:batch) }
+      let(:batch) { FactoryBot.create(:batch) }
 
       it 'assigns @batch' do
         get :show, params: { id: batch.id }

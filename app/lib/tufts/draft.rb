@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'active_fedora'
 require 'sparql'
 
@@ -130,8 +131,8 @@ module Tufts
 
     private
 
-      def path
-        STORAGE_DIR.join(id)
-      end
+    def path
+      STORAGE_DIR.join(id)
+    end
   end
 end

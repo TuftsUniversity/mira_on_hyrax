@@ -1,4 +1,5 @@
-FactoryGirl.define do
+# frozen_string_literal: true
+FactoryBot.define do
   factory :collection_type, class: Hyrax::CollectionType do
     sequence(:title) { |n| "Collection Type #{n}" }
     sequence(:machine_id) { |n| "title_#{n}" }

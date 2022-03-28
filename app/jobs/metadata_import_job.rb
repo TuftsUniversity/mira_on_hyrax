@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A job that imports metadata to overwrite existing objects.
 class MetadataImportJob < BatchableJob

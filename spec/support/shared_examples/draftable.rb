@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # To use the shared examples, define a `subject(:model)` and a
 # `let(:change_map). The `change_map` should be a map from attributes to

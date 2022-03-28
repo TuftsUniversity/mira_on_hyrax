@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 shared_examples 'an ActiveJob job' do
   subject(:job) { described_class.new }
 

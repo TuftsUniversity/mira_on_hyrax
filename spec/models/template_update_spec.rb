@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe TemplateUpdate, type: :model do
-  subject(:batchable) { FactoryGirl.create(:template_update, batch: create(:batch)) }
+  subject(:batchable) { FactoryBot.create(:template_update, batch: create(:batch)) }
   let(:notification) { instance_double(Hyrax::Workflow::BatchTemplateNotification) }
 
   it_behaves_like 'a batchable'

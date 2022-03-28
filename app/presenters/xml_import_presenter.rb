@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A presenter for the XmlImport model, behaves maximally like a BatchPresenter
 # for the associated batch.

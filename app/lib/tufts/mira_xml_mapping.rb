@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # Defines a mapping between GenericObject metadata and custom mira XML.

@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Tufts::PublicationStatusController, :workflow, type: :controller do
-  let(:work) { FactoryGirl.actor_create(:pdf, user: depositing_user) }
-  let(:depositing_user) { FactoryGirl.create(:user) }
-  let(:admin) { FactoryGirl.create(:admin) }
+  let(:work) { FactoryBot.actor_create(:pdf, user: depositing_user) }
+  let(:depositing_user) { FactoryBot.create(:user) }
+  let(:admin) { FactoryBot.create(:admin) }
 
   before do
     allow(controller).to receive(:authenticate_user!).and_return(true)

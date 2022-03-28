@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # A builder class for constructing XML metadata exports
   class XmlMetadataBuilder
-    FILE_EXT = '.xml'.freeze
+    FILE_EXT = '.xml'
 
     def initialize
       @mapping = MiraXmlMapping.new

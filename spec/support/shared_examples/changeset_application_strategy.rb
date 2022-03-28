@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # rubocop:disable Lint/HandleExceptions
 RSpec.shared_examples 'a ChangesetApplicationStrategy' do
   subject(:strategy) { described_class.new(model: model) }
@@ -8,9 +9,8 @@ RSpec.shared_examples 'a ChangesetApplicationStrategy' do
   describe '#apply' do
     context 'with no changes' do
       it 'leaves the model unchanged' do
-        begin
-          expect { strategy.apply }.not_to change { model.resource.statements }
-        rescue NotImplementedError; end
+        expect { strategy.apply }.not_to change { model.resource.statements }
+      rescue NotImplementedError # rubocop:disable Lint/SuppressedException
       end
     end
   end

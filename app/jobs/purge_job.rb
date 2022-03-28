@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A job to purge works in a batch
 class PurgeJob < BatchableJob

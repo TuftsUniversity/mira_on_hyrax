@@ -1,8 +1,9 @@
-FactoryGirl.define do
+# frozen_string_literal: true
+FactoryBot.define do
   factory :deposit_type do
     sequence(:display_name) { |n| "Deposit Type No. #{n}" }
-    deposit_view 'generic_deposit'
-    deposit_agreement 'legal jargon here...'
-    license_name 'Generic Deposit Agreement v1.0'
+    deposit_view { 'generic_deposit' }
+    deposit_agreement { 'legal jargon here...' }
+    license_name { 'Generic Deposit Agreement v1.0' }
   end
 end

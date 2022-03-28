@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ActiveFedoraOverride
   def authorized_connection
     super.tap do |conn|

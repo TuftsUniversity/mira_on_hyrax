@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A model for managing and tracking template update batches.
 #
@@ -16,14 +17,14 @@ class TemplateUpdate < ApplicationRecord
   #   @return [Array<String>]
   # @!attribute template_name [rw]
   #   @return [String]
-  has_one :batch, as: :batchable, inverse_of: :batchable
+  has_one :batch, as: :batchable, inverse_of: :batchable # rubocop:disable Rails/HasManyOrHasOneDependent
 
   serialize :ids, Array
 
-  OVERWRITE = 'overwrite'.freeze
-  PRESERVE  = 'preserve'.freeze
+  OVERWRITE = 'overwrite'
+  PRESERVE  = 'preserve'
 
-  TYPE_STRING = 'Template Update'.freeze
+  TYPE_STRING = 'Template Update'
 
   ##
   # A struct representing a single item

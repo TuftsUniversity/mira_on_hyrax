@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 require 'rails_helper'
 RSpec.describe Tufts::TechnicalMetadata do
   subject(:tm) { described_class.new(work) }
-  let(:work)   { FactoryGirl.create(:pdf) }
+  let(:work)   { FactoryBot.create(:pdf) }
 
   describe 'to_s' do
     it 'returns valid xml' do

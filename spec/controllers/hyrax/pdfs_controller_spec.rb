@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Hyrax::PdfsController, type: :controller do
   render_views
-  let(:work) { FactoryGirl.create(:pdf) }
-  let(:user) { FactoryGirl.create(:admin) }
+  let(:work) { FactoryBot.create(:pdf) }
+  let(:user) { FactoryBot.create(:admin) }
 
   before do
     sign_in user

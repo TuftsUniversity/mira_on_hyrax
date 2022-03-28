@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 json.draw params[:draw]
 json.recordsTotal @batches_length
 json.recordsFiltered @batches_length

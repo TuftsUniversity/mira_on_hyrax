@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'handle'
 
 module Tufts
@@ -108,39 +109,39 @@ module Tufts
 
     private
 
-      ##
-      # @return [Array] the arguments for the default handle connection;
-      def connection_args
-        c = config
+    ##
+    # @return [Array] the arguments for the default handle connection;
+    def connection_args
+      c = config
 
-        if c.fetch('secret_key', false)
-          [c['admin'], c['index'], c['secret_key']]
-        else
-          [c['admin'], c['index'], c['private_key'], c['pkey_passphrase']]
-        end
+      if c.fetch('secret_key', false)
+        [c['admin'], c['index'], c['secret_key']]
+      else
+        [c['admin'], c['index'], c['private_key'], c['pkey_passphrase']]
       end
+    end
 
-      ##
-      # @return [String]
-      def url_for(object:)
-        ActionDispatch::Routing::PolymorphicRoutes::HelperMethodBuilder
-          .polymorphic_method(Rails.application.routes.url_helpers,
-                              object.class.model_name.singular_route_key,
-                              nil,
-                              :url,
-                              id: object.id,
-                              host: config['hostname'],
-                              anchor: nil)
-      end
+    ##
+    # @return [String]
+    def url_for(object:)
+      ActionDispatch::Routing::PolymorphicRoutes::HelperMethodBuilder
+        .polymorphic_method(Rails.application.routes.url_helpers,
+                            object.class.model_name.singular_route_key,
+                            nil,
+                            :url,
+                            id: object.id,
+                            host: config['hostname'],
+                            anchor: nil)
+    end
 
-      ##
-      # @param object [#id]
-      # @return [void]
-      # @raise NullIdError unless object's #id is truthy
-      def check_id!(object)
-        return if object.id
-        raise NullIdError, 'Tried to assign a Handle to an object ' \
-                           "with nil `#id`: #{object}."
-      end
+    ##
+    # @param object [#id]
+    # @return [void]
+    # @raise NullIdError unless object's #id is truthy
+    def check_id!(object)
+      return if object.id
+      raise NullIdError, 'Tried to assign a Handle to an object ' \
+                         "with nil `#id`: #{object}."
+    end
   end
 end

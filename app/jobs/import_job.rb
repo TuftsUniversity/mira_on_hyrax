@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A job to process imported records and files
 class ImportJob < BatchableJob

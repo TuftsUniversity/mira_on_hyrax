@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'ffaker'
 require 'import_export/deposit_type_importer.rb'
@@ -9,8 +10,8 @@ RSpec.feature 'Faculty Scholarship', :clean, js: true do
     let(:csv_path) { Rails.root.join('config', 'deposit_type_seed.csv').to_s }
     let(:importer) { DepositTypeImporter.new(csv_path) }
     let(:test_pdf) { Rails.root.join('spec', 'fixtures', 'files', 'pdf-sample.pdf') }
-    let(:user) { FactoryGirl.create(:user) }
-    let(:admin) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:admin) { FactoryBot.create(:admin) }
     let(:title) { FFaker::Book.unique.title }
     let(:bibliographic_citation) { FFaker::Book.genre }
     let(:abstract) { FFaker::Book.description }
@@ -35,12 +36,6 @@ RSpec.feature 'Faculty Scholarship', :clean, js: true do
       attach_file('contribution_attachment', test_pdf)
       fill_in "contribution_title", with: title
       fill_in "contribution_bibliographic_citation", with: bibliographic_citation
-      # click_button "Add Another Author"
-      # fill_in "Other Authors", with: coauthor1
-      # page.all(:fillable_field, 'contribution[contributor][]')[0].set(coauthor1)
-      # click_button "Add Another Author"
-      # page.all(:fillable_field, 'contribution[contributor][]')[1].set(coauthor2)
-      select '2 years', from: 'contribution_embargo'
       fill_in "contribution_abstract", with: abstract
       click_button "Agree & Deposit"
       expect(page).to have_content 'Your deposit has been submitted for approval.'
@@ -48,7 +43,6 @@ RSpec.feature 'Faculty Scholarship', :clean, js: true do
       created_pdf = Pdf.where(title: title).first
       expect(created_pdf.title.first).to eq title
       expect(created_pdf.creator.first).to eq "Name with Spaces"
-      # expect(created_pdf.contributor).to contain_exactly coauthor1, coauthor2
       expect(created_pdf.depositor).to eq user.user_key
       expect(created_pdf.admin_set.title.first).to eq "Default Admin Set"
       expect(created_pdf.active_workflow.name).to eq "mira_publication_workflow"
@@ -74,7 +68,7 @@ RSpec.feature 'Faculty Scholarship', :clean, js: true do
       select 'Faculty Scholarship', from: 'deposit_type'
       click_button "Begin"
       attach_file('contribution_attachment', test_pdf)
-      fill_in "contribution_title", with: "\t Space   non normalized \n  title    "
+      fill_in "contribution_title", with: " Space   non normalized \n  title    "
       fill_in "contribution_abstract", with: " A short   description    with  \t wonky spaces   "
       fill_in "contribution_bibliographic_citation", with: " bibliographic   citation  \n with     spaces    "
       click_button "Agree & Deposit"

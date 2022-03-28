@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 shared_examples 'a work with custom Tufts validations' do
   it 'only has one title' do
     work.title = ['title', 'another title']

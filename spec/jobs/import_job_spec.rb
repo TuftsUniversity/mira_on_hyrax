@@ -1,11 +1,12 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe ImportJob, type: :job do
   subject(:job) { described_class }
 
-  let(:file)   { FactoryGirl.create(:hyrax_uploaded_file) }
-  let(:import) { FactoryGirl.create(:xml_import, uploaded_file_ids: [file.id]) }
-  let(:pdf)    { FactoryGirl.create(:pdf) }
+  let(:file)   { FactoryBot.create(:hyrax_uploaded_file) }
+  let(:import) { FactoryBot.create(:xml_import, uploaded_file_ids: [file.id]) }
+  let(:pdf)    { FactoryBot.create(:pdf) }
 
   before do
     allow(Collection).to receive(:find).and_return(true)

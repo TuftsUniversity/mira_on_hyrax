@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe RevertJob, :workflow, type: :job do
   subject(:job) { described_class }
-  let(:pdf)     { FactoryGirl.create(:pdf) }
+  let(:pdf)     { FactoryBot.create(:pdf) }
 
   before { ActiveJob::Base.queue_adapter = :test }
 
@@ -16,8 +17,8 @@ RSpec.describe RevertJob, :workflow, type: :job do
   end
 
   context "revert a draft" do
-    let(:work) { FactoryGirl.actor_create(:pdf, user: depositing_user) }
-    let(:depositing_user) { FactoryGirl.create(:user) }
+    let(:work) { FactoryBot.actor_create(:pdf, user: depositing_user) }
+    let(:depositing_user) { FactoryBot.create(:user) }
 
     before do
       work.title = ['testing']
@@ -26,7 +27,7 @@ RSpec.describe RevertJob, :workflow, type: :job do
 
     it 'sets the workflow status to published' do
       expect(work.draft_saved?).to eq(true)
-      RevertJob.perform_now(work.id)
+      described_class.perform_now(work.id)
       expect(work.draft_saved?).to eq(false)
     end
   end

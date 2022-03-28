@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Hyrax::TemplatesController, :clean, type: :controller do
@@ -12,7 +13,7 @@ RSpec.describe Hyrax::TemplatesController, :clean, type: :controller do
   after  { Tufts::Template.all.each(&:delete) }
 
   context 'as admin' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
 
     before { sign_in user }
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FakeWork < ActiveFedora::Base
   PREDICATES = [::RDF::Vocab::DC.title,
                 ::RDF::Vocab::DC.subject,

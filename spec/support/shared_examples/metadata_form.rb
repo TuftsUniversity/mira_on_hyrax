@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 shared_examples 'a form with Tufts metadata attributes' do
   # rubocop:disable RSpec/ExampleLength
   context 'and the form' do

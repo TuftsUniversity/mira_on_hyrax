@@ -1,12 +1,13 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe MetadataImport, :clean, type: :model do
-  subject(:batchable) { FactoryGirl.create(:metadata_import) }
+  subject(:batchable) { FactoryBot.create(:metadata_import) }
   let(:mira_export_ids) { ['sx61dm28w', '37720c723', 'cz30ps66x', 'hh63sv88v', 'k0698748f'] }
 
   before do
     mira_export_ids.each do |id|
-      FactoryGirl.create(:pdf, id: id)
+      FactoryBot.create(:pdf, id: id)
     end
   end
 
@@ -55,7 +56,7 @@ RSpec.describe MetadataImport, :clean, type: :model do
   end
 
   describe '#metadata_file' do
-    subject(:batchable) { FactoryGirl.build(:metadata_import, metadata_file: nil) }
+    subject(:batchable) { FactoryBot.build(:metadata_import, metadata_file: nil) }
     let(:file)          { file_fixture('mira_export.xml') }
 
     it 'is an uploader' do

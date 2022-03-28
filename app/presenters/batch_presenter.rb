@@ -1,19 +1,20 @@
+# frozen_string_literal: true
 ##
 # A presenter for the Batch model
 class BatchPresenter
   ##
   # Review Statuses
-  REVIEW_STATUSES = { complete: 'Complete'.freeze,
-                      incomplete: 'Incomplete'.freeze }.freeze
+  REVIEW_STATUSES = { complete: 'Complete',
+                      incomplete: 'Incomplete' }.freeze
 
   ##
   # Job Statuses
-  JOB_STATUSES = { new: 'New'.freeze,
-                   unavailable: 'Unavailable'.freeze,
-                   queued: 'Queued'.freeze,
-                   working: 'In Progress'.freeze,
-                   partial: 'Partially Completed'.freeze,
-                   completed: 'Completed'.freeze }.freeze
+  JOB_STATUSES = { new: 'New',
+                   unavailable: 'Unavailable',
+                   queued: 'Queued',
+                   working: 'In Progress',
+                   partial: 'Partially Completed',
+                   completed: 'Completed' }.freeze
 
   ##
   # @!attribute object [rw]

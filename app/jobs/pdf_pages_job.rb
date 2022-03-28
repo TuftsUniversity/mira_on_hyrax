@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A job to register handles and save it to the object.
 #

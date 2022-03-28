@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Chronopolis::Exporter
   def initialize
     @logger = Logger.new('log/chronopolis.log')
@@ -73,68 +74,64 @@ class Chronopolis::Exporter
 
   private
 
-    # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
-    def collection_from_object(obj)
-      # get collection for object
-      collections = obj.member_of_collections
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
+  def collection_from_object(obj)
+    # get collection for object
+    collections = obj.member_of_collections
 
-      return "uncollected" if collections.nil? || collections.empty?
+    return "uncollected" if collections.blank?
 
-      collection_titles = []
-      collection_ids = []
+    collection_titles = []
+    collection_ids = []
 
-      collections.each do |collection_inner|
-        collection_titles << collection_inner.title.first
-        collection_ids << collection_inner.id
-      end
-
-      index = collection_titles.index("Collection Descriptions")
-      saved_index = 0
-      if !index.nil? && collection_titles.length > 1
-        collection_titles.delete("Collection Descriptions")
-        saved_index = index > 0 ? 0 : 1
-      end
-      @logger.info "COL TITLES : #{collection_titles}"
-
-      index = collection_titles.index("Electronic Theses and Dissertations")
-      collection = if index.nil?
-                     collections[saved_index].id + "_" + collections[saved_index].title.first
-                   else
-                     collection_ids[index] + "_" + "Electronic Theses and Dissertations"
-                   end
-
-      collection = collection.truncate(255)
-      sanitize_filename(collection)
+    collections.each do |collection_inner|
+      collection_titles << collection_inner.title.first
+      collection_ids << collection_inner.id
     end
 
-    def steward_from_object(obj)
-      # get steward for top directory
-      steward = obj.steward
-      steward = if steward.nil? || steward.empty?
-                  "no_steward"
-                else
-                  steward
-                end
-
-      @logger.info "Steward for #{obj.id} is #{steward}"
-
-      sanitize_filename(steward)
+    index = collection_titles.index("Collection Descriptions")
+    saved_index = 0
+    if !index.nil? && collection_titles.length > 1
+      collection_titles.delete("Collection Descriptions")
+      saved_index = index.positive? ? 0 : 1
     end
+    @logger.info "COL TITLES : #{collection_titles}"
 
-    def sanitize_filename(filename)
-      # Split the name when finding a period which is preceded by some
-      # character, and is followed by some character other than a period,
-      # if there is no following period that is followed by something
-      # other than a period (yeah, confusing, I know)
-      fn = filename.split(/(?<=.)\.(?=[^.])(?!.*\.[^.])/m)
+    index = collection_titles.index("Electronic Theses and Dissertations")
+    collection = if index.nil?
+                   collections[saved_index].id + "_" + collections[saved_index].title.first
+                 else
+                   collection_ids[index] + "_" + "Electronic Theses and Dissertations"
+                 end
 
-      # We now have one or two parts (depending on whether we could find
-      # a suitable period). For each of these parts, replace any unwanted
-      # sequence of characters with an underscore
-      fn.map! { |s| s.gsub(/[^a-z0-9\-]+/i, '_') }
+    collection = collection.truncate(255)
+    sanitize_filename(collection)
+  end
 
-      # Finally, join the parts with a period and return the result
-      fn.join '.'
-    end
+  def steward_from_object(obj)
+    # get steward for top directory
+    steward = obj.steward
+    steward = steward.presence || "no_steward"
+
+    @logger.info "Steward for #{obj.id} is #{steward}"
+
+    sanitize_filename(steward)
+  end
+
+  def sanitize_filename(filename)
+    # Split the name when finding a period which is preceded by some
+    # character, and is followed by some character other than a period,
+    # if there is no following period that is followed by something
+    # other than a period (yeah, confusing, I know)
+    fn = filename.split(/(?<=.)\.(?=[^.])(?!.*\.[^.])/m)
+
+    # We now have one or two parts (depending on whether we could find
+    # a suitable period). For each of these parts, replace any unwanted
+    # sequence of characters with an underscore
+    fn.map! { |s| s.gsub(/[^a-z0-9\-]+/i, '_') }
+
+    # Finally, join the parts with a period and return the result
+    fn.join '.'
+  end
 end

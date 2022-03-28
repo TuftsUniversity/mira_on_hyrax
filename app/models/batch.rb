@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Batch < ApplicationRecord
   STATUS_STORE = Tufts::JobItemStore
 
@@ -109,20 +110,20 @@ class Batch < ApplicationRecord
 
   private
 
-    ##
-    # @private
-    # @note Don't expose clients to `ActiveJobStatus::JobBatch`
-    # @return [ActiveJobStatus::JobBatch]
-    def job_batch(writable: false)
-      ActiveJobStatus::JobBatch.find(batch_id: id) ||
-        ActiveJobStatus::JobBatch.new(batch_id: id,
-                                      job_ids: [],
-                                      store_data: writable)
-    end
+  ##
+  # @private
+  # @note Don't expose clients to `ActiveJobStatus::JobBatch`
+  # @return [ActiveJobStatus::JobBatch]
+  def job_batch(writable: false)
+    ActiveJobStatus::JobBatch.find(batch_id: id) ||
+      ActiveJobStatus::JobBatch.new(batch_id: id,
+                                    job_ids: [],
+                                    store_data: writable)
+  end
 
-    ##
-    # @private
-    def add_job_for_object(object_id:, job_id:)
-      STATUS_STORE.add(object_id: object_id, job_id: job_id, batch_id: id)
-    end
+  ##
+  # @private
+  def add_job_for_object(object_id:, job_id:)
+    STATUS_STORE.add(object_id: object_id, job_id: job_id, batch_id: id)
+  end
 end
