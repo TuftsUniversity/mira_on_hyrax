@@ -42,6 +42,7 @@ Layout/LineLength:
     - app/lib/tufts/importer.rb
     - spec/controllers/tufts/draft_controller_spec.rb
     - spec/support/stub/stub_exif.rb
+    - lib/tasks/fix_1143.rake
 Metrics/ModuleLength:
   Exclude:
     - app/controllers/concerns/hyrax/works_controller_behavior.rb

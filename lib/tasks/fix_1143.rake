@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+# rubcop:disable Layout/LineLength
 require 'active_fedora'
 
 namespace :tufts do
@@ -18,31 +20,31 @@ namespace :tufts do
       # These names should be fixed in Creator Department and/or Corporate Name.
       names_to_fix = {
         # Change "Department of" to "Graduate Program in".
-        "Tufts Graduate School of Biomedical Sciences. Department of Cell, Molecular and Developmental Biology."      => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Cell, Molecular and Developmental Biology.",
-        "Tufts Graduate School of Biomedical Sciences. Department of Clinical and Translational Science."             => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Clinical and Translational Science.",
-        "Tufts Graduate School of Biomedical Sciences. Department of Genetics."                                       => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Genetics.",
-        "Tufts Graduate School of Biomedical Sciences. Department of Immunology."                                     => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Immunology.",
-        "Tufts Graduate School of Biomedical Sciences. Department of Molecular Microbiology."                         => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Molecular Microbiology.",
-        "Tufts Graduate School of Biomedical Sciences. Department of Pharmacology and Experimental Therapeutics."     => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Pharmacology and Drug Development.",
-        "Tufts University. Department of Pharmacology and Drug Development."                                          => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Pharmacology and Drug Development.",
-        "Tufts University. Deptartment of Pharmacology and Drug Development."                                         => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Pharmacology and Drug Development.",
+        "Tufts Graduate School of Biomedical Sciences. Department of Cell, Molecular and Developmental Biology." => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Cell, Molecular and Developmental Biology.",
+        "Tufts Graduate School of Biomedical Sciences. Department of Clinical and Translational Science." => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Clinical and Translational Science.",
+        "Tufts Graduate School of Biomedical Sciences. Department of Genetics." => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Genetics.",
+        "Tufts Graduate School of Biomedical Sciences. Department of Immunology." => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Immunology.",
+        "Tufts Graduate School of Biomedical Sciences. Department of Molecular Microbiology." => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Molecular Microbiology.",
+        "Tufts Graduate School of Biomedical Sciences. Department of Pharmacology and Experimental Therapeutics." => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Pharmacology and Drug Development.",
+        "Tufts University. Department of Pharmacology and Drug Development." => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Pharmacology and Drug Development.",
+        "Tufts University. Deptartment of Pharmacology and Drug Development." => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Pharmacology and Drug Development.",
         # Add trailing period.
         "Tufts Graduate School of Biomedical Sciences. Graduate Program in Cell, Molecular and Developmental Biology" => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Cell, Molecular and Developmental Biology.",
-        "Tufts Graduate School of Biomedical Sciences. Graduate Program in Clinical and Translational Science"        => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Clinical and Translational Science.",
-        "Tufts Graduate School of Biomedical Sciences. Graduate Program in Immunology"                                => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Immunology.",
-        "Tufts Graduate School of Biomedical Sciences. Neuroscience Program"                                          => "Tufts Graduate School of Biomedical Sciences. Neuroscience Program.",
+        "Tufts Graduate School of Biomedical Sciences. Graduate Program in Clinical and Translational Science" => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Clinical and Translational Science.",
+        "Tufts Graduate School of Biomedical Sciences. Graduate Program in Immunology" => "Tufts Graduate School of Biomedical Sciences. Graduate Program in Immunology.",
+        "Tufts Graduate School of Biomedical Sciences. Neuroscience Program" => "Tufts Graduate School of Biomedical Sciences. Neuroscience Program.",
         # Change "&amp;" to "&".
-        "Gerald J. &amp; Dorothy R. Friedman School of Nutrition Science and Policy."                                 => "Gerald J. & Dorothy R. Friedman School of Nutrition Science and Policy.",
-        "Gerald J. &amp; Dorothy R. Friedman School of Nutrition Science and Policy. Nutrition Innovation Lab."       => "Gerald J. & Dorothy R. Friedman School of Nutrition Science and Policy. Nutrition Innovation Lab.",
+        "Gerald J. &amp; Dorothy R. Friedman School of Nutrition Science and Policy." => "Gerald J. & Dorothy R. Friedman School of Nutrition Science and Policy.",
+        "Gerald J. &amp; Dorothy R. Friedman School of Nutrition Science and Policy. Nutrition Innovation Lab." => "Gerald J. & Dorothy R. Friedman School of Nutrition Science and Policy. Nutrition Innovation Lab.",
         # Add comma before "and".
-        "Tufts University. Department of Theatre, Dance and Performance Studies."                                     => "Tufts University. Department of Theatre, Dance, and Performance Studies.",
+        "Tufts University. Department of Theatre, Dance and Performance Studies." => "Tufts University. Department of Theatre, Dance, and Performance Studies.",
         # Add "Department of".
-        "Tufts University. International Literary and Cultural Studies."                                              => "Tufts University. Department of International Literary and Cultural Studies.",
+        "Tufts University. International Literary and Cultural Studies." => "Tufts University. Department of International Literary and Cultural Studies."
       }
 
       # These names should be left in whichever of Creator Department and/or Corporate Name they currently appear.
       names_to_leave = Set[
-        "Tufts University. School of Dental Medicine.",                                         # Dental School can legitimately be either creator dept or corp name.  Steve says that the 12 works that are in creator dept should stay there.
+        "Tufts University. School of Dental Medicine.", # Dental School can legitimately be either creator dept or corp name.  Steve says that the 12 works that are in creator dept should stay there.
       ]
 
       # If these creator depts are encountered in Corporate Name they should be moved to Creator Department.
@@ -246,7 +248,7 @@ namespace :tufts do
         "Tufts University. Center for Animals and Public Policy.",                        # Steve says not a degree-granting program, should stay in corporate name
         "Tufts Institute of the Environment.",                                            # https://swm.tufts.edu/about says TIE is part of Friedman School of Nutrition and grants the MSSWM degree.  Steve says this should be a corp name.
         "Feinstein International Center.",                                                # fic.tufts.edu says: "The Feinstein International Center is a research and teaching center based at the Friedman School of Nutrition Science and Policy at Tufts University."  Steve says this should be a corp name.  Fix fq978670 manually.
-        "Gerald J. & Dorothy R. Friedman School of Nutrition Science and Policy. Nutrition Innovation Lab.",  # Steve says this is a corp name
+        "Gerald J. & Dorothy R. Friedman School of Nutrition Science and Policy. Nutrition Innovation Lab.", # Steve says this is a corp name
         "Tufts University. School of Engineering.",                                       # Steve says this is a corp name
         "Tufts University. School of Medicine.",                                          # Steve says this is a corp name
         "North Atlantic Treaty Organization",                                             # discovered in the new works added since Part 2 began
@@ -314,7 +316,7 @@ namespace :tufts do
         msg = ""
 
         begin
-          next unless id.present?
+          next if id.blank?
 
           work = ActiveFedora::Base.find(id)
 
@@ -329,7 +331,7 @@ namespace :tufts do
 
           # ---------- Output creator departments and corporate names before changes. ----------
 
-          msg += "|#{creator_depts.join(", ")}|#{corp_names.join(", ")}"
+          msg += "|#{creator_depts.join(', ')}|#{corp_names.join(', ')}"
 
           # ---------- Make any changes to creator departments and corporate names. ----------
 
@@ -389,7 +391,7 @@ namespace :tufts do
               misfiled_creator_depts.add(corp_name)
               actions_msg += "#{actions_msg == '' ? '' : ', '}#{is_duplicate ? 'removed creator dept from corp name' : 'moved creator dept from corp name'}"
               creator_depts << corp_name unless is_duplicate
-              corp_names_to_remove << corp_name  # Remember corp_name to be removed from corp_names later, outside of this .each block.
+              corp_names_to_remove << corp_name # Remember corp_name to be removed from corp_names later, outside of this .each block.
               work_is_modified = true
             else
               # If corp_name is unknown, add it to unknown_corp_names.
@@ -422,7 +424,7 @@ namespace :tufts do
 
           # ---------- Output creator departments and corporate names after changes. ----------
 
-          msg += "|#{creator_depts.join(", ")}|#{corp_names.join(", ")}"
+          msg += "|#{creator_depts.join(', ')}|#{corp_names.join(', ')}"
 
           #  ---------- Output member_of_collections. ----------
           sort_to_front = []
@@ -439,7 +441,7 @@ namespace :tufts do
             end
           end
 
-          msg += "|#{(sort_to_front.sort! + sort_to_back.sort!).join(", ")}"
+          msg += "|#{(sort_to_front.sort! + sort_to_back.sort!).join(', ')}"
 
         rescue ActiveFedora::ObjectNotFoundError
           # This work was not found.
@@ -461,7 +463,7 @@ namespace :tufts do
         puts("---------- FIXED CREATOR DEPARTMENT ----------")
 
         fixed_creator_depts.to_a.sort.each do |fixed_creator_dept|
-          puts("#{fixed_creator_dept}")
+          puts(fixed_creator_dept.to_s)
         end
       end
 
@@ -469,7 +471,7 @@ namespace :tufts do
         puts("---------- FIXED CORPORATE NAME ----------")
 
         fixed_corp_names.to_a.sort.each do |fixed_corp_name|
-          puts("#{fixed_corp_name}")
+          puts(fixed_corp_name.to_s)
         end
       end
 
@@ -477,15 +479,15 @@ namespace :tufts do
         puts("---------- CREATOR DEPARTMENT MOVED FROM CORPORATE NAME ----------")
 
         misfiled_creator_depts.to_a.sort.each do |misfiled_creator_dept|
-          puts("#{misfiled_creator_dept}")
+          puts(misfiled_creator_dept.to_s)
         end
       end
 
-       unless misfiled_corp_names.empty?
+      unless misfiled_corp_names.empty?
         puts("---------- CORPORATE NAME THAT SHOULD BE MANUALLY MOVED FROM CREATOR DEPARTMENT ----------")
 
         misfiled_corp_names.to_a.sort.each do |misfiled_corp_name|
-          puts("#{misfiled_corp_name}")
+          puts(misfiled_corp_name.to_s)
         end
       end
 
@@ -493,7 +495,7 @@ namespace :tufts do
         puts("---------- UNKNOWN CREATOR DEPARTMENT ----------")
 
         unknown_creator_depts.each do |unknown_creator_dept|
-          puts("#{unknown_creator_dept}")
+          puts(unknown_creator_dept.to_s)
         end
       end
 
@@ -501,7 +503,7 @@ namespace :tufts do
         puts("---------- UNKNOWN CORPORATE NAME ----------")
 
         unknown_corp_names.to_a.sort.each do |unknown_corp_name|
-          puts("#{unknown_corp_name}")
+          puts(unknown_corp_name.to_s)
         end
       end
 
@@ -509,10 +511,10 @@ namespace :tufts do
         puts("---------- CAUSED AN EXCEPTION ----------")
 
         caused_exceptions.each do |caused_exception|
-          puts("#{caused_exception}")
+          puts(caused_exception.to_s)
         end
       end
     end
   end
 end
-
+# rubcop:enable Layout/LineLength
