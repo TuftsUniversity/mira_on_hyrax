@@ -32,7 +32,6 @@ require 'active_fedora/cleaner'
 require 'selenium-webdriver'
 require 'webdrivers' unless ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
 
-
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -71,8 +70,8 @@ if ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
                                        url: ENV['HUB_URL'])
 
     # Fix for capybara vs remote files. Selenium handles this for us
-    driver.browser.file_detector = lambda do |args|
-      str = args.first.to_s
+    driver.browser.file_detector = lambda do |argss|
+      str = argss.first.to_s
       str if File.exist?(str)
     end
 
@@ -85,7 +84,7 @@ if ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
   ip = IPSocket.getaddress(Socket.gethostname)
   Capybara.app_host = "http://#{ip}:#{Capybara.server_port}"
 else
-  TEST_HOST = 'localhost:3000'.freeze
+  TEST_HOST = 'localhost:3000'
   # @note In January 2018, TravisCI disabled Chrome sandboxing in its Linux
   #       container build environments to mitigate Meltdown/Spectre
   #       vulnerabilities, at which point Hyrax could no longer use the
