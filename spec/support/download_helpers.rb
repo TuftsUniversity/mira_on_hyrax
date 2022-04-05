@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module DownloadHelpers
-  TIMEOUT = 10
+  TIMEOUT = 20
   PATH = Rails.root.join('tmp', 'downloads')
 
   def downloads
