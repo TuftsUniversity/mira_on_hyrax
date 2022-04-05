@@ -48,7 +48,7 @@ services:
       - RAILS_ENV=development
       - RAILS_LOG_TO_STDOUT=true
       - REDIS_HOST=redis-dev
-      - REDIS_PORT='6379'
+      - REDIS_PORT=6379
       - SECRET_KEY_BASE=bobross
       - SOLR_URL=http://solr-dev:8983/solr/development
       - UPLOADS_PATH=/data/tmp/uploads
@@ -92,7 +92,7 @@ services:
       - FITS_PATH=/opt/fits-1.0.5/fits.sh
       - RAILS_ENV=test
       - REDIS_HOST=redis-test
-      - REDIS_PORT='6379'
+      - REDIS_PORT=6379
       - SECRET_KEY_BASE=bobross
       - SOLR_URL=http://solr-test:8983/solr/test
       - UPLOADS_PATH=/data/tmp/uploads
