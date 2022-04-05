@@ -30,7 +30,8 @@ require 'capybara-screenshot/rspec'
 require 'database_cleaner'
 require 'active_fedora/cleaner'
 require 'selenium-webdriver'
-require 'webdrivers/chromedriver'
+require 'webdrivers' unless ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
+
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -55,25 +56,53 @@ FactoryBot.register_strategy(:actor_create, ActorCreate)
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-# Uses faster rack_test driver when JavaScript support not needed
-Capybara.default_driver = :rack_test
 Capybara::Screenshot.autosave_on_failure = false
 
-# Adding chromedriver for js testing.
-Capybara.register_driver :headless_chrome do |app|
-  browser_options = ::Selenium::WebDriver::Chrome::Options.new
-  browser_options.headless!
-  browser_options.args << '--window-size=1920,1080'
-  browser_options.add_preference(:download, prompt_for_download: false, default_directory: DownloadHelpers::PATH.to_s)
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+if ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
+  args = %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
+  args.push('headless') if ActiveModel::Type::Boolean.new.cast(ENV['CHROME_HEADLESS_MODE'])
+
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome("goog:chromeOptions" => { args: args })
+
+  Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
+    driver = Capybara::Selenium::Driver.new(app,
+                                       browser: :remote,
+                                       desired_capabilities: capabilities,
+                                       url: ENV['HUB_URL'])
+
+    # Fix for capybara vs remote files. Selenium handles this for us
+    driver.browser.file_detector = lambda do |args|
+      str = args.first.to_s
+      str if File.exist?(str)
+    end
+
+    driver
+  end
+
+  Capybara.server_host = '0.0.0.0'
+  Capybara.server_port = 3010
+
+  ip = IPSocket.getaddress(Socket.gethostname)
+  Capybara.app_host = "http://#{ip}:#{Capybara.server_port}"
+else
+  TEST_HOST = 'localhost:3000'.freeze
+  # @note In January 2018, TravisCI disabled Chrome sandboxing in its Linux
+  #       container build environments to mitigate Meltdown/Spectre
+  #       vulnerabilities, at which point Hyrax could no longer use the
+  #       Capybara-provided :selenium_chrome_headless driver (which does not
+  #       include the `--no-sandbox` argument).
+  Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
+    browser_options = ::Selenium::WebDriver::Chrome::Options.new
+    browser_options.args << '--headless'
+    browser_options.args << '--disable-gpu'
+    browser_options.args << '--no-sandbox'
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+  end
 end
 
-# For debugging JS tests - some tests involving mouse movements require headless mode.
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-
-Capybara.javascript_driver = :headless_chrome
+# Uses faster rack_test driver when JavaScript support not needed
+Capybara.default_driver = :rack_test # This is a faster driver
+Capybara.javascript_driver = :selenium_chrome_headless_sandboxless # This is slower
 
 Capybara.default_max_wait_time = 20
 
