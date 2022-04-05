@@ -70,6 +70,8 @@ epigaea.pid
 
 racktmp/
 
+docker-compose.override.yml
+
 #local sqlite3 files
 db/development-mk.sqlite
 
