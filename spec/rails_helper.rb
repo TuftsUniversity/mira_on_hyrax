@@ -84,17 +84,13 @@ if ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
   ip = IPSocket.getaddress(Socket.gethostname)
   Capybara.app_host = "http://#{ip}:#{Capybara.server_port}"
 else
-  TEST_HOST = 'localhost:3000'
-  # @note In January 2018, TravisCI disabled Chrome sandboxing in its Linux
-  #       container build environments to mitigate Meltdown/Spectre
-  #       vulnerabilities, at which point Hyrax could no longer use the
-  #       Capybara-provided :selenium_chrome_headless driver (which does not
-  #       include the `--no-sandbox` argument).
-  Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
+
+  # Adding chromedriver for js testing.
+  Capybara.register_driver :headless_chrome do |app|
     browser_options = ::Selenium::WebDriver::Chrome::Options.new
-    browser_options.args << '--headless'
-    browser_options.args << '--disable-gpu'
-    browser_options.args << '--no-sandbox'
+    browser_options.headless!
+    browser_options.args << '--window-size=1920,1080'
+    browser_options.add_preference(:download, prompt_for_download: false, default_directory: DownloadHelpers::PATH.to_s)
     Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
   end
 end
