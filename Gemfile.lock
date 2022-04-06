@@ -834,7 +834,7 @@ GEM
     rubyzip (2.3.2)
     samvera-nesting_indexer (2.0.0)
       dry-equalizer
-    sanitize (5.0.0)
+    sanitize (5.2.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.8.0)
       nokogumbo (~> 2.0)
@@ -1032,7 +1032,7 @@ DEPENDENCIES
   rsolr (>= 1.0)
   rspec-rails
   rubyzip (>= 1.2.2)
-  sanitize (= 5.0.0)
+  sanitize (= 5.2.1)
   sass-rails (~> 5.0)
   selenium-webdriver
   shoulda-matchers (~> 4.5.1)

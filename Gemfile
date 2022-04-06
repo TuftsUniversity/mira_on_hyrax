@@ -79,7 +79,7 @@ gem 'ladle'
 gem 'mysql2'
 gem 'react-rails'
 gem 'rsolr', '>= 1.0'
-gem 'sanitize', '5.0.0' # Upgrade further
+gem 'sanitize', '5.2.1' # Upgrade further
 gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sidekiq-limit_fetch'
