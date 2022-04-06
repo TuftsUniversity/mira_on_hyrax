@@ -36,10 +36,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby-version: ['2.7.2']
+        ruby-version: ['2.7.5']
         experimental: [false]
         include:
-          - ruby-version: 2.7.5
+          - ruby-version: 3.0.3
             experimental: true
 
     steps:
@@ -86,7 +86,7 @@ jobs:
         cp config/blacklight.yml.sample config/blacklight.yml
         cp config/handle.yml.sample config/handle.yml
         cp config/secrets.yml.sample config/secrets.yml
-    - name: Create database    
+    - name: Create database
       run: |
         RAILS_ENV=test bundle exec rake db:create
         RAILS_ENV=test bundle exec rake db:migrate --trace
@@ -96,7 +96,7 @@ jobs:
     - name: Setup hyrax test environment
       run: |
         bundle exec rake hydra:test_server &
-        sleep 150        
+        sleep 150
     - name: Rubocop
       run: |
         bundle exec rubocop
@@ -106,7 +106,7 @@ jobs:
     - name: Run tests
       run: xvfb-run -a bundle exec rake spec
       env:
-        RAILS_ENV: test        
+        RAILS_ENV: test
         TMPDIR: /tmp
     - name: Coveralls
       uses: coverallsapp/github-action@master
