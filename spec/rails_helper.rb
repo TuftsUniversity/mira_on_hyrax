@@ -86,7 +86,7 @@ if ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
 else
 
   # Adding chromedriver for js testing.
-  Capybara.register_driver :headless_chrome do |app|
+  Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
     browser_options = ::Selenium::WebDriver::Chrome::Options.new
     browser_options.headless!
     browser_options.args << '--window-size=1920,1080'
