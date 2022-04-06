@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This is a test email generator. Use it to test whether email is configured
 # correctly on the server, without generating real mail that will spam lots
 # of people.

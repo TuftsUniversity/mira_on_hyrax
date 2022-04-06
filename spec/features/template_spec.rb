@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 include Warden::Test::Helpers
 
@@ -8,7 +9,7 @@ RSpec.feature 'Apply a Template', :clean, js: true do
   after { Tufts::Template.all.each(&:delete) }
 
   context 'with logged in user' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
 
     before { login_as user }
 
@@ -56,7 +57,10 @@ RSpec.feature 'Apply a Template', :clean, js: true do
 
     scenario 'delete a template' do
       visit '/templates'
-      click_link 'Delete'
+
+      accept_alert do
+        click_link 'Delete'
+      end
 
       expect(page).not_to have_content template.name
     end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Override Hyrax::Forms::CollectionForm so we can add an EAD field
 module Hyrax
   class CollectionForm < Hyrax::Forms::CollectionForm

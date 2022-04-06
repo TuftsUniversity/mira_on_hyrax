@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'simplecov'
 
 SimpleCov.start 'rails' do
@@ -26,10 +27,10 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
-require 'capybara/poltergeist'
 require 'database_cleaner'
 require 'active_fedora/cleaner'
 require 'selenium-webdriver'
+require 'webdrivers' unless ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -48,46 +49,55 @@ require 'selenium-webdriver'
 #
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
-FactoryGirl.register_strategy(:actor_create, ActorCreate)
+FactoryBot.register_strategy(:actor_create, ActorCreate)
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-# Uses faster rack_test driver when JavaScript support not needed
-Capybara.default_driver = :rack_test
 Capybara::Screenshot.autosave_on_failure = false
 
-# Adding the below to deal with random Capybara-related timeouts in CI.
-# Found in this thread: https://github.com/teampoltergeist/poltergeist/issues/375
-poltergeist_options = {
-  js_errors: false,
-  timeout: 60,
-  logger: false,
-  debug: false,
-  phantomjs_logger: StringIO.new,
-  phantom_js: "/usr/local/bin/phantomjs",
-  phantomjs_options: [
-    '--load-images=no',
-    '--ignore-ssl-errors=yes'
-  ]
-}
+if ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
+  args = %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
+  args.push('headless') if ActiveModel::Type::Boolean.new.cast(ENV['CHROME_HEADLESS_MODE'])
 
-Capybara.register_driver(:poltergeist) do |app|
-  Capybara::Poltergeist::Driver.new(app, poltergeist_options)
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome("goog:chromeOptions" => { args: args })
+
+  Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
+    driver = Capybara::Selenium::Driver.new(app,
+                                       browser: :remote,
+                                       desired_capabilities: capabilities,
+                                       url: ENV['HUB_URL'])
+
+    # Fix for capybara vs remote files. Selenium handles this for us
+    driver.browser.file_detector = lambda do |argss|
+      str = argss.first.to_s
+      str if File.exist?(str)
+    end
+
+    driver
+  end
+
+  Capybara.server_host = '0.0.0.0'
+  Capybara.server_port = 3010
+
+  ip = IPSocket.getaddress(Socket.gethostname)
+  Capybara.app_host = "http://#{ip}:#{Capybara.server_port}"
+else
+
+  # Adding chromedriver for js testing.
+  Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
+    browser_options = ::Selenium::WebDriver::Chrome::Options.new
+    browser_options.headless!
+    browser_options.args << '--window-size=1920,1080'
+    browser_options.add_preference(:download, prompt_for_download: false, default_directory: DownloadHelpers::PATH.to_s)
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+  end
 end
 
-# Capybara.register_driver :chrome do |app|
-#  profile = Selenium::WebDriver::Chrome::Profile.new
-#  Capybara::Selenium::Driver.new(app, :browser => :chrome, profile: profile)
-# end
-Capybara.javascript_driver = :poltergeist
-
-Capybara.register_driver :chrome do |app|
-  profile = Selenium::WebDriver::Chrome::Profile.new
-  profile['extensions.password_manager_enabled'] = false
-  Capybara::Selenium::Driver.new(app, browser: :chrome, profile: profile)
-end
+# Uses faster rack_test driver when JavaScript support not needed
+Capybara.default_driver = :rack_test # This is a faster driver
+Capybara.javascript_driver = :selenium_chrome_headless_sandboxless # This is slower
 
 Capybara.default_max_wait_time = 20
 
@@ -121,7 +131,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include ApplicationHelper, type: :view
   config.include Warden::Test::Helpers, type: :feature
   config.include OptionalExample

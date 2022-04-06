@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 GIT_SHA =
   if Rails.env.production? && File.exist?('/opt/epigaea/revisions.log')
     `tail -1 /opt/epigaea/revisions.log`.chomp.split(" ")[3].gsub(/\)$/, '')

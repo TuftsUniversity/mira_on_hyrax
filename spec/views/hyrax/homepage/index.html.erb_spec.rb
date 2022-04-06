@@ -9,7 +9,7 @@ RSpec.describe 'hyrax/homepage/index.html.erb', type: :view do
   end
 
   before do
-    FactoryGirl.create(:deposit_type)
+    FactoryBot.create(:deposit_type)
   end
   context 'as a non-authenticated user' do
     it 'displays a list of deposit types' do

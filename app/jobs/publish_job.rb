@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A job to mark an existing object published.
 class PublishJob < BatchableJob

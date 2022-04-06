@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Generated via
 #  `rails generate hyrax:work Pdf`
 require 'rails_helper'
@@ -6,7 +7,7 @@ include Warden::Test::Helpers
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'Create a PDF', :clean, js: true do
   context 'a logged in admin user' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
     let(:today) { DateTime.now.in_time_zone.strftime('%F') }
     before { login_as user }
 
@@ -34,9 +35,6 @@ RSpec.feature 'Create a PDF', :clean, js: true do
       find('#with_files_submit').click
       click_link "Descriptions"
       choose('pdf_visibility_open')
-      find('body').click
-      sleep(5)
-
       fill_in "Title", with: "Example Title   ", match: :prefer_exact
       find(:xpath, '//option[contains(text(), "nowhere")]').select_option
       fill_in 'Abstract', with: 'Abstract'

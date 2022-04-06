@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'rails_helper'
 include Warden::Test::Helpers
 
 RSpec.feature 'unauthenticated users' do
-  let(:work) { FactoryGirl.actor_create(:pdf, user: create(:admin)) }
+  let(:work) { FactoryBot.actor_create(:pdf, user: create(:admin)) }
   context 'an unauthenticated user' do
     context 'is redirected to the /contribute page' do
       scenario 'when attempting to access /' do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Override Hyrax CollectionPresenter with a local version that adds the EAD field
 module Hyrax
   class TuftsCollectionPresenter < CollectionPresenter

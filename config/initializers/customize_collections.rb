@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Set the CollectionsController to use our local CollectionForm
 
 Rails.application.config.to_prepare do

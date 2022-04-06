@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Hyrax
   module Workflow
     class MiraBatchNotification < MiraNotification
@@ -14,7 +15,7 @@ module Hyrax
       end
 
       def call
-        return unless @batch.try(:ids).try(:count) > 0
+        return unless @batch.try(:ids).try(:count).positive?
         admins.uniq.each do |recipient|
           Hyrax::MessengerService.deliver(::User.batch_user, recipient, message, subject)
         end

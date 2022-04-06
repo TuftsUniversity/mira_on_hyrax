@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Hyrax::Workflow::PublishedNotification, :workflow do
-  let(:depositor) { FactoryGirl.create(:user) }
-  let!(:admin)    { FactoryGirl.create(:admin) }
-  let(:work)      { FactoryGirl.actor_create(:pdf, depositor: depositor.user_key, user: depositor, steward: 'dca', identifier: ['http://dl.tufts.edu/concern/pdfs/5h73pw']) }
+  let(:depositor) { FactoryBot.create(:user) }
+  let!(:admin)    { FactoryBot.create(:admin) }
+  let(:work)      { FactoryBot.actor_create(:pdf, depositor: depositor.user_key, user: depositor, steward: 'dca', identifier: ['http://dl.tufts.edu/concern/pdfs/5h73pw']) }
 
   let(:recipients) do
     { 'to' => [depositor] }

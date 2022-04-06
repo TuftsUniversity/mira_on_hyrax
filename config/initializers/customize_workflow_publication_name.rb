@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Override the default value from Hyrax::Admin::WorkflowsController so that
 # the "review submissions" dashboard behaves as expected
 

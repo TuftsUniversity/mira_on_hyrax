@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   # Create and maintain the Collection objects required by the Contribute controller
   class ContributeCollections

@@ -1,17 +1,18 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Hyrax::TemplateForm do
   subject(:form)   { described_class.new(model, ability, controller) }
   let(:ability)    { nil }
   let(:controller) { nil }
-  let(:model)      { FactoryGirl.create(:pdf) }
+  let(:model)      { FactoryBot.create(:pdf) }
 
   shared_context 'with a template' do
     subject(:form) do
       described_class.new(model, ability, controller, template: template)
     end
 
-    let(:template) { FactoryGirl.build(:template) }
+    let(:template) { FactoryBot.build(:template) }
   end
 
   describe '.terms' do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ApplicationHelper
   # rubocop:disable Rails/OutputSafety
   def iconify_and_mark_safe(field, show_link = true)

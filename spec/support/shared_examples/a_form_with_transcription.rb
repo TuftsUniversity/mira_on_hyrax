@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples 'a form with a transcription' do
   let(:file) { FakeTranscriptFile }
   it 'has a transcript_files hash' do

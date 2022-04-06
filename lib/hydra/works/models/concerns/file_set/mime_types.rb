@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This was taken directly from Sufia's GenericFile::MimeTypes
 module Hydra::Works
   module MimeTypes

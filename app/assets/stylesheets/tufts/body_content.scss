@@ -27,10 +27,6 @@
     padding: $main_padding;
   }
   
-  body.dashboard > div#content-wrapper {
-    margin-top:1.5em;
-  }
-  
   .box {
     padding: 15px;
     border-color: #ddd;
@@ -54,4 +50,21 @@
 .batch-import-container {
     width: 25%;
   }
-  
+
+// Moving this from nav_header since it's not in the header - Travis
+body.dashboard {
+  padding-top: 0;
+}
+
+div#content-wrapper > div.main-content {
+  background-color: inherit;
+}
+
+.main-header {
+  h1 {
+    background: $tufts_bar;
+    padding: .5em;
+    border-radius: 4px;
+    margin-bottom: 1em;
+  }
+}

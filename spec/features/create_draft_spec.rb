@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 require 'rails_helper'
 include Warden::Test::Helpers
 
 RSpec.feature 'Create and revert a draft', :clean, js: true do
   context 'a logged in admin user' do
-    let(:user) { FactoryGirl.create(:admin) }
-    let(:pdf) { FactoryGirl.build(:pdf) }
+    let(:user) { FactoryBot.create(:admin) }
+    let(:pdf) { FactoryBot.build(:pdf) }
 
     # @todo add support for file creation to actor_create build strategy
     before do

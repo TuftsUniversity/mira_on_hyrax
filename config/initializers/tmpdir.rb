@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'fileutils'
 
 # force the whole app to use its own tmpdir

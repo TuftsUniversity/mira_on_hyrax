@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # Normalize whitespace for string input

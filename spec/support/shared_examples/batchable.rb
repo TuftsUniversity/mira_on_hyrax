@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 shared_examples 'a batchable' do
-  let(:batch) { FactoryGirl.create(:batch, ids: ids) }
+  let(:batch) { FactoryBot.create(:batch, ids: ids) }
   let(:ids)   { [] }
 
   describe '#batch' do

@@ -61,9 +61,6 @@ config/sidekiq.yml
 # Rubymine
 .idea
 
-# Local development
-Gemfile.local
-
 # migration reports
 migration_report/
 
@@ -72,6 +69,8 @@ epigaea-lock
 epigaea.pid
 
 racktmp/
+
+docker-compose.override.yml
 
 #local sqlite3 files
 db/development-mk.sqlite

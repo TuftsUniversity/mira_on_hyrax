@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
   ##
   # @!attribute metadata_file [rw]
@@ -14,12 +15,12 @@ class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validate :uploaded_files_exist
 
   NOID_SERVICE = Noid::Rails::Service.new
-  TYPE_STRING  = 'XML Import'.freeze
+  TYPE_STRING  = 'XML Import'
 
   ##
   # @!attribute batch [rw]
   #   @return [Batch]
-  has_one :batch, as: :batchable, inverse_of: :batchable
+  has_one :batch, as: :batchable, inverse_of: :batchable # rubocop:disable Rails/HasManyOrHasOneDependent
 
   ##
   # @!method record?
@@ -90,122 +91,122 @@ class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   private
 
-    def file_is_correctly_formatted
-      return unless will_save_change_to_attribute?(:metadata_file)
-      number_of_errors_to_display = 5
-      validation_errors = parser.validate!
-      validation_errors_count = validation_errors.count
-      validation_errors = validation_errors.first(number_of_errors_to_display)
-      validation_errors.each { |err| errors.add(:base, err.message) }
-      errors.add(:base, "There were #{validation_errors_count} errors total, too many to display") if validation_errors_count > number_of_errors_to_display
+  def file_is_correctly_formatted
+    return unless will_save_change_to_attribute?(:metadata_file)
+    number_of_errors_to_display = 5
+    validation_errors = parser.validate!
+    validation_errors_count = validation_errors.count
+    validation_errors = validation_errors.first(number_of_errors_to_display)
+    validation_errors.each { |err| errors.add(:base, err.message) }
+    errors.add(:base, "There were #{validation_errors_count} errors total, too many to display") if validation_errors_count > number_of_errors_to_display
+  end
+
+  ##
+  # @note this is a little hacky, but gets us out of having to monkeypatch
+  #   Hyrax::UploadedFile to have polymorphic relations. There may be a
+  #   better solution.
+  def uploaded_files_exist
+    return unless will_save_change_to_attribute?(:uploaded_file_ids)
+    Hyrax::UploadedFile.find(*uploaded_file_ids)
+  rescue ActiveRecord::RecordNotFound => err
+    errors.add(:uploaded_file_ids, err.message)
+  end
+
+  ##
+  # @private Mint ids for items ready to enqueue
+  # @return [Boolean]
+  def mint_ids
+    uploaded_filenames = uploaded_files.map { |up| up.file.file.filename }
+
+    uploaded_filenames.each do |filename|
+      next if id_exists_for?(filename: filename)
+
+      record = record_for(file: filename)
+
+      # skip unless it's the primary file and the record is complete
+      next unless record.file == filename && upload_completed?(record: record)
+
+      id = NOID_SERVICE.mint
+
+      record_ids[filename] = id
+      batch.ids << id
     end
 
-    ##
-    # @note this is a little hacky, but gets us out of having to monkeypatch
-    #   Hyrax::UploadedFile to have polymorphic relations. There may be a
-    #   better solution.
-    def uploaded_files_exist
-      return unless will_save_change_to_attribute?(:uploaded_file_ids)
-      Hyrax::UploadedFile.find(*uploaded_file_ids)
-    rescue ActiveRecord::RecordNotFound => err
-      errors.add(:uploaded_file_ids, err.message)
+    true
+  end
+
+  def prepare_records_for_enqueue
+    return unless uploaded_file_ids_changed?
+
+    remove_unreferenced_filenames &&
+      remove_duplicate_filenames &&
+      mint_ids
+
+    batch.save if batch.ids_changed?
+  end
+
+  def id_exists_for?(filename:)
+    record_ids.key?(filename) ||
+      record_ids.key?(record_for(file: filename).file)
+  end
+
+  ##
+  # @param [String] id
+  #
+  # @note It's cheaper to check for job_ids first, and we don't want to equeue
+  # multiple jobs inline. This order avoids an AF round trip in most cases,
+  # in favor of a lookup on `Tufts::JobItemStore` (Redis).
+  def item_processable?(id:)
+    return false unless object_ids.include?(id)
+
+    item = batch.items.find { |i| i.id == id }
+    item.nil? ? true : !(item.job_id || item.object)
+  end
+
+  ##
+  # @param [Hyrax::UploadedFile] file
+  #
+  # @return [Boolean]
+  def destroy_uploaded_file(file:)
+    uploaded_file_ids.delete(file.id) && file.destroy!
+  end
+
+  ##
+  # Remove all but the first uploaded file for a given filename
+  #
+  # @return [Boolean]
+  def remove_duplicate_filenames
+    filenames_touched_so_far = []
+
+    uploaded_files.sort.each do |file|
+      filename = file.file.file.filename
+
+      (destroy_uploaded_file(file: file) && next) if
+        filenames_touched_so_far.include?(filename)
+
+      filenames_touched_so_far << filename
     end
 
-    ##
-    # @private Mint ids for items ready to enqueue
-    # @return [Boolean]
-    def mint_ids
-      uploaded_filenames = uploaded_files.map { |up| up.file.file.filename }
+    true
+  end
 
-      uploaded_filenames.each do |filename|
-        next if id_exists_for?(filename: filename)
-
-        record = record_for(file: filename)
-
-        # skip unless it's the primary file and the record is complete
-        next unless record.file == filename && upload_completed?(record: record)
-
-        id = NOID_SERVICE.mint
-
-        record_ids[filename] = id
-        batch.ids << id
-      end
-
-      true
+  ##
+  # @return [Boolean]
+  def remove_unreferenced_filenames
+    uploaded_files.each do |file|
+      destroy_uploaded_file(file: file) unless
+        record?(file: file.file.file.filename)
     end
 
-    def prepare_records_for_enqueue
-      return unless uploaded_file_ids_changed?
+    true
+  end
 
-      remove_unreferenced_filenames &&
-        remove_duplicate_filenames &&
-        mint_ids
-
-      batch.save if batch.ids_changed?
+  ##
+  # @param record [ImportRecord]
+  # @return [Boolean]
+  def upload_completed?(record:)
+    record.files.all? do |record_file|
+      uploaded_files.map { |f| f.file.file.filename }.include?(record_file)
     end
-
-    def id_exists_for?(filename:)
-      record_ids.key?(filename) ||
-        record_ids.key?(record_for(file: filename).file)
-    end
-
-    ##
-    # @param [String] id
-    #
-    # @note It's cheaper to check for job_ids first, and we don't want to equeue
-    # multiple jobs inline. This order avoids an AF round trip in most cases,
-    # in favor of a lookup on `Tufts::JobItemStore` (Redis).
-    def item_processable?(id:)
-      return false unless object_ids.include?(id)
-
-      item = batch.items.find { |i| i.id == id }
-      item.nil? ? true : !(item.job_id || item.object)
-    end
-
-    ##
-    # @param [Hyrax::UploadedFile] file
-    #
-    # @return [Boolean]
-    def destroy_uploaded_file(file:)
-      uploaded_file_ids.delete(file.id) && file.destroy!
-    end
-
-    ##
-    # Remove all but the first uploaded file for a given filename
-    #
-    # @return [Boolean]
-    def remove_duplicate_filenames
-      filenames_touched_so_far = []
-
-      uploaded_files.sort.each do |file|
-        filename = file.file.file.filename
-
-        (destroy_uploaded_file(file: file) && next) if
-          filenames_touched_so_far.include?(filename)
-
-        filenames_touched_so_far << filename
-      end
-
-      true
-    end
-
-    ##
-    # @return [Boolean]
-    def remove_unreferenced_filenames
-      uploaded_files.each do |file|
-        destroy_uploaded_file(file: file) unless
-          record?(file: file.file.file.filename)
-      end
-
-      true
-    end
-
-    ##
-    # @param record [ImportRecord]
-    # @return [Boolean]
-    def upload_completed?(record:)
-      record.files.all? do |record_file|
-        uploaded_files.map { |f| f.file.file.filename }.include?(record_file)
-      end
-    end
+  end
 end # rubocop:enable Metrics/ClassLength

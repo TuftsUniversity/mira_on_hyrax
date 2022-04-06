@@ -1,6 +1,7 @@
-FactoryGirl.define do
+# frozen_string_literal: true
+FactoryBot.define do
   factory :xml_import do
-    metadata_file File.open('spec/fixtures/files/mira_xml.xml')
+    metadata_file { File.open('spec/fixtures/files/mira_xml.xml') }
 
     association :batch
   end

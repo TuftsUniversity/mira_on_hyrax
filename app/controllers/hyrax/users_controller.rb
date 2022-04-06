@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # @file
 # # Patched for https://github.com/samvera/hyrax/pull/4660
 require_dependency Hyrax::Engine.root.join('app', 'controllers', 'hyrax', 'users_controller').to_s

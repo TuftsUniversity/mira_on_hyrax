@@ -1,4 +1,7 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
+
+ruby '2.7.5'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -12,21 +15,19 @@ gem 'exiftool_vendored'
 # gem 'fedora-migrate', path: '../fedora-migrate'
 gem 'fastimage'
 gem 'hydra-role-management'
-gem 'hyrax', '2.5.1'
+gem 'hyrax', '~> 2.9'
 gem 'mimemagic', '0.3.10'
 gem 'nokogiri', '>=1.8.2' # 1.8.2 fixes security issue https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-15412
 gem 'okcomputer'
 gem 'pdf-reader'
-gem 'rack', '2.0.7'
-gem 'rack-protection', '~> 2.0.1' # 2.0.1 fixes security issue https://github.com/sinatra/sinatra/pull/1379
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.7'
+gem 'rails', '~> 5.2'
 gem 'rmagick', '2.16.0'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem "puma", ">= 4.3.9"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -46,7 +47,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-gem 'blacklight', '~> 6.20.0'
+gem 'blacklight', '6.24.0'
 gem 'blacklight_advanced_search'
 gem 'whenever', require: false
 
@@ -56,16 +57,12 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'launchy'
+  gem 'pg'
   gem 'pry'
   gem 'term-ansicolor'
 end
 
 group :development do
-  # Include deployments scripting only in development environment
-  gem 'capistrano', '~> 3.9'
-  gem 'capistrano-passenger'
-  gem 'capistrano-rails', '~> 1.3'
-  gem 'capistrano-sidekiq', '~> 0.20.0'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '~> 3.0.5'
   gem 'web-console', '>= 3.3.0'
@@ -81,10 +78,8 @@ gem 'handle-system', git: 'https://github.com/TuftsUniversity/handle.git'
 gem 'ladle'
 gem 'mysql2'
 gem 'react-rails'
-gem 'redis-activesupport', '~> 5.0.4'
-gem 'redis-rails' # Will install several other redis-* gems
 gem 'rsolr', '>= 1.0'
-gem 'sanitize', '~> 4.6', '>= 4.6.3'
+gem 'sanitize', '5.0.0' # Upgrade further
 gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sidekiq-limit_fetch'
@@ -100,10 +95,9 @@ group :development, :test do
   gem 'capybara-maleficent', require: false
   gem 'capybara-screenshot'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'fcrepo_wrapper'
   gem 'ffaker'
-  gem 'poltergeist'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
@@ -111,6 +105,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'simplecov-lcov', '~> 0.8.0'
   gem 'solr_wrapper', '>= 0.3'
+  gem 'webdrivers', '~> 4.0', require: false
 end
 
 # github security updates list

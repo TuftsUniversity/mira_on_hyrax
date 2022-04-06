@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 class ActorCreate
   def initialize
-    @association_strategy = FactoryGirl.strategy_by_name(:create).new
+    @association_strategy = FactoryBot.strategy_by_name(:create).new
   end
 
   delegate :association, to: :@association_strategy
@@ -25,14 +26,14 @@ class ActorCreate
 
   private
 
-    def user(evaluator)
-      user = evaluator.user
+  def user(evaluator)
+    user = evaluator.user
 
-      if user.nil? || user.new_record?
-        raise 'You must pass a created depositing user to use the `actor_create` ' \
-              "build strategy; received: #{user}"
-      end
-
-      user
+    if user.nil? || user.new_record?
+      raise 'You must pass a created depositing user to use the `actor_create` ' \
+            "build strategy; received: #{user}"
     end
+
+    user
+  end
 end

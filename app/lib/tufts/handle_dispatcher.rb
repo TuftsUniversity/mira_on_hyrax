@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # Assigns and registers handles to objects.
@@ -90,12 +91,12 @@ module Tufts
 
     private
 
-      ##
-      # @private
-      # @param [#handle] record
-      # @return [Array<String>]
-      def handle_values(record:)
-        ["http://hdl.handle.net/#{record.handle}"]
-      end
+    ##
+    # @private
+    # @param [#handle] record
+    # @return [Array<String>]
+    def handle_values(record:)
+      ["http://hdl.handle.net/#{record.handle}"]
+    end
   end
 end

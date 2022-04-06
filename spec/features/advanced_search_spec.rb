@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 require 'rails_helper'
 include Warden::Test::Helpers
 
 RSpec.feature 'perform an advanced search', :clean do
-  let(:pdf) { FactoryGirl.create(:pdf) }
-  let(:another_pdf) { FactoryGirl.create(:populated_pdf) }
-  let(:user) { FactoryGirl.create(:admin) }
+  let(:pdf) { FactoryBot.create(:pdf) }
+  let(:another_pdf) { FactoryBot.create(:populated_pdf) }
+  let(:user) { FactoryBot.create(:admin) }
 
   before { login_as user }
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   class Template
     ##
@@ -127,23 +128,23 @@ module Tufts
 
     private
 
-      def load_with_model(load_model = nil)
-        if exists?
-          unless load_model
-            load_model = GenericObject.new
-            load_model.resource.set_subject!(TEMP_URI)
-          end
-
-          File.open(path) do |f|
-            return serializer.deserialize(f.read, model: load_model)
-          end
-        else
-          NullChangeSet.new
+    def load_with_model(load_model = nil)
+      if exists?
+        unless load_model
+          load_model = GenericObject.new
+          load_model.resource.set_subject!(TEMP_URI)
         end
-      end
 
-      def path
-        STORAGE_DIR.join(name)
+        File.open(path) do |f|
+          return serializer.deserialize(f.read, model: load_model)
+        end
+      else
+        NullChangeSet.new
       end
+    end
+
+    def path
+      STORAGE_DIR.join(name)
+    end
   end
 end

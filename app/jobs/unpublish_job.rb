@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A job to unpublish an object
 class UnpublishJob < BatchableJob

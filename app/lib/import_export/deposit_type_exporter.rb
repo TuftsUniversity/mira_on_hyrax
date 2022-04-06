@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class DepositTypeExporter
   DEFAULT_EXPORT_DIR = Rails.root.join('tmp', 'export')
 

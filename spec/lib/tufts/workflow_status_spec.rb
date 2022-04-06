@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe Tufts::WorkflowStatus, :workflow, :clean do
-  let(:current_user)    { FactoryGirl.create(:admin) }
+  let(:current_user)    { FactoryBot.create(:admin) }
   let(:workflow_status) { subject }
 
   let(:work) do
@@ -36,9 +37,9 @@ describe Tufts::WorkflowStatus, :workflow, :clean do
     it "publishes a work" do
       # optional 'this sometimes fails on travis' if ENV['TRAVIS']
       expect(workflow_status.status(work.id)).to eq('unpublished')
-      Tufts::WorkflowStatus.publish(work: work, current_user: current_user, comment: "Published by #{current_user}")
+      described_class.publish(work: work, current_user: current_user, comment: "Published by #{current_user}")
       expect(workflow_status.status(work.id)).to eq('published')
-      Tufts::WorkflowStatus.publish(work: work, current_user: current_user, comment: "Published by #{current_user}")
+      described_class.publish(work: work, current_user: current_user, comment: "Published by #{current_user}")
       expect(workflow_status.status(work.id)).to eq('published')
     end
     context "when displays in dl" do
@@ -61,11 +62,11 @@ describe Tufts::WorkflowStatus, :workflow, :clean do
     it "unpublishes a work" do
       # optional 'this sometimes fails on travis' if ENV['TRAVIS']
       expect(workflow_status.status(work.id)).to eq('unpublished')
-      Tufts::WorkflowStatus.publish(work: work, current_user: current_user, comment: "Published by #{current_user}")
+      described_class.publish(work: work, current_user: current_user, comment: "Published by #{current_user}")
       expect(workflow_status.status(work.id)).to eq('published')
-      Tufts::WorkflowStatus.unpublish(work: work, current_user: current_user, comment: "Published by #{current_user}")
+      described_class.unpublish(work: work, current_user: current_user, comment: "Published by #{current_user}")
       expect(workflow_status.status(work.id)).to eq('unpublished')
-      Tufts::WorkflowStatus.unpublish(work: work, current_user: current_user, comment: "Published by #{current_user}")
+      described_class.unpublish(work: work, current_user: current_user, comment: "Published by #{current_user}")
       expect(workflow_status.status(work.id)).to eq('unpublished')
     end
     # rubocop:enable RSpec/MultipleExpectations

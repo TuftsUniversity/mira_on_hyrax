@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Hyrax::XmlImportsController, type: :controller do
-  let(:import) { FactoryGirl.create(:xml_import) }
+  let(:import) { FactoryBot.create(:xml_import) }
 
   before do
     allow(Collection).to receive(:find).and_return(true)
@@ -96,11 +97,11 @@ RSpec.describe Hyrax::XmlImportsController, type: :controller do
       let(:file_ids) { uploads.map(&:id) }
 
       let(:uploads) do
-        [FactoryGirl.create(:hyrax_uploaded_file),
-         FactoryGirl.create(:hyrax_uploaded_file,
-                            file: File.open(file_fixture('3.pdf'))),
-         FactoryGirl.create(:hyrax_uploaded_file,
-                            file: File.open('spec/fixtures/hello.pdf'))]
+        [FactoryBot.create(:hyrax_uploaded_file),
+         FactoryBot.create(:hyrax_uploaded_file,
+                           file: File.open(file_fixture('3.pdf'))),
+         FactoryBot.create(:hyrax_uploaded_file,
+                           file: File.open('spec/fixtures/hello.pdf'))]
       end
 
       it 'enqueues jobs only for matching files' do
@@ -127,9 +128,9 @@ RSpec.describe Hyrax::XmlImportsController, type: :controller do
       let(:file_ids) { uploads.map(&:id) }
 
       let(:uploads) do
-        [FactoryGirl.create(:hyrax_uploaded_file),
-         FactoryGirl.create(:hyrax_uploaded_file,
-                            file: File.open(file_fixture('2.pdf')))]
+        [FactoryBot.create(:hyrax_uploaded_file),
+         FactoryBot.create(:hyrax_uploaded_file,
+                           file: File.open(file_fixture('2.pdf')))]
       end
 
       it 'enqueues jobs for the matching file' do
@@ -146,7 +147,7 @@ RSpec.describe Hyrax::XmlImportsController, type: :controller do
 
       context 'with a new batch' do
         let(:new_file) do
-          FactoryGirl.create(:hyrax_uploaded_file, file: File.open(file_fixture('3.pdf')))
+          FactoryBot.create(:hyrax_uploaded_file, file: File.open(file_fixture('3.pdf')))
         end
 
         it 'adds new jobs to an existing batch' do

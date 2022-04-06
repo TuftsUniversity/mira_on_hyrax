@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A job to update handle metadata with the handle server.
 #

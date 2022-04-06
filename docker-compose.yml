@@ -1,0 +1,218 @@
+version: '3'
+
+networks:
+  external:
+  internal:
+
+volumes:
+  db-dev:
+  fcrepo-dev:
+  solr-dev:
+  redis-dev:
+  bundled:
+
+services:
+  ##
+  # Basic Rails application build image
+  app: &app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    user: root
+    volumes:
+      - .:/data # mount current directory into the image
+      - bundled:/usr/local/bundle
+    networks:
+      external:
+      internal:
+    # use tmpfs for tmp and log for performance and to allow
+    # multiple builds in parallel. Both directories are mounted
+    # into the image AFTER the working directory is mounted.
+    tmpfs:
+      - /data/log
+
+  ##
+  # Development environment for application
+  dev: &dev
+    <<: *app
+    environment:
+      - CACHE_PATH=/data/tmp/uploads/cache
+      - DB_NAME=development
+      - DB_HOST=db-dev
+      - DB_PASSWORD=postgres
+      - DB_PORT='5432'
+      - DB_USERNAME=postgres
+      - DERIVATIVES_PATH=/data/tmp/derivatives
+      - FEDORA_URL=http://fcrepo-dev:8080/rest
+      - FITS_PATH=/opt/fits-1.0.5/fits.sh
+      - RAILS_ENV=development
+      - RAILS_LOG_TO_STDOUT=true
+      - REDIS_HOST=redis-dev
+      - REDIS_PORT=6379
+      - SECRET_KEY_BASE=bobross
+      - SOLR_URL=http://solr-dev:8983/solr/development
+      - UPLOADS_PATH=/data/tmp/uploads
+    depends_on:
+      - db-dev
+      - solr-dev
+      - fcrepo-dev
+      - redis-dev
+      - chrome
+      - workers
+    expose:
+      - 3000
+  server:
+    <<: *dev
+    command: >
+      bash -c "./build/entrypoint.sh &&
+      bundle exec rails s -p 3000 -b '0.0.0.0'"
+  workers:
+    <<: *dev
+    command: bash -c "./build/install_gems.sh && bundle exec sidekiq"
+    depends_on:
+      - db-dev
+      - solr-dev
+      - fcrepo-dev
+      - redis-dev
+  ##
+  # Test environment for application
+  test: &test
+    <<: *app
+    environment:
+      - CACHE_PATH=/data/tmp/uploads/cache
+      - IN_DOCKER=true
+      - HUB_URL=http://chrome:4444/wd/hub
+      - DB_NAME=test
+      - DB_HOST=db-test
+      - DB_PASSWORD=postgres
+      - DB_PORT='5432'
+      - DB_USERNAME=postgres
+      - DERIVATIVES_PATH=/data/tmp/derivatives
+      - FEDORA_URL=http://fcrepo-test:8080/rest
+      - FITS_PATH=/opt/fits-1.0.5/fits.sh
+      - RAILS_ENV=test
+      - REDIS_HOST=redis-test
+      - REDIS_PORT=6379
+      - SECRET_KEY_BASE=bobross
+      - SOLR_URL=http://solr-test:8983/solr/test
+      - UPLOADS_PATH=/data/tmp/uploads
+    depends_on:
+      - db-test
+      - solr-test
+      - fcrepo-test
+      - redis-test
+      - chrome
+      - workers
+        #- memcache
+    volumes:
+      - .:/data # mount current directory into the image
+      - ./tmp:/tmp
+      - bundled:/usr/local/bundle
+    command: >
+      bash -c "./build/entrypoint.sh &&
+      puma -b tcp://0.0.0.0:3001 -e test"
+    expose:
+      - 3001
+
+  ##
+  # SOLR Index server
+  solr: &solr
+    image: solr:6
+    expose:
+      - 8983
+    networks:
+      internal:
+  solr-dev:
+    <<: *solr
+    volumes:
+      - ./solr/conf:/opt/solr/nurax_conf
+      - solr-dev:/opt/solr/server/solr/mycores
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - development
+      - /opt/solr/nurax_conf
+  solr-test:
+    <<: *solr
+    volumes:
+      - ./solr/conf:/opt/solr/nurax_conf
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - test
+      - /opt/solr/nurax_conf
+
+  ##
+  # Fedora repository server
+  fcrepo: &fcrepo
+    image: ghcr.io/samvera/fcrepo4:4.7.5
+    environment:
+      - JAVA_OPTS="-Xmx=4g" -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
+    expose:
+      - 8080
+    networks:
+      internal:
+  fcrepo-dev:
+    <<: *fcrepo
+    volumes:
+      - fcrepo-dev:/data
+  fcrepo-test:
+    <<: *fcrepo
+    tmpfs: /data
+
+  ##
+  # Postgres database server
+  db: &db
+    image: postgres:13-alpine
+    networks:
+      internal:
+  db-dev:
+    <<: *db
+    environment:
+      - POSTGRES_DB=development
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db-dev:/var/lib/postgresql/data
+  db-test:
+    <<: *db
+    environment:
+      - POSTGRES_DB=test
+      - POSTGRES_PASSWORD=postgres
+    tmpfs: /var/lib/postgresql/data
+
+  ##
+  # Redis queue server
+  redis: &redis
+    image: redis:5-alpine
+    command: redis-server
+    networks:
+      internal:
+  redis-dev:
+    <<: *redis
+    volumes:
+      - redis-dev:/data
+  redis-test:
+    <<: *redis
+    tmpfs: /data
+
+  chrome:
+    image: selenium/standalone-chrome:3.141
+    logging:
+      driver: none
+    volumes:
+      - /dev/shm:/dev/shm
+      - ./tmp/downloads:/home/seluser/Downloads
+    shm_size: 2G
+    ports:
+      - "4444:4444"
+      - "5959:5900"
+    networks:
+      internal:
+      external:
+
+  ##
+  # Memcache cache server
+  #memcache:
+  #  image: memcached
+  #  networks:
+  #    internal:

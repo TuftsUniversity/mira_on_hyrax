@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Audio do
-  let(:work) { FactoryGirl.build(:audio) }
+  let(:work) { FactoryBot.build(:audio) }
   it_behaves_like 'a work with Tufts metadata attributes'
 
   it_behaves_like 'a draftable model' do

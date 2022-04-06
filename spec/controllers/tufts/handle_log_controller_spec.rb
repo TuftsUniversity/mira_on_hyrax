@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe Tufts::HandleLogController do
   context "as an admin" do
     before do
-      sign_in FactoryGirl.create(:admin)
+      sign_in FactoryBot.create(:admin)
       # Ensure a log file exists
       FileUtils.touch Tufts::HandleLogService.instance.filename
     end

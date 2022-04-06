@@ -1,4 +1,5 @@
-if Rails.env == 'development'
+# frozen_string_literal: true
+if Rails.env.development?
   require 'fileutils'
   require 'nokogiri'
   require 'ffaker'

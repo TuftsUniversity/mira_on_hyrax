@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Hyrax.config do |config|
   Tufts::Curation.setup_models!(configuration: config) do |model|
     model.include(Tufts::Draftable)
@@ -48,7 +49,7 @@ Hyrax.config do |config|
   # Defaults to false
   # Requires a Google Analytics id and OAuth2 keyfile.  See README for more info
   # config.analytics = false
-  config.google_analytics_id = 'UA-38431398-6' if Rails.env == 'production'
+  config.google_analytics_id = 'UA-38431398-6' if Rails.env.production?
 
   # Date you wish to start collecting Google Analytic statistics for
   # Leaving it blank will set the start date to when ever the file was uploaded by
@@ -88,7 +89,7 @@ Hyrax.config do |config|
   config.fits_path = "/opt/fits/fits.sh"
 
   # Path to the file derivatives creation tool
-  config.libreoffice_path = "/opt/libreoffice7.2/program/soffice" if Rails.env == 'production' || Rails.env == 'stage'
+  config.libreoffice_path = "/opt/libreoffice7.2/program/soffice" if Rails.env.production? || Rails.env.stage?
 
   # Option to enable/disable full text extraction from PDFs
   # Default is true, set to false to disable full text extraction

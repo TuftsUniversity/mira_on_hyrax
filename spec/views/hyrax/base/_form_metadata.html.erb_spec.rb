@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
@@ -8,7 +9,7 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
     ).and_return(false)
   end
   context 'a video form' do
-    let(:work) { FactoryGirl.create(:video) }
+    let(:work) { FactoryBot.create(:video) }
     let(:form) do
       Hyrax::VideoForm.new(work, ability, controller)
     end
@@ -17,7 +18,7 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
   end
 
   context 'an audio form' do
-    let(:work) { FactoryGirl.create(:audio) }
+    let(:work) { FactoryBot.create(:audio) }
     let(:form) do
       Hyrax::AudioForm.new(work, ability, controller)
     end

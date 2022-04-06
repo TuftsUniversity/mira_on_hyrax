@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples 'a Hyrax User' do
   describe '#ability' do
     it 'has abilities managed by Ability' do

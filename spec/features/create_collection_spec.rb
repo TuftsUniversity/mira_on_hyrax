@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Generated via
 #  `rails generate hyrax:work Ead`
 require 'rails_helper'
@@ -8,7 +9,7 @@ include Warden::Test::Helpers
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'Create a Collection', :clean, js: true do
   context 'a logged in admin user' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
     let(:title) { FFaker::Book.title }
     let(:ead_id) { 'fake_ead_id' }
     let!(:user_collection_type) { create(:user_collection_type) }

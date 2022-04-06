@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe DepositTypeImporter do
@@ -53,9 +54,9 @@ describe DepositTypeImporter do
   it 'updates existing deposit types' do
     DepositType.delete_all
     importer = described_class.new(test_import_file)
-    pdf = FactoryGirl.create(:deposit_type,
-                             display_name: 'PDF Document',
-                             deposit_agreement: 'old text')
+    pdf = FactoryBot.create(:deposit_type,
+                            display_name: 'PDF Document',
+                            deposit_agreement: 'old text')
 
     expect { importer.import_from_csv }
       .to change { DepositType.count }

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'sparql'
 
 module Tufts
@@ -37,51 +38,51 @@ module Tufts
 
     private
 
-      def config_for_predicate(predicate, model)
-        model.class.properties.find { |_, v| v.predicate == predicate }
+    def config_for_predicate(predicate, model)
+      model.class.properties.find { |_, v| v.predicate == predicate }
+    end
+
+    ##
+    # @return [Array<Symbol>]
+    def changed_attribute_keys(statements, model)
+      statements.map(&:predicate).uniq.map do |predicate|
+        config_for_predicate(predicate, model)
+      end.compact.map(&:first)
+    end
+
+    ##
+    # @return [RDF::Graph]
+    def changed_graph(statements, model)
+      graph = model.resource.dup
+      graph.set_persistence_strategy(ActiveTriples::RepositoryStrategy)
+      graph.persistence_strategy.graph = model.resource.graph.dup
+
+      grouped = statements.group_by do |statement|
+        statement.subject.to_base + statement.predicate.to_base
       end
 
-      ##
-      # @return [Array<Symbol>]
-      def changed_attribute_keys(statements, model)
-        statements.map(&:predicate).uniq.map do |predicate|
-          config_for_predicate(predicate, model)
-        end.compact.map(&:first)
+      grouped.each_value do |sts|
+        graph.update(sts.pop)
+        graph.insert(*sts)
       end
 
-      ##
-      # @return [RDF::Graph]
-      def changed_graph(statements, model)
-        graph = model.resource.dup
-        graph.set_persistence_strategy(ActiveTriples::RepositoryStrategy)
-        graph.persistence_strategy.graph = model.resource.graph.dup
+      graph
+    end
 
-        grouped = statements.group_by do |statement|
-          statement.subject.to_base + statement.predicate.to_base
-        end
+    ##
+    # @return [Array<RDF::Statement>)
+    def extract_insert_statements(update_string, subject)
+      return [] if update_string.blank?
 
-        grouped.each_value do |sts|
-          graph.update(sts.pop)
-          graph.insert(*sts)
-        end
-
-        graph
+      inserts = SPARQL.parse(update_string, update: true).each_descendant.select do |op|
+        op.is_a? SPARQL::Algebra::Operator::Insert
       end
 
-      ##
-      # @return [Array<RDF::Statement>)
-      def extract_insert_statements(update_string, subject)
-        return [] if update_string.nil? || update_string.empty?
-
-        inserts = SPARQL.parse(update_string, update: true).each_descendant.select do |op|
-          op.is_a? SPARQL::Algebra::Operator::Insert
-        end
-
-        inserts.flat_map do |insert|
-          insert.operand.map do |pattern|
-            RDF::Statement(subject, pattern.predicate, pattern.object)
-          end
+      inserts.flat_map do |insert|
+        insert.operand.map do |pattern|
+          RDF::Statement(subject, pattern.predicate, pattern.object)
         end
       end
+    end
   end
 end

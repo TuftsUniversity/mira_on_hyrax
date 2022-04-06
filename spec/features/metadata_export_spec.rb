@@ -1,5 +1,7 @@
+# frozen_string_literal: true
 require 'rails_helper'
 include Warden::Test::Helpers
+include DownloadHelpers
 
 RSpec.feature 'Export Metadata', :clean, js: true, batch: true do
   let!(:objects) { [object, other] }
@@ -7,12 +9,16 @@ RSpec.feature 'Export Metadata', :clean, js: true, batch: true do
   let(:other)    { create(:pdf) }
 
   context 'with logged in user' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
 
     before do
       ActiveJob::Base.queue_adapter = :test
 
       login_as user
+    end
+
+    after(:all) do
+      clear_downloads
     end
 
     scenario 'export metadata for selected items' do
@@ -33,7 +39,7 @@ RSpec.feature 'Export Metadata', :clean, js: true, batch: true do
       let(:contents) { '<?xml version="1.0" encoding="UTF-8"?><blah></blah>' }
       let(:filename) { 'moomin.xml' }
 
-      let!(:export) { FactoryGirl.create(:metadata_export, filename: filename) }
+      let!(:export) { FactoryBot.create(:metadata_export, filename: filename) }
 
       before { File.open(export.path, 'w') { |f| f.write(contents) } }
       after  { File.delete(export.path) }
@@ -41,9 +47,9 @@ RSpec.feature 'Export Metadata', :clean, js: true, batch: true do
       scenario 'downloading an export' do
         visit "batches/#{export.batch.id}"
         click_on(filename)
-
-        expect(page.response_headers['Content-Disposition'])
-          .to include 'attachment'
+        wait_for_download
+        expect(downloads.length).to eq(1)
+        expect(download).to match(/.*\.xml/)
       end
     end
   end

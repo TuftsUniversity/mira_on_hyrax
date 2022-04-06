@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'active_fedora'
 
 namespace :tufts do
@@ -81,7 +82,7 @@ namespace :tufts do
         msg = ''
 
         begin
-          next unless id.present?
+          next if id.blank?
 
           work = ActiveFedora::Base.find(id)
           rights = work[:rights_statement].first.to_s
@@ -149,7 +150,7 @@ namespace :tufts do
       # How many works were not found?
       not_found_count = not_found_array.size
 
-      if not_found_count > 0
+      if not_found_count.positive?
         puts(not_found_count.to_s + (not_found_count == 1 ? ' work was' : ' works were') + ' not found:')
 
         not_found_array.each do |not_found_id|
@@ -158,14 +159,14 @@ namespace :tufts do
       end
 
       # How many works were found?
-      if found_count > 0
+      if found_count.positive?
         puts(found_count.to_s + (found_count == 1 ? ' work was' : ' works were') + ' found.')
       end
 
       # How many works caused exceptions?
       exception_count = exception_array.size
 
-      if exception_count > 0
+      if exception_count.positive?
         puts('  ' + exception_count.to_s + (exception_count == 1 ? ' work caused an exception' : ' works caused exceptions') + ':')
 
         exception_array.each do |exception_msg|
@@ -174,7 +175,7 @@ namespace :tufts do
       end
 
       # How many works were updated?
-      if updated_count > 0
+      if updated_count.positive?
         puts('  ' + updated_count.to_s + (updated_count == 1 ? ' work was' : ' works were') + ' updated:')
 
         updated_hash.each do |message, count|
@@ -183,7 +184,7 @@ namespace :tufts do
       end
 
       # How many works were not updated?
-      if not_updated_count > 0
+      if not_updated_count.positive?
         puts('  ' + not_updated_count.to_s + (not_updated_count == 1 ? ' work was' : ' works were') + ' not updated:')
 
         not_updated_hash.each do |rights, count|
@@ -194,16 +195,16 @@ namespace :tufts do
       puts
 
       # How many rights statements were known?
-      if known_count > 0
+      if known_count.positive?
         puts('  ' + known_count.to_s + (known_count == 1 ? ' work was' : ' works were') + ' known:')
 
         known_hash.each do |rights, count|
-          puts('    ' + rights + ': ' + count.to_s) if count > 0
+          puts('    ' + rights + ': ' + count.to_s) if count.positive?
         end
       end
 
       # How many rights statements were unknown?
-      if unknown_count > 0
+      if unknown_count.positive?
         puts('  ' + unknown_count.to_s + (unknown_count == 1 ? ' work was' : ' works were') + ' unknown:')
 
         unknown_hash.each do |rights, count|

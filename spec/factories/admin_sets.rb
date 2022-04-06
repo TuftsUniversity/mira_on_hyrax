@@ -1,4 +1,5 @@
-FactoryGirl.define do
+# frozen_string_literal: true
+FactoryBot.define do
   factory :admin_set do
     sequence(:title) { |n| ["Title #{n}"] }
 
@@ -19,7 +20,7 @@ FactoryGirl.define do
 
     transient do
       # false, true, or Hash with keys for permission_template
-      with_permission_template false
+      with_permission_template { false }
     end
   end
 end

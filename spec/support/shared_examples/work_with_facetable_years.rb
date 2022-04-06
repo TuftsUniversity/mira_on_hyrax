@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples 'a work with facetable years' do
   let(:indexer) { Tufts::Curation::Indexer.new(work) }
   let(:work) { described_class.new }

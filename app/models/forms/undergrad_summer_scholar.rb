@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UndergradSummerScholar < GenericTischDeposit
   def copy_attributes
     super

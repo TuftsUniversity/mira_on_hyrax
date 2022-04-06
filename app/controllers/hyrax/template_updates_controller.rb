@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Hyrax
   class TemplateUpdatesController < ApplicationController
     def create
@@ -23,10 +24,10 @@ module Hyrax
 
     private
 
-      def template_update_params
-        params
-          .require(:template_update)
-          .permit(:behavior, :template_name, ids: [])
-      end
+    def template_update_params
+      params
+        .require(:template_update)
+        .permit(:behavior, :template_name, ids: [])
+    end
   end
 end

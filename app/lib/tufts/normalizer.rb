@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   module Normalizer
     def strip_whitespace(param_value)

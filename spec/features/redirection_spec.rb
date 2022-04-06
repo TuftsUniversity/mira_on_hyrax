@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'rails_helper'
 include Warden::Test::Helpers
 
 RSpec.feature 'redirection' do
-  let(:pdf) { FactoryGirl.create(:pdf) }
+  let(:pdf) { FactoryBot.create(:pdf) }
 
   context 'a unauthenticated visitor' do
     describe 'getting redirected to contribute when logging in' do
@@ -28,7 +29,7 @@ RSpec.feature 'redirection' do
   end
 
   context 'an authenticated user (non-admin user)' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     before { login_as user }
 
     describe 'getting redirected to contribute when logging in' do
@@ -55,7 +56,7 @@ RSpec.feature 'redirection' do
   end
 
   context 'an admin user' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
     before { login_as user }
 
     describe 'being able to access the dashboard' do

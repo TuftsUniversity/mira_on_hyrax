@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'byebug'
 
 describe ContributeController do
-  let(:deposit_type) { FactoryGirl.create(:deposit_type) }
+  let(:deposit_type) { FactoryBot.create(:deposit_type) }
 
   describe 'for a not-signed in user' do
     describe 'GET #new' do
@@ -21,21 +22,21 @@ describe ContributeController do
   end
 
   describe 'for a signed in user' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     before { sign_in user }
 
     describe 'GET #index' do
       it 'returns http success' do
         get :index
 
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
     describe 'GET #license' do
       it 'returns http success' do
         get 'license'
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
@@ -47,9 +48,9 @@ describe ContributeController do
 
       describe 'with valid deposit_type' do
         let(:deposit_type) do
-          FactoryGirl.create(:deposit_type,
-                             display_name: 'Test Option',
-                             deposit_view: 'generic_deposit')
+          FactoryBot.create(:deposit_type,
+                            display_name: 'Test Option',
+                            deposit_view: 'generic_deposit')
         end
 
         render_views

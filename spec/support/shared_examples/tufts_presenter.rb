@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 shared_examples 'a Tufts presenter' do
   subject(:presenter) { described_class.new(double, double) }
   describe "with custom attributes that are delegated to Solr and" do

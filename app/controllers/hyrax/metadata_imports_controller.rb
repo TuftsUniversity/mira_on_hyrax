@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Hyrax::MetadataImportsController < ApplicationController
   def new
     @import = MetadataImport.new
@@ -21,9 +22,9 @@ class Hyrax::MetadataImportsController < ApplicationController
 
   private
 
-    ##
-    # @private
-    def import_params
-      params.require(:metadata_import).permit(:metadata_file)
-    end
+  ##
+  # @private
+  def import_params
+    params.require(:metadata_import).permit(:metadata_file)
+  end
 end

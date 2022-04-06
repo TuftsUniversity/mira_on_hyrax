@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples 'a work that has no transcript UI on the form' do
   let(:ability) { double }
 

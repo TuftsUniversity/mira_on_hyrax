@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # A generic (empty) importer.
@@ -41,12 +42,12 @@ module Tufts
 
       private
 
-        ##
-        # @private Register new class when inherited
-        def inherited(other)
-          @subclasses << other
-          super
-        end
+      ##
+      # @private Register new class when inherited
+      def inherited(other)
+        @subclasses << other
+        super
+      end
     end
 
     ##
@@ -146,118 +147,117 @@ module Tufts
 
     private
 
-      # Use Nokogiri's XML parser to check that the file is well formed
-      # See http://www.nokogiri.org/tutorials/ensuring_well_formed_markup.html
-      # Create a new Importer::Error for each error found by the Nokogiri parser
-      def check_for_well_formed_xml(file)
-        doc = Nokogiri::XML file
-        if doc.errors.count > 0
-          e = doc.errors.first
-          errors << Importer::Error.new(e.line, type: :serious, message: "Malformed XML error: #{e.message}")
-        end
-        doc.root.add_namespace("dc", "http://purl.org/dc/terms/")
-        doc.root.add_namespace("tufts", "http://dl.tufts.edu/terms#")
-        doc.root.add_namespace("model", "info:fedora/fedora-system:def/model#")
-        doc.xpath("//xmlns:record/xmlns:metadata/xmlns:mira_import").each do |record|
-          check_for_required_fields(record)
-          check_that_collections_exist(record)
-          check_for_one_and_only_one_id(record) if @import_type == 'metadata'
-          check_for_valid_ids(record) if @import_type == 'metadata'
-          ban_existing_ids(record) if @import_type == 'xml'
+    # Use Nokogiri's XML parser to check that the file is well formed
+    # See http://www.nokogiri.org/tutorials/ensuring_well_formed_markup.html
+    # Create a new Importer::Error for each error found by the Nokogiri parser
+    def check_for_well_formed_xml(file)
+      doc = Nokogiri::XML file
+      if doc.errors.count.positive?
+        e = doc.errors.first
+        errors << Importer::Error.new(e.line, type: :serious, message: "Malformed XML error: #{e.message}")
+      end
+      doc.root.add_namespace("dc", "http://purl.org/dc/terms/")
+      doc.root.add_namespace("tufts", "http://dl.tufts.edu/terms#")
+      doc.root.add_namespace("model", "info:fedora/fedora-system:def/model#")
+      doc.xpath("//xmlns:record/xmlns:metadata/xmlns:mira_import").each do |record|
+        check_for_required_fields(record)
+        check_that_collections_exist(record)
+        check_for_one_and_only_one_id(record) if @import_type == 'metadata'
+        check_for_valid_ids(record) if @import_type == 'metadata'
+        ban_existing_ids(record) if @import_type == 'xml'
+      end
+    end
+
+    # Given a record, return the file or id that identifies it
+    def file_or_id(record)
+      return record.xpath('tufts:filename').text if record.xpath('tufts:filename').text.present?
+      return record.xpath('tufts:id').text if record.xpath('tufts:id').text.present?
+      "Unidentified record"
+    end
+
+    # Given a record, check that it has all required fields
+    # @param [Nokogiri::XML::Element] record
+    def check_for_required_fields(record)
+      identifier = file_or_id(record)
+
+      models = Tufts::Curation.const_get(:MODELS).values.map { |s| s.to_s.gsub("Tufts::Curation::", "") }
+
+      required_fields = ["dc:title", "tufts:displays_in", "tufts:visibility"]
+      required_fields.each do |field|
+        errors << Importer::Error.new(record.line, type: :serious, message: "Missing required field: #{identifier} is missing #{field}") if record.xpath(field).text.empty?
+      end
+      required_controlled_fields = ["model:hasModel"]
+      required_controlled_fields.each do |field|
+        errors << Importer::Error.new(record.line, type: :serious, message: "Missing required field: #{identifier} is missing #{field}") if record.xpath(field).text.empty?
+        next unless field == "model:hasModel"
+        unless models.include? record.xpath(field).text
+          errors << Importer::Error.new(record.line, type: :serious, message: "Model value not within vocabulary: #{identifier}'s model needs to be one of #{models} and is currently #{record.xpath(field).text}")
         end
       end
+    end
 
-      # Given a record, return the file or id that identifies it
-      def file_or_id(record)
-        return record.xpath('tufts:filename').text unless record.xpath('tufts:filename').text.blank?
-        return record.xpath('tufts:id').text unless record.xpath('tufts:id').text.blank?
-        "Unidentified record"
+    # For each collection referenced by tufts:memberOf, ensure that
+    # collection exists
+    # @param [Nokogiri::XML::Element] record
+    def check_that_collections_exist(record)
+      return unless record.xpath("tufts:memberOf") && !record.xpath("tufts:memberOf").text.empty?
+      identifier = file_or_id(record)
+      record.xpath("tufts:memberOf").each do |collection_id|
+        Collection.find(collection_id.text)
+      rescue ActiveFedora::ObjectNotFoundError
+        errors << Importer::Error.new(record.line, type: :serious, message: "Cannot find collection with id #{collection_id.text} for #{identifier}")
+      end
+    end
+
+    # Each metadata import record must have one and only one id
+    # @param [Nokogiri::XML::Element] record
+    def check_for_one_and_only_one_id(record)
+      ids = record.xpath('tufts:id')
+      if ids.count.zero?
+        errors << Importer::Error.new(record.line, type: :serious, message: "An id field is required for each metadata import record")
+      elsif ids.count > 1
+        errors << Importer::Error.new(record.line, type: :serious, message: "Only one id field can be specified per metadata import record")
+      end
+    end
+
+    # Each id in a metadata import record must refer to a real object
+    # @param [Nokogiri::XML::Element] record
+    def ban_existing_ids(record)
+      return if record.xpath('tufts:id').empty?
+      id = record.xpath('tufts:id').first.text
+      exists = true
+      begin
+        ActiveFedora::Base.find(id)
+      rescue ActiveFedora::ObjectNotFoundError
+        exists = false
       end
 
-      # Given a record, check that it has all required fields
-      # @param [Nokogiri::XML::Element] record
-      def check_for_required_fields(record)
-        identifier = file_or_id(record)
+      errors << Importer::Error.new(record.line, type: :serious, message: "#{id} already exists!") if exists
+      nil
+    end
 
-        models = Tufts::Curation.const_get(:MODELS).values.map { |s| s.to_s.gsub("Tufts::Curation::", "") }
+    # Each id in a metadata import record must refer to a real object
+    # @param [Nokogiri::XML::Element] record
+    def check_for_valid_ids(record)
+      return if record.xpath('tufts:id').empty?
+      id = record.xpath('tufts:id').first.text
+      begin
+        ActiveFedora::Base.find(id)
+      rescue ActiveFedora::ObjectNotFoundError
+        errors << Importer::Error.new(record.line, type: :serious, message: "#{id} is not a valid object id")
+      end
+    end
 
-        required_fields = ["dc:title", "tufts:displays_in", "tufts:visibility"]
-        required_fields.each do |field|
-          errors << Importer::Error.new(record.line, type: :serious, message: "Missing required field: #{identifier} is missing #{field}") if record.xpath(field).text.empty?
-        end
-        required_controlled_fields = ["model:hasModel"]
-        required_controlled_fields.each do |field|
-          errors << Importer::Error.new(record.line, type: :serious, message: "Missing required field: #{identifier} is missing #{field}") if record.xpath(field).text.empty?
-          if field == "model:hasModel"
-            errors << Importer::Error.new(record.line, type: :serious, message: "Model value not within vocabulary: #{identifier}'s model needs to be one of #{models} and is currently #{record.xpath(field).text}") unless models.include? record.xpath(field).text
-          end
+    ##
+    # @private
+    def validate_filenames
+      records.each_with_object(Set.new) do |record, files_touched|
+        errors << MissingFileError.new(record.metadata.line) if record.files.empty?
+        record.files.each do |file|
+          errors << DuplicateFileError.new(nil, file: file) unless
+            files_touched.add?(file)
         end
       end
-
-      # For each collection referenced by tufts:memberOf, ensure that
-      # collection exists
-      # @param [Nokogiri::XML::Element] record
-      def check_that_collections_exist(record)
-        return unless record.xpath("tufts:memberOf") && !record.xpath("tufts:memberOf").text.empty?
-        identifier = file_or_id(record)
-        record.xpath("tufts:memberOf").each do |collection_id|
-          begin
-            Collection.find(collection_id.text)
-          rescue ActiveFedora::ObjectNotFoundError
-            errors << Importer::Error.new(record.line, type: :serious, message: "Cannot find collection with id #{collection_id.text} for #{identifier}")
-          end
-        end
-      end
-
-      # Each metadata import record must have one and only one id
-      # @param [Nokogiri::XML::Element] record
-      def check_for_one_and_only_one_id(record)
-        ids = record.xpath('tufts:id')
-        if ids.count.zero?
-          errors << Importer::Error.new(record.line, type: :serious, message: "An id field is required for each metadata import record")
-        elsif ids.count > 1
-          errors << Importer::Error.new(record.line, type: :serious, message: "Only one id field can be specified per metadata import record")
-        end
-      end
-
-      # Each id in a metadata import record must refer to a real object
-      # @param [Nokogiri::XML::Element] record
-      def ban_existing_ids(record)
-        return if record.xpath('tufts:id').empty?
-        id = record.xpath('tufts:id').first.text
-        exists = true
-        begin
-          ActiveFedora::Base.find(id)
-        rescue ActiveFedora::ObjectNotFoundError
-          exists = false
-        end
-
-        errors << Importer::Error.new(record.line, type: :serious, message: "#{id} already exists!") if exists
-        nil
-      end
-
-      # Each id in a metadata import record must refer to a real object
-      # @param [Nokogiri::XML::Element] record
-      def check_for_valid_ids(record)
-        return if record.xpath('tufts:id').empty?
-        id = record.xpath('tufts:id').first.text
-        begin
-          ActiveFedora::Base.find(id)
-        rescue ActiveFedora::ObjectNotFoundError
-          errors << Importer::Error.new(record.line, type: :serious, message: "#{id} is not a valid object id")
-        end
-      end
-
-      ##
-      # @private
-      def validate_filenames
-        records.each_with_object(Set.new) do |record, files_touched|
-          errors << MissingFileError.new(record.metadata.line) if record.files.empty?
-          record.files.each do |file|
-            errors << DuplicateFileError.new(nil, file: file) unless
-              files_touched.add?(file)
-          end
-        end
-      end
+    end
   end
 end

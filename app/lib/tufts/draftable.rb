@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # A  Mixin for making `ActiveFedora::Base`-like objects able to manage draft

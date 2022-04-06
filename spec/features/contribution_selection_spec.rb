@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'rails_helper'
 include Warden::Test::Helpers
 
 RSpec.feature 'Get a flash message when choosing the placeholder option' do
   context 'a logged in user' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     before do
       login_as user

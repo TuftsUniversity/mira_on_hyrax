@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe MetadataImportJob, :clean, type: :job do
@@ -6,7 +7,7 @@ RSpec.describe MetadataImportJob, :clean, type: :job do
 
   before do
     mira_export_ids.each do |id|
-      FactoryGirl.create(:pdf, id: id)
+      FactoryBot.create(:pdf, id: id)
     end
   end
 
@@ -14,8 +15,8 @@ RSpec.describe MetadataImportJob, :clean, type: :job do
 
   describe '#perform' do
     let(:id)      { import.ids.first }
-    let(:import)  { FactoryGirl.create(:metadata_import) }
-    let!(:object) { FactoryGirl.create(:populated_pdf, id: id, title: old) }
+    let(:import)  { FactoryBot.create(:metadata_import) }
+    let!(:object) { FactoryBot.create(:populated_pdf, id: id, title: old) }
     let(:old)     { ['Old Title Data'] }
 
     it 'updates the metadata' do

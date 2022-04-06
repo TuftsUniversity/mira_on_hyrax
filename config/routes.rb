@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
   # Admin constraint
   admin_constraint = lambda do |request|

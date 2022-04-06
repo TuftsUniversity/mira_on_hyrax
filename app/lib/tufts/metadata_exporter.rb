@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Tufts
   ##
   # Handles export of metedata for groups of files.
@@ -81,15 +82,15 @@ module Tufts
 
     private
 
-      ##
-      # @private
-      # @return [void]
-      def populate_builder
-        active_ids = ids.select { |r| ActiveFedora::Base.exists?(r) }
+    ##
+    # @private
+    # @return [void]
+    def populate_builder
+      active_ids = ids.select { |r| ActiveFedora::Base.exists?(r) }
 
-        ActiveFedora::Base.find(active_ids).each do |object|
-          builder.add(object)
-        end
+      ActiveFedora::Base.find(active_ids).each do |object|
+        builder.add(object)
       end
+    end
   end
 end

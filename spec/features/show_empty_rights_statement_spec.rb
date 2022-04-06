@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 require 'rails_helper'
 include Warden::Test::Helpers
 
 RSpec.feature 'Empty string in rights statement', :clean, js: false do
   context 'a logged in admin user' do
-    let(:user) { FactoryGirl.create(:admin) }
-    let(:pdf) { FactoryGirl.create(:pdf) }
+    let(:user) { FactoryBot.create(:admin) }
+    let(:pdf) { FactoryBot.create(:pdf) }
 
     before do
       login_as user

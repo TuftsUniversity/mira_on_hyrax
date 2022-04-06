@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :file_set do
     transient do
       user { create(:user) }
@@ -24,7 +24,7 @@ FactoryGirl.define do
 
     trait :with_public_embargo do
       after(:build) do |file, evaluator|
-        file.embargo = FactoryGirl.create(:public_embargo, embargo_release_date: evaluator.embargo_release_date)
+        file.embargo = FactoryBot.create(:public_embargo, embargo_release_date: evaluator.embargo_release_date)
       end
     end
 

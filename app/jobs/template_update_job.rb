@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ##
 # A job to apply a template to an existing object.
 #

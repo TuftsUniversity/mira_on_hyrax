@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Hydra::Derivatives::Processors::Video
   class Config
     attr_writer :video_bitrate, :video_attributes, :size_attributes, :audio_attributes
@@ -56,29 +57,29 @@ module Hydra::Derivatives::Processors::Video
 
     protected
 
-      def default_video_bitrate
-        # Changing bitrate settings from default to better support HLS
-        '-b:v 2500k -maxrate 2675k -bufsize 3750k'
-      end
+    def default_video_bitrate
+      # Changing bitrate settings from default to better support HLS
+      '-b:v 2500k -maxrate 2675k -bufsize 3750k'
+    end
 
-      def default_video_attributes
-        # Changing keyframe settings from default to better support HLS
-        "-g 48 -keyint_min 48 #{video_bitrate}"
-      end
+    def default_video_attributes
+      # Changing keyframe settings from default to better support HLS
+      "-g 48 -keyint_min 48 #{video_bitrate}"
+    end
 
-      def default_image_size_attributes
-        "-s 320x240"
-      end
+    def default_image_size_attributes
+      "-s 320x240"
+    end
 
-      ##
-      # min(1080,ih) means use 1080 or original height, whichever is smaller
-      # -2 is match width to height if changing height and preserve aspect ratio
-      def default_video_size_attributes
-        "-vf \"scale=w=1280:h=720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2\""
-      end
+    ##
+    # min(1080,ih) means use 1080 or original height, whichever is smaller
+    # -2 is match width to height if changing height and preserve aspect ratio
+    def default_video_size_attributes
+      "-vf \"scale=w=1280:h=720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2\""
+    end
 
-      def default_audio_attributes
-        '-c:a aac -ar 48000 -b:a 128k'
-      end
+    def default_audio_attributes
+      '-c:a aac -ar 48000 -b:a 128k'
+    end
   end
 end

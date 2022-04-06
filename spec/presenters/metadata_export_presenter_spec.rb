@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe MetadataExportPresenter do
   subject(:presenter) { described_class.new(export) }
-  let(:batch)         { FactoryGirl.build(:batch, ids: []) }
-  let(:export)        { FactoryGirl.build(:metadata_export, batch: batch) }
+  let(:batch)         { FactoryBot.build(:batch, ids: []) }
+  let(:export)        { FactoryBot.build(:metadata_export, batch: batch) }
 
   it { is_expected.to have_attributes(export: export, batch: batch) }
 
