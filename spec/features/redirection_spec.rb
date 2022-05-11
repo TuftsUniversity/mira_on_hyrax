@@ -49,7 +49,7 @@ RSpec.feature 'redirection' do
     describe 'getting redirected when you go to an item page' do
       scenario do
         visit "/concern/pdfs/#{pdf.id}"
-        expect(page).to have_current_path(contributions_path)
+        expect(page).to have_current_path('/contribute?locale=en')
         expect(page).to have_selector '#deposit_type'
       end
     end

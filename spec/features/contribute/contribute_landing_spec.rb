@@ -19,7 +19,7 @@ RSpec.feature 'Self Deposit', :clean, js: true do
       visit '/contribute'
       expect(page).to have_content DepositType.first.display_name
       expect(page).to have_content DepositType.last.display_name
-      expect(page).to have_link href: new_user_session_path
+      expect(page).to have_link href: '/users/sign_in?locale=en'
     end
 
     scenario "authenticated users" do
