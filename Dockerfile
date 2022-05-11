@@ -1,4 +1,4 @@
-FROM ruby:2.7
+FROM ruby:2.7.5
 
 ARG RAILS_ENV
 ARG SECRET_KEY_BASE
@@ -20,7 +20,7 @@ RUN apt-get install google-chrome-stable -y
 
 # --allow-unauthenticated needed for yarn package
 RUN apt-get update && apt-get upgrade -y && \
-  apt-get install --no-install-recommends -y ca-certificates nodejs \ # yarn \
+  apt-get install --no-install-recommends -y ca-certificates nodejs \
   build-essential libpq-dev libreoffice imagemagick unzip ghostscript vim \
   ffmpeg \
   clamav-freshclam clamav-daemon libclamav-dev \

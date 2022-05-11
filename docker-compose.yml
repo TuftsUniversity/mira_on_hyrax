@@ -40,7 +40,7 @@ services:
       - DB_NAME=development
       - DB_HOST=db-dev
       - DB_PASSWORD=postgres
-      - DB_PORT='5432'
+      - DB_PORT='3306'
       - DB_USERNAME=postgres
       - DERIVATIVES_PATH=/data/tmp/derivatives
       - FEDORA_URL=http://fcrepo-dev:8080/rest
@@ -85,7 +85,7 @@ services:
       - DB_NAME=test
       - DB_HOST=db-test
       - DB_PASSWORD=postgres
-      - DB_PORT='5432'
+      - DB_PORT='3306'
       - DB_USERNAME=postgres
       - DERIVATIVES_PATH=/data/tmp/derivatives
       - FEDORA_URL=http://fcrepo-test:8080/rest
@@ -161,24 +161,28 @@ services:
     tmpfs: /data
 
   ##
-  # Postgres database server
+  # Mariadb database server
   db: &db
-    image: postgres:13-alpine
+    image: mariadb:10
     networks:
       internal:
   db-dev:
     <<: *db
     environment:
-      - POSTGRES_DB=development
-      - POSTGRES_PASSWORD=postgres
+      - MYSQL_DATABASE=development
+      - MYSQL_USER=postgres
+      - MYSQL_PASSWORD=postgres
+      - MYSQL_ROOT_PASSWORD=postgres
     volumes:
-      - db-dev:/var/lib/postgresql/data
+      - db-dev:/var/lib/mysql
   db-test:
     <<: *db
     environment:
-      - POSTGRES_DB=test
-      - POSTGRES_PASSWORD=postgres
-    tmpfs: /var/lib/postgresql/data
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=postgres
+      - MYSQL_PASSWORD=postgres
+      - MYSQL_ROOT_PASSWORD=postgres
+    tmpfs: /var/lib/mysql
 
   ##
   # Redis queue server
