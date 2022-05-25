@@ -661,7 +661,7 @@ GEM
       rdf
     racc (1.6.0)
     rack (2.2.3)
-    rack-protection (2.0.5)
+    rack-protection (2.2.0)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -867,11 +867,11 @@ GEM
       sxp (~> 1.1)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
-    sidekiq (5.2.7)
+    sidekiq (5.2.10)
       connection_pool (~> 2.2, >= 2.2.2)
-      rack (>= 1.5.0)
+      rack (~> 2.0)
       rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
+      redis (~> 4.5, < 4.6.0)
     sidekiq-failures (1.0.0)
       sidekiq (>= 4.0.0)
     sidekiq-limit_fetch (3.4.0)
