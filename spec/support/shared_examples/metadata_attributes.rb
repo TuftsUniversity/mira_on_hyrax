@@ -9,7 +9,7 @@ shared_examples 'a work with Tufts metadata attributes' do
     it 'has displays_in' do
       work.displays_in = ['nowhere', 'trove']
       expect(work.resource.dump(:ttl))
-        .to match(/dl\.tuft\s.edu\/terms\#displays_in/)
+        .to match(/dl\.tufts\.edu\/terms\#displays_in/)
     end
 
     it 'has geographic_names' do
