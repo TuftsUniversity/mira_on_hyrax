@@ -47,8 +47,8 @@ function gisBehavior() {
         var geoname = datum.name + (datum.adminName1 === '' || datum.adminName1 === undefined ? '' : (' -- ' + datum.adminName1)) + (datum.countryName === undefined || datum.countryName === '' ? '' : (' -- ' + datum.countryName));
         if ($myTextarea.text().indexOf(geoname) < 0) {
             $myTextarea.append('<button type="button" class="remove-geoname btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true">' +
-                '<span class="pill" data-geoid="' + ${datum.geonameId} + '">&nbsp;' + ${geoname} + '</span>' +
-                '<input type="hidden" name="contribution[geonames][]" value="' + ${geoname} + '"/></span></button>');
+                '<span class="pill" data-geoid="' + datum.geonameId + '">&nbsp;' + geoname + '</span>' +
+                '<input type="hidden" name="contribution[geonames][]" value="' + geoname + '"/></span></button>');
         }
         return true;
     });
