@@ -661,8 +661,6 @@ GEM
       rdf
     racc (1.6.0)
     rack (2.2.3)
-    rack-protection (2.0.5)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.7)
@@ -764,7 +762,7 @@ GEM
       tilt
     redic (1.5.3)
       hiredis
-    redis (4.5.1)
+    redis (4.6.0)
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
     redlock (1.2.2)
@@ -867,11 +865,10 @@ GEM
       sxp (~> 1.1)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
-    sidekiq (5.2.7)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack (>= 1.5.0)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
+    sidekiq (6.4.2)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     sidekiq-failures (1.0.0)
       sidekiq (>= 4.0.0)
     sidekiq-limit_fetch (3.4.0)
