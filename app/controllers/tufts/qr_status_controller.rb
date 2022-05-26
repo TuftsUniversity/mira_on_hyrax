@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Tufts
   class QrStatusController < ApplicationController
-    protect_from_forgery with: :null_session
+    protect_from_forgery with: :exception
 
     def set_status
       model = ActiveFedora::Base.find(params[:id])

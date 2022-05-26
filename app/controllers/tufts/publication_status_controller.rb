@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Tufts
   class PublicationStatusController < ApplicationController
-    protect_from_forgery with: :null_session
+    protect_from_forgery with: :exception
 
     before_action :authenticate_user!
 
