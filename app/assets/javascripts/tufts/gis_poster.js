@@ -120,9 +120,7 @@ function gisBehavior() {
         if (e.target.value != '') {
             var theme = $('#themes').val() + ' -- ' + e.target.value;
             if ($('#categories_textarea').text().indexOf(theme) < 0) {
-                $('#categories_textarea').append('<button type="button" class="remove-geoname btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true">' +
-                    '<span class="pill">&nbsp;' + theme + '</span><input type="hidden" name="contribution[topics][]" value="' + theme + '">' +
-                    '</span></button>');
+                $('#categories_textarea').append(`<button type="button" class="remove-geoname btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true"><span class="pill">&nbsp;${theme}</span><input type="hidden" name="contribution[topics][]" value="${theme}"></span></button>`);
             }
         }
         return true;
