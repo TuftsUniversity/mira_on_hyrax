@@ -61,7 +61,7 @@ module Hydra::Derivatives::Processors
       end
 
       def execute_without_timeout(command, context) # rubocop:disable Metrics/MethodLength
-        err_str = ''
+        err_str = "".dup
         stdin, stdout, stderr, wait_thr = popen3(command)
         context[:pid] = wait_thr[:pid]
         files = [stderr, stdout]
