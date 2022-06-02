@@ -419,6 +419,17 @@ task ead_matching: :environment do
   end
 end
 
+desc "unpublish objects"
+task unpublish_objects: :environment do
+  puts "Loading File"
+  CSV.foreach("/usr/local/hydra/epigaea/unpublish_objects.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
+    pid = row[0]
+    UnpublishJob.perform_later(pid)
+  rescue ActiveFedora::ObjectNotFoundError
+    puts "ERROR not found #{pid}"
+  end
+end
+
 desc "publish objects"
 task publish_objects: :environment do
   puts "Loading File"

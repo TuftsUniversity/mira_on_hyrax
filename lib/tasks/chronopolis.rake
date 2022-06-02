@@ -11,7 +11,7 @@ end
 desc "chronopolis"
 task chronopolis: :environment do
   exporter = Chronopolis::Exporter.new
-  CSV.foreach("/usr/local/hydra/epigaea/chronopolis.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
+  CSV.foreach("/usr/local/samvera/epigaea/chronopolis.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
     pid = row[0]
     exporter.perform_export(pid)
   end
@@ -20,7 +20,7 @@ end
 desc "chronopolis export of only binaries"
 task chronopolis_binary_only: :environment do
   exporter = Chronopolis::Exporter.new
-  CSV.foreach("/usr/local/hydra/epigaea/chronopolis.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
+  CSV.foreach("/usr/local/samvera/epigaea/chronopolis.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
     pid = row[0]
     exporter.perform_export(pid, false)
   end
