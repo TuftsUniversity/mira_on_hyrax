@@ -33,6 +33,15 @@ class Chronopolis::Exporter
       target_file = File.join('/', 'tdr', 'chronopolis', steward, collection, obj_dir, target_filename, target_filename)
       metadata_file = File.join('/', 'tdr', 'chronopolis', steward, collection, obj_dir, target_filename, "technical_metadata.json")
 
+      if File.extname(target_file) == ""
+        mime = file_set.mime_type
+       if mime.nil? || mime == ""
+         mime_string = ""
+       else
+         mime_string = "." +  mime.split('/')[1]
+       end
+       target_file = File.join('/', 'tdr', 'chronopolis', steward, collection, obj_dir, target_filename, target_filename + mime_string)
+       end
       record = File.new target_file, 'wb'
 
       @logger.info "Writing fileset to #{target_file}"
