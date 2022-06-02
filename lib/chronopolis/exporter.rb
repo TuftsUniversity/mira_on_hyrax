@@ -33,15 +33,7 @@ class Chronopolis::Exporter
       target_file = File.join('/', 'tdr', 'chronopolis', steward, collection, obj_dir, target_filename, target_filename)
       metadata_file = File.join('/', 'tdr', 'chronopolis', steward, collection, obj_dir, target_filename, "technical_metadata.json")
 
-      if File.extname(target_file) == ""
-        mime = file_set.mime_type
-       if mime.nil? || mime == ""
-         mime_string = ""
-       else
-         mime_string = "." +  mime.split('/')[1]
-       end
-       target_file = File.join('/', 'tdr', 'chronopolis', steward, collection, obj_dir, target_filename, target_filename + mime_string)
-       end
+      target_file = check_for_file_extension(target_file)
       record = File.new target_file, 'wb'
 
       @logger.info "Writing fileset to #{target_file}"
@@ -82,6 +74,20 @@ class Chronopolis::Exporter
   end
 
   private
+
+  def check_for_file_extension(target_file)
+    if File.extname(target_file) == ""
+      mime = file_set.mime_type
+      mime_string = if mime.nil? || mime == ""
+                      ""
+                    else
+                      "." + mime.split('/')[1]
+                    end
+      target_file = File.join('/', 'tdr', 'chronopolis', steward, collection, obj_dir, target_filename, target_filename + mime_string)
+    end
+
+    target_file
+  end
 
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity

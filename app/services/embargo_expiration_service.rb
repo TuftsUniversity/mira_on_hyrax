@@ -51,7 +51,7 @@ class EmbargoExpirationService
   def report_and_expire
     create_summary_report
     expire_embargoes
-    send_summary_report if Rails.env == "production"
+    send_summary_report if Rails.env.production?
   end
 
   def create_summary_report

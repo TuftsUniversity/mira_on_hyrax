@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # rubocop:disable Naming/FileName
 require 'samvera/nesting_indexer'
 require 'hyrax/repository_reindexer'

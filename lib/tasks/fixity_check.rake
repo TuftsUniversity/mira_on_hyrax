@@ -28,6 +28,4 @@ namespace :tdr do
       puts "Fixity checked for fileset id #{file_set.id} belonging to #{work_id}"
     end
   end
-
-
 end
