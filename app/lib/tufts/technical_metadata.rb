@@ -31,10 +31,6 @@ module Tufts
       @builder.to_xml(save_with: Nokogiri::XML::Node::SaveOptions::AS_XML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION | Nokogiri::XML::Node::SaveOptions::NO_EMPTY_TAGS).strip
     end
 
-    def to_s2
-      @builder.to_xml().strip
-    end
-
     # @return [Object]
     def to_xml
       @builder.to_xml
