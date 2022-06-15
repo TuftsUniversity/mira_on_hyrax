@@ -2,8 +2,9 @@ version: '3'
 
 networks:
   external:
+    name: external-network
   internal:
-
+    name: internal-network
 volumes:
   db-dev:
   fcrepo-dev:
