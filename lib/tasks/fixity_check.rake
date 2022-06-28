@@ -4,6 +4,7 @@ namespace :tdr do
   desc 'Starts fixity check on all files'
   task fixity_check: :environment do
     ::Hyrax::RepositoryFixityCheckService.fixity_check_random_sampling
+    puts "Random sampling fixity check complete"
   end
 
   desc 'fixity everything'
