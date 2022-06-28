@@ -57,6 +57,9 @@ Metrics/MethodLength:
 Performance/StringReplacement:
   Exclude:
     - app/controllers/tufts/works_controller.rb
+RSpec/DescribeClass:
+  Exclude:
+    - spec/lib/tasks/**/*
 RSpec/AnyInstance:
   Exclude:
     - spec/controllers/deposit_types_controller_spec.rb
