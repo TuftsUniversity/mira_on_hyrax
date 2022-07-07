@@ -58,6 +58,7 @@
 <%= presenter.attribute_to_html(:subject, render_as: :faceted) %>
 <%= presenter.attribute_to_html(:table_of_contents, render_as: :linked, search_field: 'all_fields') %>
 <%= presenter.attribute_to_html(:temporal, render_as: :linked, search_field: 'all_fields') %>
+<%= presenter.attribute_to_html(:thesis_type, render_as: :linked, search_field: 'all_fields') %>
 <%= presenter.attribute_to_html(:tufts_is_part_of, render_as: :linked, search_field: 'all_fields') %>
 <%= presenter.attribute_to_html(:tufts_license, render_as: :linked, search_field: 'all_fields') %>
 <%= presenter.attribute_to_html(:resource_type, render_as: :resource_type) %>
