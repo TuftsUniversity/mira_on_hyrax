@@ -42,6 +42,7 @@ shared_examples 'a Tufts presenter' do
     it { is_expected.to delegate_method(:rejection_reason).to(:solr_document) }
     it { is_expected.to delegate_method(:qr_note).to(:solr_document) }
     it { is_expected.to delegate_method(:creator_department).to(:solr_document) }
+    it { is_expected.to delegate_method(:dissertation_type).to(:solr_document) }
     it { is_expected.to delegate_method(:legacy_pid).to(:solr_document) }
     it { is_expected.to delegate_method(:createdby).to(:solr_document) }
     it { is_expected.to delegate_method(:is_part_of).to(:solr_document) }

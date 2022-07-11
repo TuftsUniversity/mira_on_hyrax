@@ -16,7 +16,7 @@ shared_examples 'a form with Tufts metadata attributes' do
                                     :retention_period, :admin_start_date, :qr_status, :rejection_reason,
                                     :qr_note, :creator_department, :legacy_pid, :temporal, :extent,
                                     :personal_name, :corporate_name, :genre, :provenance, :funder, :createdby,
-                                    :is_part_of, :geog_name, :downloadable)
+                                    :is_part_of, :geog_name, :dissertation_type, :downloadable)
     end
   end
 end

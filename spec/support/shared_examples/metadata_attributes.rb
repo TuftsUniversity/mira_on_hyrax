@@ -156,6 +156,12 @@ shared_examples 'a work with Tufts metadata attributes' do
         .to match(/purl\.org\/dc\/terms\/temporal/)
     end
 
+    it 'has dissertation type' do
+      work.temporal = ['undergraduate']
+      expect(work.resource.dump(:ttl))
+        .to match(/id\.loc\.gov\/ontologies\/bibfram/)
+    end
+
     it 'has funder' do
       work.funder = ['Viewers Like You']
       expect(work.resource.dump(:ttl))
