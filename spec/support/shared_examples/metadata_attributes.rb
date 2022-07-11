@@ -157,7 +157,7 @@ shared_examples 'a work with Tufts metadata attributes' do
     end
 
     it 'has dissertation type' do
-      work.temporal = ['undergraduate']
+      work.dissertation_type = ['undergraduate']
       expect(work.resource.dump(:ttl))
         .to match(/id\.loc\.gov\/ontologies\/bibfram/)
     end
