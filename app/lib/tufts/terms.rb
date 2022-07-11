@@ -9,7 +9,7 @@ module Tufts
                     :held_by, :identifier, :internal_note, :is_replaced_by, :language, :legacy_pid,
                     :personal_name, :primary_date, :provenance, :publisher, :qr_note, :qr_status,
                     :rejection_reason, :replaces, :resource_type, :retention_period, :rights_holder, :rights_note,
-                    :geographic_name, :steward, :subject, :table_of_contents, :temporal, :thesis_type, :is_part_of, :tufts_license,
+                    :geographic_name, :steward, :subject, :table_of_contents, :temporal, :dissertation_type, :is_part_of, :tufts_license,
                     :geog_name, :downloadable, :aspace_cuid, :dc_access_rights, :doi, :oclc, :isbn].freeze
 
     REMOVE_TERMS = [:keyword, :based_near, :location].freeze

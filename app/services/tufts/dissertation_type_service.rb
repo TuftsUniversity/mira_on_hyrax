@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 module Tufts
-  module ThesisTypeService
+  module DissertationTypeService
     mattr_accessor :authority
-    self.authority = Qa::Authorities::Local.subauthority_for('thesis_type')
+    self.authority = Qa::Authorities::Local.subauthority_for('dissertation_type')
 
     def self.select_options
       authority.all.map do |element|

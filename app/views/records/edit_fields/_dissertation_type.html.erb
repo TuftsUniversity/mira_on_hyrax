@@ -1,0 +1,2 @@
+<%= f.input :dissertation_type, collection: Tufts::DissertationTypeService.select_options, as: :select,
+    input_html: { class: 'form-control', multiple: false } %>

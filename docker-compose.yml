@@ -53,6 +53,7 @@ services:
       - SECRET_KEY_BASE=bobross
       - SOLR_URL=http://solr-dev:8983/solr/development
       - UPLOADS_PATH=/data/tmp/uploads
+      - DISABLE_SPRING=1
     depends_on:
       - db-dev
       - solr-dev
@@ -97,6 +98,7 @@ services:
       - SECRET_KEY_BASE=bobross
       - SOLR_URL=http://solr-test:8983/solr/test
       - UPLOADS_PATH=/data/tmp/uploads
+      - DISABLE_SPRING=1
     depends_on:
       - db-test
       - solr-test

@@ -16,11 +16,11 @@ namespace :tufts do
       username: 'bgoodm01',
       password: SecureRandom.hex
     }
-    users = Array.new
+    users = []
     users.push(mike)
     users.push(brian)
 
-    users.each { |user|
+    users.each do |user|
       u = User.create(
         email: user[:email],
         username: user[:username],
@@ -29,8 +29,6 @@ namespace :tufts do
       )
       u.add_role('admin')
       u.save
-    }
-
-
+    end
   end
 end
