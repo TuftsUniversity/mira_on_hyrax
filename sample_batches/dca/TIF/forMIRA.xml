@@ -1,0 +1,230 @@
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+         xmlns:bibframe="http://bibframe.org/vocab/"
+         xmlns:dc="http://purl.org/dc/terms/"
+         xmlns:dc11="http://purl.org/dc/elements/1.1/"
+         xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
+         xmlns:edm="http://www.europeana.eu/schemas/edm/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+         xmlns:marcrelators="http://id.loc.gov/vocabulary/relators/"
+         xmlns:model="info:fedora/fedora-system:def/model#"
+         xmlns:premis="http://www.loc.gov/premis/rdf/v1#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:scholarsphere="http://scholarsphere.psu.edu/ns#"
+         xmlns:tufts="http://dl.tufts.edu/terms#"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/             http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+   <responseDate>2017-09-01T19:20:30Z</responseDate>
+   <request verb="ListRecords"
+            from="1998-01-15"
+            set="any:set"
+            metadataPrefix="mira_import">
+                http://example.com/OAI</request>
+   <ListRecords>
+      <record>
+         <header>
+            <identifier>oai:arXiv.org:hep-th/9901001</identifier>
+            <datestamp>1999-12-25</datestamp>
+            <setSpec>any:set</setSpec>
+            <setSpec>another_set</setSpec>
+         </header>
+         <metadata>
+            <mira_import>
+               <tufts:filename>UA020.000138.tif</tufts:filename>
+               <dc:extent>1 Digital Object(s)</dc:extent>
+               <dc:extent>66.4 MB</dc:extent>
+               <dc:title>Dental School class picture</dc:title>
+               <dc11:creator>School of Dental Medicine</dc11:creator>
+               <dc11:date>1890--1910</dc11:date>
+               <dc:type>Image</dc:type>
+               <dc11:description/>
+               <edm:rights>https://dca.tufts.edu/research/policies-fees/reproductions-and-use</edm:rights>
+               <dc11:rights/>
+               <dc:accessRights/>
+               <dc:source>UP020</dc:source>
+               <tufts:visibility>open</tufts:visibility>
+               <model:hasModel>Image</model:hasModel>
+               <dc11:publisher>Digital Collections and Archives, Tufts University.</dc11:publisher>
+               <tufts:steward>dca</tufts:steward>
+               <bibframe:heldBy>Archives</bibframe:heldBy>
+               <tufts:displays_in>dl</tufts:displays_in>
+               <tufts:memberOf>rn3011364</tufts:memberOf>
+               <tufts:aspace_cuid>UA020.000138</tufts:aspace_cuid>
+            </mira_import>
+         </metadata>
+         <about>
+            <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                       xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/                                 http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+               <dc:publisher>Los Alamos arXiv</dc:publisher>
+               <dc:rights>Metadata may be used without restrictions as long as
+                                    the oai identifier remains attached to it.</dc:rights>
+            </oai_dc:dc>
+         </about>
+      </record>
+      <record>
+         <header>
+            <identifier>oai:arXiv.org:hep-th/9901001</identifier>
+            <datestamp>1999-12-25</datestamp>
+            <setSpec>any:set</setSpec>
+            <setSpec>another_set</setSpec>
+         </header>
+         <metadata>
+            <mira_import>
+               <tufts:filename>UA020.000139.tif</tufts:filename>
+               <dc:extent>1 Digital Object(s)</dc:extent>
+               <dc:extent>52.6 MB</dc:extent>
+               <dc:title>Dental School class picture</dc:title>
+               <dc11:creator>School of Dental Medicine</dc11:creator>
+               <dc11:date>1900</dc11:date>
+               <dc:type>Image</dc:type>
+               <dc11:description/>
+               <edm:rights>https://dca.tufts.edu/research/policies-fees/reproductions-and-use</edm:rights>
+               <dc11:rights/>
+               <dc:accessRights/>
+               <dc:source>UP020</dc:source>
+               <tufts:visibility>open</tufts:visibility>
+               <model:hasModel>Image</model:hasModel>
+               <dc11:publisher>Digital Collections and Archives, Tufts University.</dc11:publisher>
+               <tufts:steward>dca</tufts:steward>
+               <bibframe:heldBy>Archives</bibframe:heldBy>
+               <tufts:displays_in>dl</tufts:displays_in>
+               <tufts:memberOf>rn3011364</tufts:memberOf>
+               <tufts:aspace_cuid>UA020.000139</tufts:aspace_cuid>
+            </mira_import>
+         </metadata>
+         <about>
+            <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                       xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/                                 http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+               <dc:publisher>Los Alamos arXiv</dc:publisher>
+               <dc:rights>Metadata may be used without restrictions as long as
+                                    the oai identifier remains attached to it.</dc:rights>
+            </oai_dc:dc>
+         </about>
+      </record>
+      <record>
+         <header>
+            <identifier>oai:arXiv.org:hep-th/9901001</identifier>
+            <datestamp>1999-12-25</datestamp>
+            <setSpec>any:set</setSpec>
+            <setSpec>another_set</setSpec>
+         </header>
+         <metadata>
+            <mira_import>
+               <tufts:filename>UA020.000140.tif</tufts:filename>
+               <dc:extent>1 Digital Object(s)</dc:extent>
+               <dc:extent>121 MB</dc:extent>
+               <dc:title>Dental School class picture</dc:title>
+               <dc11:creator>School of Dental Medicine</dc11:creator>
+               <dc11:date>1904</dc11:date>
+               <dc:type>Image</dc:type>
+               <dc11:description/>
+               <edm:rights>https://dca.tufts.edu/research/policies-fees/reproductions-and-use</edm:rights>
+               <dc11:rights/>
+               <dc:accessRights/>
+               <dc:source>UP020</dc:source>
+               <tufts:visibility>open</tufts:visibility>
+               <model:hasModel>Image</model:hasModel>
+               <dc11:publisher>Digital Collections and Archives, Tufts University.</dc11:publisher>
+               <tufts:steward>dca</tufts:steward>
+               <bibframe:heldBy>Archives</bibframe:heldBy>
+               <tufts:displays_in>dl</tufts:displays_in>
+               <tufts:memberOf>rn3011364</tufts:memberOf>
+               <tufts:aspace_cuid>UA020.000140</tufts:aspace_cuid>
+            </mira_import>
+         </metadata>
+         <about>
+            <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                       xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/                                 http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+               <dc:publisher>Los Alamos arXiv</dc:publisher>
+               <dc:rights>Metadata may be used without restrictions as long as
+                                    the oai identifier remains attached to it.</dc:rights>
+            </oai_dc:dc>
+         </about>
+      </record>
+      <record>
+         <header>
+            <identifier>oai:arXiv.org:hep-th/9901001</identifier>
+            <datestamp>1999-12-25</datestamp>
+            <setSpec>any:set</setSpec>
+            <setSpec>another_set</setSpec>
+         </header>
+         <metadata>
+            <mira_import>
+               <tufts:filename>UA020.000141.tif</tufts:filename>
+               <dc:extent>1 Digital Object(s)</dc:extent>
+               <dc:extent>202 MB</dc:extent>
+               <dc:title>Dental School class picture</dc:title>
+               <dc11:creator>School of Dental Medicine</dc11:creator>
+               <dc11:date>1907</dc11:date>
+               <dc:type>Image</dc:type>
+               <dc11:description/>
+               <edm:rights>https://dca.tufts.edu/research/policies-fees/reproductions-and-use</edm:rights>
+               <dc11:rights/>
+               <dc:accessRights/>
+               <dc:source>UP020</dc:source>
+               <tufts:visibility>open</tufts:visibility>
+               <model:hasModel>Image</model:hasModel>
+               <dc11:publisher>Digital Collections and Archives, Tufts University.</dc11:publisher>
+               <tufts:steward>dca</tufts:steward>
+               <bibframe:heldBy>Archives</bibframe:heldBy>
+               <tufts:displays_in>dl</tufts:displays_in>
+               <tufts:memberOf>rn3011364</tufts:memberOf>
+               <tufts:aspace_cuid>UA020.000141</tufts:aspace_cuid>
+            </mira_import>
+         </metadata>
+         <about>
+            <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                       xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/                                 http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+               <dc:publisher>Los Alamos arXiv</dc:publisher>
+               <dc:rights>Metadata may be used without restrictions as long as
+                                    the oai identifier remains attached to it.</dc:rights>
+            </oai_dc:dc>
+         </about>
+      </record>
+      <record>
+         <header>
+            <identifier>oai:arXiv.org:hep-th/9901001</identifier>
+            <datestamp>1999-12-25</datestamp>
+            <setSpec>any:set</setSpec>
+            <setSpec>another_set</setSpec>
+         </header>
+         <metadata>
+            <mira_import>
+               <tufts:filename>UA020.000142.tif</tufts:filename>
+               <dc:extent>1 Digital Object(s)</dc:extent>
+               <dc:extent>157 MB</dc:extent>
+               <dc:title>Dental School class picture</dc:title>
+               <dc11:creator>School of Dental Medicine</dc11:creator>
+               <dc11:date>1909</dc11:date>
+               <dc:type>Image</dc:type>
+               <dc11:description/>
+               <edm:rights>https://dca.tufts.edu/research/policies-fees/reproductions-and-use</edm:rights>
+               <dc11:rights/>
+               <dc:accessRights/>
+               <dc:source>UP020</dc:source>
+               <tufts:visibility>open</tufts:visibility>
+               <model:hasModel>Image</model:hasModel>
+               <dc11:publisher>Digital Collections and Archives, Tufts University.</dc11:publisher>
+               <tufts:steward>dca</tufts:steward>
+               <bibframe:heldBy>Archives</bibframe:heldBy>
+               <tufts:displays_in>dl</tufts:displays_in>
+               <tufts:memberOf>rn3011364</tufts:memberOf>
+               <tufts:aspace_cuid>UA020.000142</tufts:aspace_cuid>
+            </mira_import>
+         </metadata>
+         <about>
+            <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                       xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/                                 http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+               <dc:publisher>Los Alamos arXiv</dc:publisher>
+               <dc:rights>Metadata may be used without restrictions as long as
+                                    the oai identifier remains attached to it.</dc:rights>
+            </oai_dc:dc>
+         </about>
+      </record>
+    </ListRecords>
+</OAI-PMH>
