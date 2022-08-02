@@ -48,7 +48,6 @@
                <tufts:steward>dca</tufts:steward>
                <bibframe:heldBy>Archives</bibframe:heldBy>
                <tufts:displays_in>dl</tufts:displays_in>
-               <tufts:memberOf>rv042t060</tufts:memberOf>
                <tufts:aspace_cuid>UP150.001.002</tufts:aspace_cuid>
                <dc11:subject>Yearbooks</dc11:subject>
             </mira_import>
@@ -90,7 +89,6 @@
                <tufts:steward>dca</tufts:steward>
                <bibframe:heldBy>Archives</bibframe:heldBy>
                <tufts:displays_in>dl</tufts:displays_in>
-               <tufts:memberOf>rv042t060</tufts:memberOf>
                <tufts:aspace_cuid>UP150.001.003</tufts:aspace_cuid>
                <dc11:subject>Yearbooks</dc11:subject>
             </mira_import>
@@ -133,7 +131,6 @@
                <tufts:steward>dca</tufts:steward>
                <bibframe:heldBy>Archives</bibframe:heldBy>
                <tufts:displays_in>dl</tufts:displays_in>
-               <tufts:memberOf>rv042t060</tufts:memberOf>
                <tufts:aspace_cuid>UP150.001.004.00001</tufts:aspace_cuid>
                <dc11:subject>Yearbooks</dc11:subject>
             </mira_import>
@@ -175,7 +172,6 @@
                <tufts:steward>dca</tufts:steward>
                <bibframe:heldBy>Archives</bibframe:heldBy>
                <tufts:displays_in>dl</tufts:displays_in>
-               <tufts:memberOf>rv042t060</tufts:memberOf>
                <tufts:aspace_cuid>UP150.001.005</tufts:aspace_cuid>
                <dc11:subject>Yearbooks</dc11:subject>
             </mira_import>
