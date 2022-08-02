@@ -21,10 +21,17 @@ RUN apt-get install google-chrome-stable -y
 # --allow-unauthenticated needed for yarn package
 RUN apt-get update && apt-get upgrade -y && \
   apt-get install --no-install-recommends -y ca-certificates nodejs \
-  build-essential libpq-dev libreoffice imagemagick unzip ghostscript vim \
+  build-essential libpq-dev libreoffice unzip ghostscript vim \
   ffmpeg \
   clamav-freshclam clamav-daemon libclamav-dev \
   libqt5webkit5-dev xvfb xauth default-jre-headless --fix-missing --allow-unauthenticated
+
+# install imagemagick 6 (fast install - less than 30 secs - but lacks heif image file support)
+# RUN apt install -y imagemagick
+
+# install imagemagick 7 (slow install - more than 4 mins)
+RUN apt-get install -y wget
+RUN t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && bash "$t" && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
 
 # fetch clamav local database
 # initial update of av databases
