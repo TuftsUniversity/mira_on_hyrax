@@ -40,7 +40,7 @@ namespace :derivatives do
 
   desc "Recharacterize a specified work from a list, e.g., rake derivatives:recharacterize_by_id[/path/to/list.csv]"
   task :recharacterize_by_list, [:list] => :environment do |_task, args|
-    list_path = args[:id]
+    list_path = args[:list]
     CSV.foreach(list_path, headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
       work_id = row[0]
       raise "ERROR: no work id specified, aborting" if work_id.nil?
