@@ -34,7 +34,7 @@ class EmbargoExpirationService
 
   def initialize(date)
     @date = date
-    @summary_report = "Summary embargo report for #{date}\n"
+    @summary_report = "Summary embargo report for #{date}\n".dup
     @summary_report_subject = "MIRA/TDR Embargos Summary: #{date}"
   end
 
