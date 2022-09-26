@@ -2,11 +2,9 @@
 require 'rails_helper'
 require "rake"
 
-Rails.application.load_tasks if Rake::Task.tasks.empty?
-
-describe "tufts:embargo_expirations" do
-  after do
-    Rake::Task["tufts:embargo_expiration"].clear
+describe "tufts:embargo_expirations", type: :rake do
+  before do
+    load_rake_environment [File.expand_path("../../../../lib/tasks/embargo_notifications.rake", __FILE__)]
   end
 
   context "emargo expiration task" do
