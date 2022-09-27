@@ -7,3 +7,4 @@
  cp config/handle.yml.sample config/handle.yml
  cp config/secrets.yml.sample config/secrets.yml
  cp config/ldap.yml.sample config/ldap.yml
+ cp config/tufts.yml.sample config/tufts.yml
