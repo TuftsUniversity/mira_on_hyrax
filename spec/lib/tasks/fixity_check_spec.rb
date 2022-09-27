@@ -2,11 +2,9 @@
 require 'rails_helper'
 require "rake"
 
-Rails.application.load_tasks if Rake::Task.tasks.empty?
-
-describe "tdr:fixity_checks" do
-  after do
-    Rake::Task["tdr:fixity_check"].clear
+describe "tdr:fixity_checks", type: :rake do
+  before do
+    load_rake_environment [File.expand_path("../../../../lib/tasks/fixity_check.rake", __FILE__)]
   end
 
   context "Running fixity checks" do

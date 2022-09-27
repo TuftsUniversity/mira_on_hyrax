@@ -22,6 +22,7 @@ jobs:
       DB_USER: root
       DB_PASSWORD: root
       TRAVIS: true
+      FEDORA_URL: http://127.0.0.1:8986/rest
 
     services:
       redis:
