@@ -1,9 +1,24 @@
+## Configs for Dockerized installs
+#development:
+#  host: redis-dev
+#  port: '6379'
+#test:
+#  host: redis-test
+#  port: "6379"
+## Configs for non-docker and gh actions
 development:
   host: localhost
-  port: 6379
+  port: '6379'
 test:
   host: localhost
-  port: 6379
+  port: "6379"
+
 production:
-  host: localhost
-  port: 6379
+  host: <%= ENV.fetch('REDIS_HOST', 'localhost') %>
+  port: <%= ENV.fetch('REDIS_PORT', '6379') %>
+
+# NOTE: You can't use ERB in the config file because the redis gem doesn't support it with how it reads the config files.
+# RuntimeError:
+#       Name or service not known
+# /usr/local/bundle/gems/redis-4.6.0/lib/redis/connection/hiredis.rb:22:in `connect'
+# /usr/local/bundle/gems/redis-4.6.0/lib/redis/connection/hiredis.rb:22:in `connect'
