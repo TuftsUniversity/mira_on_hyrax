@@ -7,16 +7,19 @@ shared_examples 'a form with Tufts metadata attributes' do
     end
 
     it 'has Tufts terms' do
-      expect(form.terms).to include(:provenance, :displays_in, :geographic_name, :held_by, :alternative_title,
-                                    :abstract, :table_of_contents, :primary_date, :date_accepted,
-                                    :date_available, :date_copyrighted, :date_issued, :steward,
-                                    :internal_note, :audience, :embargo_note, :end_date, :accrual_policy,
-                                    :rights_note, :rights_holder, :format_label, :replaces, :is_replaced_by,
-                                    :has_part, :tufts_license,
-                                    :retention_period, :admin_start_date, :qr_status, :rejection_reason,
-                                    :qr_note, :creator_department, :legacy_pid, :temporal, :extent,
-                                    :personal_name, :corporate_name, :genre, :provenance, :funder, :createdby,
-                                    :is_part_of, :geog_name, :dissertation_type, :downloadable)
+      expect(form.terms).to include(:abstract, :accrual_policy, :admin_start_date,
+                                    :alternative_title, :audience, :corporate_name,
+                                    :createdby, :creator_department, :date_accepted,
+                                    :date_available, :date_copyrighted, :date_issued,
+                                    :displays_in, :dissertation_type, :downloadable,
+                                    :embargo_note, :end_date, :extent, :format_label,
+                                    :funder, :genre, :geographic_name, :geog_name,
+                                    :has_part, :held_by, :internal_note, :is_part_of,
+                                    :is_replaced_by, :legacy_pid, :personal_name,
+                                    :primary_date, :provenance, :qr_note, :qr_status,
+                                    :rejection_reason, :replaces, :retention_period,
+                                    :rights_holder, :rights_note, :steward,
+                                    :table_of_contents, :temporal, :tufts_license)
     end
   end
 end
