@@ -21,6 +21,8 @@ namespace :tufts do
     users.push(brian)
 
     users.each do |user|
+      next if User.where(username: user[:username]).present?
+
       u = User.create(
         email: user[:email],
         username: user[:username],
