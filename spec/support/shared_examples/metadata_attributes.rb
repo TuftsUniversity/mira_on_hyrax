@@ -6,6 +6,63 @@ shared_examples 'a work with Tufts metadata attributes' do
   it_behaves_like 'a work with facetable years'
 
   context 'and the list of metadata attributes' do
+    it 'has contributor' do
+      work.contributor = ['Rovner, LIsa, film director, screenwriter']
+      expect(work.resource.dump(:ttl))
+        .to match(/contributor/)
+    end
+    it 'has creator' do
+      work.creator = ['Dennett, D. C. (Daniel Clement)']
+      expect(work.resource.dump(:ttl))
+        .to match(/creator/)
+    end
+
+    it 'has date_modified' do
+      work.date_modified = Time.utc(2022, 7, 8)
+      expect(work.resource.dump(:ttl))
+        .to match(/#dateTime/)
+    end
+    it 'has date_uploaded' do
+      work.date_uploaded = Time.utc(2021, 1, 28)
+      expect(work.resource.dump(:ttl))
+        .to match(/#dateTime/)
+    end
+    it 'has dc_access_rights' do
+      work.dc_access_rights = ['True']
+      expect(work.resource.dump(:ttl))
+        .to match(/accessRights/)
+    end
+    it 'has subject' do
+      work.subject = ['Physics']
+      expect(work.resource.dump(:ttl))
+        .to match(/subject/)
+    end
+    it 'has publisher' do
+      work.publisher = ['Penguin']
+      expect(work.resource.dump(:ttl))
+        .to match(/publisher/)
+    end
+    it 'has oclc' do
+      work.oclc = ['677375104']
+      expect(work.resource.dump(:ttl))
+        .to match(/oclc/)
+    end
+    it 'has isbn' do
+      work.isbn = ['9780790506395']
+      expect(work.resource.dump(:ttl))
+        .to match(/isbn/)
+    end
+    # it 'has doi' do
+    #   work.doi = ['387415']
+    #   expect(work.resource.dump(:ttl))
+    #     .to match(/doi/)
+    # end
+    it 'has description' do
+      work.description = ['A drawing of New Jersey governor James Florio with an incinerator in the background.']
+      expect(work.resource.dump(:ttl))
+        .to match(/description/)
+    end
+
     it 'has displays_in' do
       work.displays_in = ['nowhere', 'trove']
       expect(work.resource.dump(:ttl))
