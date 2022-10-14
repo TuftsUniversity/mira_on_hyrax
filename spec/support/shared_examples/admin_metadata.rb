@@ -20,6 +20,24 @@ shared_examples 'and has admin metadata attributes' do
     end
   end
 
+  it 'has admin_start_date' do
+    work.admin_start_date = ['12/17/22']
+    expect(work.resource.dump(:ttl))
+      .to match(/startDate/)
+  end
+
+  it 'has aspace_cuid' do
+    work.aspace_cuid = 'Identifier'
+    expect(work.resource.dump(:ttl))
+      .to match(/aspace_cuid/)
+  end
+
+  it 'has displays_in' do
+    work.displays_in = ['nowhere', 'trove']
+    expect(work.resource.dump(:ttl))
+      .to match(/dl\.tufts\.edu\/terms\#displays_in/)
+  end
+
   it 'has steward' do
     work.steward = 'A steward'
     expect(work.resource.dump(:ttl)).to match(/dl\.tufts\.edu\/terms#steward/)
