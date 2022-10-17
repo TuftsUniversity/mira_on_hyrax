@@ -11,4 +11,10 @@ shared_examples 'and has technical metadata attributes' do
     expect(work.resource.dump(:ttl))
       .to match(/identifier/)
   end
+
+  it 'has language' do
+    work.language = ['English']
+    expect(work.resource.dump(:ttl))
+      .to match(/language/)
+  end
 end
