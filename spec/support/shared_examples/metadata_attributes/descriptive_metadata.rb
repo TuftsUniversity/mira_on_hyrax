@@ -12,14 +12,14 @@ shared_examples 'and has descriptive metadata attributes' do
   end
 
   it 'has date_modified' do
-    work.date_modified = Time.utc(2022, 7, 8)
+    work.date_modified = '12/17/22'
     expect(work.resource.dump(:ttl))
-      .to match(/#dateTime/)
+      .to match(/modified/)
   end
   it 'has date_uploaded' do
-    work.date_uploaded = Time.utc(2021, 1, 28)
+    work.date_uploaded = '10/28/21'
     expect(work.resource.dump(:ttl))
-      .to match(/#dateTime/)
+      .to match(/dateSubmitted/)
   end
   it 'has dc_access_rights' do
     work.dc_access_rights = ['True']
