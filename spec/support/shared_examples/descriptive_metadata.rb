@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-shared_examples 'a work with Tufts metadata attributes' do
+shared_examples 'a work with Tufts descriptive metadata attributes' do
   it_behaves_like 'and has admin metadata attributes'
   it_behaves_like 'a work with custom Tufts validations'
   it_behaves_like 'a record with ordered fields'
