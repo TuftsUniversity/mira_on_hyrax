@@ -16,9 +16,15 @@ namespace :tufts do
       username: 'bgoodm01',
       password: SecureRandom.hex
     }
+    ryan = {
+      email: 'ryan.orlando@tufts.edu',
+      username: 'rorlan02',
+      password: SecureRandom.hex
+    }
     users = []
     users.push(mike)
     users.push(brian)
+    users.push(ryan)
 
     users.each do |user|
       next if User.where(username: user[:username]).present?
