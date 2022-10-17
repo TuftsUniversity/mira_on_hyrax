@@ -58,7 +58,7 @@ shared_examples 'a work with Tufts descriptive metadata attributes' do
       expect(work.resource.dump(:ttl))
         .to match(/doi/)
     end
-    
+
     it 'has description' do
       work.description = ['A drawing of New Jersey governor James Florio with an incinerator in the background.']
       expect(work.resource.dump(:ttl))
