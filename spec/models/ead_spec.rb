@@ -5,7 +5,7 @@ RSpec.describe Ead do
   subject(:model) {  FactoryBot.build(:ead) }
   let(:work) { model }
 
-  it_behaves_like 'a work with Tufts descriptive metadata attributes'
+  it_behaves_like 'a work with Tufts metadata attributes'
 
   it_behaves_like 'a draftable model' do
     let(:change_map) do
