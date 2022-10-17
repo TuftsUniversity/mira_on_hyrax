@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # We are overriding default_admin_rake from hyrax because there was an
-# issue with the m1 chip where `updata_ind` wasn't happening causing
+# issue with the m1 chip where `update_index` wasn't happening causing
 # AdminSet to be created in Fedora but not Solr
 namespace :hyrax do
   namespace :default_admin_set do
