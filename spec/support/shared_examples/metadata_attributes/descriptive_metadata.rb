@@ -5,6 +5,7 @@ shared_examples 'and has descriptive metadata attributes' do
     expect(work.resource.dump(:ttl))
       .to match(/contributor/)
   end
+
   it 'has creator' do
     work.creator = ['Dennett, D. C. (Daniel Clement)']
     expect(work.resource.dump(:ttl))
@@ -16,31 +17,37 @@ shared_examples 'and has descriptive metadata attributes' do
     expect(work.resource.dump(:ttl))
       .to match(/modified/)
   end
+
   it 'has date_uploaded' do
     work.date_uploaded = '10/28/21'
     expect(work.resource.dump(:ttl))
       .to match(/dateSubmitted/)
   end
+
   it 'has dc_access_rights' do
     work.dc_access_rights = ['True']
     expect(work.resource.dump(:ttl))
       .to match(/accessRights/)
   end
+
   it 'has subject' do
     work.subject = ['Physics']
     expect(work.resource.dump(:ttl))
       .to match(/subject/)
   end
+
   it 'has publisher' do
     work.publisher = ['Penguin']
     expect(work.resource.dump(:ttl))
       .to match(/publisher/)
   end
+
   it 'has oclc' do
     work.oclc = ['677375104']
     expect(work.resource.dump(:ttl))
       .to match(/oclc/)
   end
+  
   it 'has isbn' do
     work.isbn = ['9780790506395']
     expect(work.resource.dump(:ttl))
