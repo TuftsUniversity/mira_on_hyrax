@@ -38,6 +38,12 @@ shared_examples 'and has admin metadata attributes' do
       .to match(/dl\.tufts\.edu\/terms\#displays_in/)
   end
 
+  it 'has held by' do
+    work.held_by = ['United States']
+    expect(work.resource.dump(:ttl))
+      .to match(/bibframe\.org\/vocab\/heldBy/)
+  end
+
   it 'has steward' do
     work.steward = 'A steward'
     expect(work.resource.dump(:ttl)).to match(/dl\.tufts\.edu\/terms#steward/)
@@ -136,5 +142,11 @@ shared_examples 'and has admin metadata attributes' do
     work.tufts_license = ['An example tufts license']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/license/)
+  end
+
+  it 'has dc_access_rights' do
+    work.dc_access_rights = ['True']
+    expect(work.resource.dump(:ttl))
+      .to match(/accessRights/)
   end
 end

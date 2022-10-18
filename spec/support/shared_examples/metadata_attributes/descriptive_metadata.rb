@@ -12,22 +12,10 @@ shared_examples 'and has descriptive metadata attributes' do
       .to match(/creator/)
   end
 
-  it 'has date_modified' do
-    work.date_modified = '12/17/22'
-    expect(work.resource.dump(:ttl))
-      .to match(/modified/)
-  end
-
   it 'has date_uploaded' do
     work.date_uploaded = '10/28/21'
     expect(work.resource.dump(:ttl))
       .to match(/dateSubmitted/)
-  end
-
-  it 'has dc_access_rights' do
-    work.dc_access_rights = ['True']
-    expect(work.resource.dump(:ttl))
-      .to match(/accessRights/)
   end
 
   it 'has subject' do
@@ -47,7 +35,7 @@ shared_examples 'and has descriptive metadata attributes' do
     expect(work.resource.dump(:ttl))
       .to match(/oclc/)
   end
-  
+
   it 'has isbn' do
     work.isbn = ['9780790506395']
     expect(work.resource.dump(:ttl))
@@ -66,12 +54,6 @@ shared_examples 'and has descriptive metadata attributes' do
       .to match(/description/)
   end
 
-  it 'has displays_in' do
-    work.displays_in = ['nowhere', 'trove']
-    expect(work.resource.dump(:ttl))
-      .to match(/dl\.tufts\.edu\/terms\#displays_in/)
-  end
-
   it 'has geographic_names' do
     work.geographic_name = ['China']
     expect(work.resource.dump(:ttl))
@@ -82,12 +64,6 @@ shared_examples 'and has descriptive metadata attributes' do
     work.geog_name = ['China']
     expect(work.resource.dump(:ttl))
       .to match(/dl\.tufts\.edu\/terms\#geog_name/)
-  end
-
-  it 'has held by' do
-    work.held_by = ['United States']
-    expect(work.resource.dump(:ttl))
-      .to match(/bibframe\.org\/vocab\/heldBy/)
   end
 
   it 'has alternative title' do
