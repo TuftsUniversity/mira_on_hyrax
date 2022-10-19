@@ -19,10 +19,12 @@ module AdvancedSearchFields
           field.solr_local_parameters = { qf: full_field_name }
           # using :format_attr for :format because :format refers to the response
           # format in rails controllers
-          if attr == :format
+          if attr == :format_label
             field.field = "format_attr"
-            field.label = "Format test"
+            field.label = "Format"
           end
+
+          field.label = "Thesis Type" if attr == :dissertation_type
         end
       end
     end
