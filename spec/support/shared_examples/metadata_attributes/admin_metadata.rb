@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-shared_examples 'and has admin metadata attributes' do
+shared_examples 'has admin metadata attributes' do
   describe '#mark_reviewed!' do
     it 'sets #reviewed?' do
       expect { work.mark_reviewed! }
@@ -127,12 +127,12 @@ shared_examples 'and has admin metadata attributes' do
       .to match(/dl\.tufts\.edu\/terms#creator_department/)
   end
 
-  it 'createdby' do
+  it 'has createdby' do
     work.createdby = ['self-deposit']
     expect(work.resource.dump(:ttl)).to match(/dl\.tufts\.edu\/terms#createdby/)
   end
 
-  it 'is part of' do
+  it 'has is_part_of' do
     work.is_part_of = ['Something bigger']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/isPartOf/)

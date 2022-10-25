@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-shared_examples 'and has descriptive metadata attributes' do
+shared_examples 'has descriptive metadata attributes' do
   it 'has contributor' do
     work.contributor = ['Rovner, LIsa, film director, screenwriter']
     expect(work.resource.dump(:ttl))
@@ -144,13 +144,13 @@ shared_examples 'and has descriptive metadata attributes' do
       .to match(/purl\.org\/dc\/terms\/replaces/)
   end
 
-  it 'has "is replaced by"' do
+  it 'has is replaced by' do
     work.is_replaced_by = ['Something that is replaced by']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/isReplacedBy/)
   end
 
-  it 'has "has part"' do
+  it 'has has part' do
     work.has_part = ['a part']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/hasPart/)
