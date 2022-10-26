@@ -38,7 +38,7 @@ shared_examples 'has admin metadata attributes' do
       .to match(/dl\.tufts\.edu\/terms\#displays_in/)
   end
 
-  it 'has held_by' do
+  it 'has held by' do
     work.held_by = ['United States']
     expect(work.resource.dump(:ttl))
       .to match(/bibframe\.org\/vocab\/heldBy/)
@@ -83,7 +83,7 @@ shared_examples 'has admin metadata attributes' do
       .to match(/purl\.org\/dc\/terms\/accrualPolicy/)
   end
 
-  it 'has rights_note' do
+  it 'has rights note' do
     work.rights_note = 'A note about DCA Detailed Rights'
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/elements\/1.1\/rights/)
@@ -100,17 +100,17 @@ shared_examples 'has admin metadata attributes' do
       .to match(/dl\.tufts\.edu\/terms#retention_period/)
   end
 
-  it 'has start_date' do
+  it 'has start date' do
     work.admin_start_date = ['01/15/2017']
     expect(work.resource.dump(:ttl)).to match(/dl\.tufts\.edu\/terms#startDate/)
   end
 
-  it 'has qr_status' do
+  it 'has qr status' do
     work.qr_status = ['qr status']
     expect(work.resource.dump(:ttl)).to match(/dl\.tufts\.edu\/terms#qr_status/)
   end
 
-  it 'has rejection_reason' do
+  it 'has rejection reason' do
     work.rejection_reason = ['A rejection']
     expect(work.resource.dump(:ttl))
       .to match(/dl\.tufts\.edu\/terms#rejection_reason/)
@@ -121,7 +121,7 @@ shared_examples 'has admin metadata attributes' do
     expect(work.resource.dump(:ttl)).to match(/dl\.tufts\.edu\/terms#qr_note/)
   end
 
-  it 'has creator_department' do
+  it 'has creator department' do
     work.creator_department = ['A creator department']
     expect(work.resource.dump(:ttl))
       .to match(/dl\.tufts\.edu\/terms#creator_department/)
@@ -138,7 +138,7 @@ shared_examples 'has admin metadata attributes' do
       .to match(/purl\.org\/dc\/terms\/isPartOf/)
   end
 
-  it 'has a tufts_license' do
+  it 'has a Tufts license field' do
     work.tufts_license = ['An example tufts license']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/license/)

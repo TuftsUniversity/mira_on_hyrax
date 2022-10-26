@@ -66,7 +66,7 @@ shared_examples 'has descriptive metadata attributes' do
       .to match(/dl\.tufts\.edu\/terms\#geog_name/)
   end
 
-  it 'has alternative_title' do
+  it 'has alternative title' do
     work.alternative_title = ['An alternative title']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/alternative/)
@@ -78,49 +78,49 @@ shared_examples 'has descriptive metadata attributes' do
       .to match(/purl\.org\/dc\/terms\/abstract/)
   end
 
-  it 'has table_of_contents' do
+  it 'has table of contents' do
     work.table_of_contents = ['Chapter 1']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/tableOfContents/)
   end
 
-  it 'has primary_date' do
+  it 'has primary date' do
     work.primary_date = ['12/31/99']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/elements\/1.1\/date/)
   end
 
-  it 'has date_accepted' do
+  it 'has date accepted' do
     work.date_accepted = ['01/01/00']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/dateAccepted/)
   end
 
-  it 'has date_available' do
+  it 'has date available' do
     work.date_available = ['01/02/00']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/available/)
   end
 
-  it 'has date_copyrighted' do
+  it 'has date copyrighted' do
     work.date_copyrighted = ['01/03/00']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/dateCopyrighted/)
   end
 
-  it 'has date_issued' do
+  it 'has date issued' do
     work.date_issued = ['01/04/00']
     expect(work.resource.dump(:ttl))
       .to match(/ebu\.ch\/metadata\/ontologies\/ebucore\/ebucore#dateIssued/)
   end
 
-  it 'has a resource_type' do
+  it 'has a resource type' do
     work.resource_type = ['Collection']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/type/)
   end
 
-  it 'has a bilographic_citation' do
+  it 'has a bilographic citation' do
     work.bibliographic_citation = ['Collection']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/bibliographicCitation/)
@@ -132,7 +132,7 @@ shared_examples 'has descriptive metadata attributes' do
       .to match(/purl\.org\/dc\/terms\/rightsHolder/)
   end
 
-  it 'has format_label' do
+  it 'has format label' do
     work.format_label = ['a format label']
     expect(work.resource.dump(:ttl))
       .to match(/loc\.gov\/premis\/rdf\/v1#hasFormatName/)
@@ -144,13 +144,13 @@ shared_examples 'has descriptive metadata attributes' do
       .to match(/purl\.org\/dc\/terms\/replaces/)
   end
 
-  it 'has is_replaced_by' do
+  it 'has is replaced by' do
     work.is_replaced_by = ['Something that is replaced by']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/isReplacedBy/)
   end
 
-  it 'has has_part' do
+  it 'has has part' do
     work.has_part = ['a part']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/hasPart/)
@@ -162,13 +162,13 @@ shared_examples 'has descriptive metadata attributes' do
       .to match(/purl\.org\/dc\/terms\/extent/)
   end
 
-  it 'has personal_name' do
+  it 'has personal name' do
     work.personal_name = ['Someone']
     expect(work.resource.dump(:ttl))
       .to match(/loc\.gov\/mads\/rdf\/v1#PersonalName/)
   end
 
-  it 'has corporate_name' do
+  it 'has corporate name' do
     work.corporate_name = ['Something']
     expect(work.resource.dump(:ttl))
       .to match(/loc\.gov\/mads\/rdf\/v1#CorporateName/)
@@ -192,7 +192,7 @@ shared_examples 'has descriptive metadata attributes' do
       .to match(/purl\.org\/dc\/terms\/temporal/)
   end
 
-  it 'has dissertation_type' do
+  it 'has dissertation type' do
     work.dissertation_type = 'undergraduate'
     expect(work.resource.dump(:ttl))
       .to match(/id\.loc\.gov\/ontologies\/bibframe/)
