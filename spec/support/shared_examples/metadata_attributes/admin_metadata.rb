@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-shared_examples 'and has admin metadata attributes' do
+shared_examples 'has admin metadata attributes' do
   describe '#mark_reviewed!' do
     it 'sets #reviewed?' do
       expect { work.mark_reviewed! }
@@ -18,6 +18,30 @@ shared_examples 'and has admin metadata attributes' do
         .from(false)
         .to(true)
     end
+  end
+
+  it 'has admin_start_date' do
+    work.admin_start_date = ['12/17/22']
+    expect(work.resource.dump(:ttl))
+      .to match(/startDate/)
+  end
+
+  it 'has aspace_cuid' do
+    work.aspace_cuid = 'Identifier'
+    expect(work.resource.dump(:ttl))
+      .to match(/aspace_cuid/)
+  end
+
+  it 'has displays_in' do
+    work.displays_in = ['nowhere', 'trove']
+    expect(work.resource.dump(:ttl))
+      .to match(/dl\.tufts\.edu\/terms\#displays_in/)
+  end
+
+  it 'has held_by' do
+    work.held_by = ['United States']
+    expect(work.resource.dump(:ttl))
+      .to match(/bibframe\.org\/vocab\/heldBy/)
   end
 
   it 'has steward' do
@@ -59,7 +83,7 @@ shared_examples 'and has admin metadata attributes' do
       .to match(/purl\.org\/dc\/terms\/accrualPolicy/)
   end
 
-  it 'has rights note' do
+  it 'has rights_note' do
     work.rights_note = 'A note about DCA Detailed Rights'
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/elements\/1.1\/rights/)
@@ -76,17 +100,17 @@ shared_examples 'and has admin metadata attributes' do
       .to match(/dl\.tufts\.edu\/terms#retention_period/)
   end
 
-  it 'has start date' do
+  it 'has start_date' do
     work.admin_start_date = ['01/15/2017']
     expect(work.resource.dump(:ttl)).to match(/dl\.tufts\.edu\/terms#startDate/)
   end
 
-  it 'has qr status' do
+  it 'has qr_status' do
     work.qr_status = ['qr status']
     expect(work.resource.dump(:ttl)).to match(/dl\.tufts\.edu\/terms#qr_status/)
   end
 
-  it 'has rejection reason' do
+  it 'has rejection_reason' do
     work.rejection_reason = ['A rejection']
     expect(work.resource.dump(:ttl))
       .to match(/dl\.tufts\.edu\/terms#rejection_reason/)
@@ -97,26 +121,32 @@ shared_examples 'and has admin metadata attributes' do
     expect(work.resource.dump(:ttl)).to match(/dl\.tufts\.edu\/terms#qr_note/)
   end
 
-  it 'has creator department' do
+  it 'has creator_department' do
     work.creator_department = ['A creator department']
     expect(work.resource.dump(:ttl))
       .to match(/dl\.tufts\.edu\/terms#creator_department/)
   end
 
-  it 'createdby' do
+  it 'has createdby' do
     work.createdby = ['self-deposit']
     expect(work.resource.dump(:ttl)).to match(/dl\.tufts\.edu\/terms#createdby/)
   end
 
-  it 'is part of' do
+  it 'has is_part_of' do
     work.is_part_of = ['Something bigger']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/isPartOf/)
   end
 
-  it 'has a Tufts license field' do
+  it 'has a tufts_license' do
     work.tufts_license = ['An example tufts license']
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/terms\/license/)
+  end
+
+  it 'has dc_access_rights' do
+    work.dc_access_rights = ['True']
+    expect(work.resource.dump(:ttl))
+      .to match(/accessRights/)
   end
 end
