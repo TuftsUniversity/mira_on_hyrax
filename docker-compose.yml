@@ -11,6 +11,7 @@ volumes:
   solr-dev:
   redis-dev:
   bundled:
+  derivatives:
 
 services:
   ##
@@ -22,6 +23,7 @@ services:
     user: root
     volumes:
       - .:/data # mount current directory into the image
+      - derivatives:/data/tmp/derivatives
       - bundled:/usr/local/bundle
     networks:
       external:
