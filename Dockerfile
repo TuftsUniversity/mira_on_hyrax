@@ -12,12 +12,6 @@ ENV LC_ALL C.UTF-8
 #  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 #  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-RUN apt-get update
-RUN apt --fix-broken install
-RUN apt-get install google-chrome-stable -y
-
 # --allow-unauthenticated needed for yarn package
 RUN apt-get update && apt-get upgrade -y && \
   apt-get install --no-install-recommends -y ca-certificates nodejs \
@@ -26,10 +20,8 @@ RUN apt-get update && apt-get upgrade -y && \
   clamav-freshclam clamav-daemon libclamav-dev \
   libqt5webkit5-dev xvfb xauth default-jre-headless --fix-missing --allow-unauthenticated
 
-# install imagemagick 6 (fast install - less than 30 secs - but lacks heif image file support)
-# RUN apt install -y imagemagick
+RUN apt-get install chromium -y
 
-# install imagemagick 7 (slow install - more than 4 mins)
 RUN apt-get install -y wget
 RUN t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && bash "$t" && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
 
