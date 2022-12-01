@@ -8,3 +8,4 @@
  cp config/secrets.yml.sample config/secrets.yml
  cp config/ldap.yml.sample config/ldap.yml
  cp config/tufts.yml.sample config/tufts.yml
+ cp config/sidekiq.yml.sample config/sidekiq.yml
