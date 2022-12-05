@@ -4,6 +4,7 @@ echo "Building ${RAILS_ENV}"
 
 # Remove previous servers pid
 rm -f tmp/puma.pid
+rm -f tmp/pids/server.pid
 
 # Guarantee gems are installed in case docker image is outdated
 ./build/install_gems.sh

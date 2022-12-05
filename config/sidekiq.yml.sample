@@ -1,0 +1,30 @@
+---
+:concurrency: 5
+:queues:
+  - ingest
+  - batch
+  - handle
+  - default
+  - tdr_derivative_queue
+  - fixity_check
+  - batch_recreate_video_derivatives
+  - collection_indexer
+
+:limits:
+  tdr_derivative_queue: 1
+  ingest: 1
+  batch: 1
+  handle: 1
+  fixity_check: 1
+  default: 1
+  batch_recreate_video_derivatives: 2
+  collection_indexer: 1
+
+test:
+  :concurrency: 5
+
+development:
+  :concurrency: 5
+
+production:
+  :concurrency: 5

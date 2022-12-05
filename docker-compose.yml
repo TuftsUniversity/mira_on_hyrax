@@ -70,8 +70,16 @@ services:
     command: >
       bash -c "./build/entrypoint.sh &&
       bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - "${SERVER_PORTS}"
+    expose:
+      - "${SERVER_EXPOSE}"
+
   workers:
     <<: *dev
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: bash -c "./build/install_gems.sh && bundle exec sidekiq"
     depends_on:
       - db-dev
@@ -115,14 +123,21 @@ services:
       - bundled:/usr/local/bundle
     command: >
       bash -c "./build/entrypoint.sh &&
-      puma -b tcp://0.0.0.0:3001 -e test"
+      RAILS_ENV=test bundle exec rails s -p 3001 -b '0.0.0.0'"
+ #     puma -b tcp://0.0.0.0:3001 -e test"
+    ports:
+      - "${TEST_PORTS}"
     expose:
-      - 3001
+      - "${TEST_EXPOSE}"
 
   ##
   # SOLR Index server
   solr: &solr
-    image: solr:6
+    image: "${SOLR_IMAGE}"
+    platform: "${SOLR_PLATFORM}"
+    restart: always
+    environment:
+      - JAVA_OPTS="-Xss512k"
     expose:
       - 8983
     networks:
@@ -132,6 +147,8 @@ services:
     volumes:
       - ./solr/conf:/opt/solr/nurax_conf
       - solr-dev:/opt/solr/server/solr/mycores
+    ports:
+      - "${SOLR_PORTS}"
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
@@ -150,15 +167,19 @@ services:
   ##
   # Fedora repository server
   fcrepo: &fcrepo
-    image: ghcr.io/samvera/fcrepo4:4.7.5
+    image: "${FCREPO_IMAGE}"
+    platform: "${FCREPO_PLATFORM}"
+    restart: always
     environment:
-      - JAVA_OPTS="-Xmx=4g" -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
+      - JAVA_OPTS="-Xmx=2g" -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
     expose:
       - 8080
     networks:
       internal:
   fcrepo-dev:
     <<: *fcrepo
+    ports:
+      - "${FCREPO_PORTS}"
     volumes:
       - fcrepo-dev:/data
   fcrepo-test:
@@ -168,7 +189,9 @@ services:
   ##
   # Mariadb database server
   db: &db
-    image: mariadb:10
+    image: "${MARIADB_IMAGE}"
+    platform: "${MARIADB_PLATFORM}"
+    restart: always
     networks:
       internal:
   db-dev:
@@ -192,7 +215,9 @@ services:
   ##
   # Redis queue server
   redis: &redis
-    image: redis:5-alpine
+    image: "${REDIS_IMAGE}"
+    platform: "${REDIS_PLATFORM}"
+    restart: always
     command: redis-server
     networks:
       internal:
@@ -205,7 +230,9 @@ services:
     tmpfs: /data
 
   chrome:
-    image: selenium/standalone-chrome:3.141
+    image: "${SELENIUM_IMAGE}"
+    platform: "${SELENIUM_PLATFORM}"
+    restart: always
     logging:
       driver: none
     volumes:
@@ -218,10 +245,3 @@ services:
     networks:
       internal:
       external:
-
-  ##
-  # Memcache cache server
-  #memcache:
-  #  image: memcached
-  #  networks:
-  #    internal:
