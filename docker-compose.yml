@@ -33,7 +33,7 @@ services:
     # into the image AFTER the working directory is mounted.
     tmpfs:
       - /data/log
-    
+
   ##
   # Development environment for application
   dev: &dev
@@ -70,6 +70,11 @@ services:
     command: >
       bash -c "./build/entrypoint.sh &&
       bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - "${SERVER_PORTS}"
+    expose:
+      - "${SERVER_EXPOSE}"
+
   workers:
     <<: *dev
     build:
@@ -120,13 +125,16 @@ services:
       bash -c "./build/entrypoint.sh &&
       RAILS_ENV=test bundle exec rails s -p 3001 -b '0.0.0.0'"
  #     puma -b tcp://0.0.0.0:3001 -e test"
+    ports:
+      - "${TEST_PORTS}"
     expose:
-      - 3001
+      - "${TEST_EXPOSE}"
 
   ##
   # SOLR Index server
   solr: &solr
-    image: arm64v8/solr:6.6.4
+    image: "${SOLR_IMAGE}"
+    platform: "${SOLR_PLATFORM}"
     restart: always
     environment:
       - JAVA_OPTS="-Xss512k"
@@ -139,6 +147,8 @@ services:
     volumes:
       - ./solr/conf:/opt/solr/nurax_conf
       - solr-dev:/opt/solr/server/solr/mycores
+    ports:
+      - "${SOLR_PORTS}"
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
@@ -157,9 +167,9 @@ services:
   ##
   # Fedora repository server
   fcrepo: &fcrepo
-    image: ghcr.io/samvera/fcrepo4:4.7.5
+    image: "${FCREPO_IMAGE}"
+    platform: "${FCREPO_PLATFORM}"
     restart: always
-    platform: linux/arm64/v8
     environment:
       - JAVA_OPTS="-Xmx=2g" -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
     expose:
@@ -168,6 +178,8 @@ services:
       internal:
   fcrepo-dev:
     <<: *fcrepo
+    ports:
+      - "${FCREPO_PORTS}"
     volumes:
       - fcrepo-dev:/data
   fcrepo-test:
@@ -177,9 +189,9 @@ services:
   ##
   # Mariadb database server
   db: &db
-    image: mariadb:10
+    image: "${MARIADB_IMAGE}"
+    platform: "${MARIADB_PLATFORM}"
     restart: always
-    platform: linux/arm64/v8
     networks:
       internal:
   db-dev:
@@ -203,9 +215,9 @@ services:
   ##
   # Redis queue server
   redis: &redis
-    image: redis:5-alpine
+    image: "${REDIS_IMAGE}"
+    platform: "${REDIS_PLATFORM}"
     restart: always
-    platform: linux/arm64/v8
     command: redis-server
     networks:
       internal:
@@ -218,9 +230,9 @@ services:
     tmpfs: /data
 
   chrome:
-    image: seleniarm/standalone-chromium
+    image: "${SELENIUM_IMAGE}"
+    platform: "${SELENIUM_PLATFORM}"
     restart: always
-    platform: linux/arm64
     logging:
       driver: none
     volumes:
@@ -233,10 +245,3 @@ services:
     networks:
       internal:
       external:
-
-  ##
-  # Memcache cache server
-  #memcache:
-  #  image: memcached
-  #  networks:
-  #    internal:
