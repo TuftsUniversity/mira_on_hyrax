@@ -53,8 +53,8 @@ docker exec -it mira_on_hyrax_server_1 /bin/bash
 Go to localhost:3000. Login with your tufts username and password. Go to Admin Set and see that Default Admin Sets exist.
 
 
-![navigate to admin set](screen_shot_navigate_admin_set.png)
-![view to default admin set](screen_shot_view_default_admin_set.png)
+![navigate to admin set](Images/screen_shot_navigate_admin_set.png)
+![view to default admin set](Images/screen_shot_view_default_admin_set.png)
 
 ## Add a sample bathes
 
@@ -67,20 +67,20 @@ You mira server needs to be up. In a shell in your mira folder run `docker-compo
 Go to `localhost:3000` and login.
 
 In the side bar click the "Import Objects" button shown bellow.
-![navigate to import objects](screen_shot_navigate_import_objects.png)
+![navigate to import objects](Images/screen_shot_navigate_import_objects.png)
 
 In the new webpage click the "Choose File". Navigate to `/sample_batches/dca/TIF/forMIRA.xml` and choose that file. Images below for clarification.
-![batch import button](screen_shot_batch_import_button.png)
-![batch import button file select](screen_shot_batch_import_file_select.png)
+![batch import button](Images/screen_shot_batch_import_button.png)
+![batch import button file select](Images/screen_shot_batch_import_file_select.png)
 
 Click next.
 
 Click "add additional files to this batch" text as shown in the image below. Than click the "+ Add files..." button as shown in the image below. Navigate to the `/sample_batches/dca/TIF/` and multi select all 5 tifs as shown in the image below. 
-![batch add addtional files text buttons](screen_shot_batch_add_addtional_files_text_button.png)
-![batch add addtional files button](screen_shot_batch_add_addtional_files_button.png)
-![batch add addtional files file select](screen_shot_batch_add_addtional_files_file_select.png)
+![batch add addtional files text buttons](Images/screen_shot_batch_add_addtional_files_text_button.png)
+![batch add addtional files button](Images/screen_shot_batch_add_addtional_files_button.png)
+![batch add addtional files file select](Images/screen_shot_batch_add_addtional_files_file_select.png)
 
 Wait for all progress bars to finish loading. Click "Add Files to Batch" button. Wait for the status of all items to say completed
 
-![upload files add files button](screen_shot_upload_files_add_files_button.png)
-![upload files add files button](screen_shot_batch_status_completed.png)
+![upload files add files button](Images/screen_shot_upload_files_add_files_button.png)
+![upload files add files button](Images/screen_shot_batch_status_completed.png)
