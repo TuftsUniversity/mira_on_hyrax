@@ -62,7 +62,7 @@ In `/sample_batches` folder you will find soem sample batches that can be added 
 
 ### Navigate mira web page
 
-You mira server needs to be up. In a shell in your mira folder run `docker-compose up server`.
+Your mira server needs to be up. In a shell in your mira folder run `docker-compose up server`.
 
 Go to `localhost:3000` and login.
 
