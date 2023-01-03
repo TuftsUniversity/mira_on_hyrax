@@ -9,19 +9,19 @@ namespace :tufts do
       puts('example usage: rake tufts:update_rights_statements some_pids.txt')
     else
       updates_hash = {
-        'http://dca.tufts.edu/ua/access/rights-creator.html' => 'http://dca.tufts.edu/research/policies-fees/reproductions-and-use',
-        'http://dca.tufts.edu/ua/access/rights-creator.htm' => 'http://dca.tufts.edu/research/policies-fees/reproductions-and-use',
-        'http://dca.tufts.edu/ua/access/rights-creators.html' => 'http://dca.tufts.edu/research/policies-fees/reproductions-and-use',
-        'http://dca.tufts.edu/ua/access/rights-tufts.html' => 'http://dca.tufts.edu/research/policies-fees/reproductions-and-use',
+        'http://tarc.tufts.edu/ua/access/rights-creator.html' => 'http://tarc.tufts.edu/research/policies-fees/reproductions-and-use',
+        'http://tarc.tufts.edu/ua/access/rights-creator.htm' => 'http://tarc.tufts.edu/research/policies-fees/reproductions-and-use',
+        'http://tarc.tufts.edu/ua/access/rights-creators.html' => 'http://tarc.tufts.edu/research/policies-fees/reproductions-and-use',
+        'http://tarc.tufts.edu/ua/access/rights-tufts.html' => 'http://tarc.tufts.edu/research/policies-fees/reproductions-and-use',
 
         'http://sites.tufts.edu/dca/about-us/research-help/reproductions-and-use/' \
-                                                                                   => 'http://dca.tufts.edu/research/policies-fees/reproductions-and-use',
+                                                                                   => 'http://tarc.tufts.edu/research/policies-fees/reproductions-and-use',
         'http://sites.tufts.edu/dca/about-us/research-help/citations/copyright-and-citations-for-bostonian-society-images/' \
-                                                                                                                            => 'http://dca.tufts.edu/research/help-with-copyright/copyright-and-citations-for-bostonian-society-images',
+                                                                                                                            => 'http://tarc.tufts.edu/research/help-with-copyright/copyright-and-citations-for-bostonian-society-images',
         'http://sites.tufts.edu/dca/about-us/research-help/citations/copyright-and-citations-for-material-from-the-edward-r-murrow-collection/' \
-                                                                                                                                                => 'http://dca.tufts.edu/research/help-with-copyright/copyright-and-citations-for-material-from-the-edward-r-murrow-collection',
+                                                                                                                                                => 'http://tarc.tufts.edu/research/help-with-copyright/copyright-and-citations-for-material-from-the-edward-r-murrow-collection',
 
-        'http://bostonhistory.org/photorequest.html' => 'http://dca.tufts.edu/research/help-with-copyright/copyright-and-citations-for-bostonian-society-images',
+        'http://bostonhistory.org/photorequest.html' => 'http://tarc.tufts.edu/research/help-with-copyright/copyright-and-citations-for-bostonian-society-images',
 
         'http://creativecommons.org/licenses/by/2.0' => 'http://creativecommons.org/licenses/by/4.0/',
         'http://www.creativecommons.org/licenses/by/2.0' => 'http://creativecommons.org/licenses/by/4.0/',
