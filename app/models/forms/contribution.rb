@@ -32,7 +32,7 @@ class Contribution
       visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC,
       creator: [creator],
       title: [title],
-      steward: 'dca',
+      steward: 'tarc',
       displays_in: ['dl'],
       publisher: ['Tufts University. Digital Collections and Archives.'],
       tufts_license: ['http://dca.tufts.edu/ua/access/rights-creator.html'],
