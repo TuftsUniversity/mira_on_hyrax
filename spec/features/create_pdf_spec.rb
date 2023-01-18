@@ -90,8 +90,8 @@ RSpec.feature 'Create a PDF', :clean, js: true do
       select 'Springer Policy', from: 'Rights'
       expect(page).to have_select('Rights', selected: 'Springer Policy')
       fill_in 'Source', with: 'Source'
-      select 'dca', from: 'Steward'
-      expect(page).to have_select('Steward', selected: 'dca')
+      select 'tarc', from: 'Steward'
+      expect(page).to have_select('Steward', selected: 'tarc')
       fill_in 'Subject', with: 'Subject'
       fill_in 'Table of Contents', with: 'Table of Contents'
       fill_in 'Temporal', with: 'Temporal'
