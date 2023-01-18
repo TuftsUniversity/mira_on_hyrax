@@ -38,9 +38,9 @@ module Hyrax
       def contact_email
         steward = @work.steward
         tisch_email = 'metadataservices@tufts.edu'
-        dca_email = 'archives@tufts.edu'
-        if steward == 'dca'
-          dca_email
+        tarc_email = 'archives@tufts.edu'
+        if steward == 'tarc'
+          tarc_email
         else
           tisch_email
         end
