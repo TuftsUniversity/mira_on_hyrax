@@ -34,7 +34,7 @@ class Contribution
       title: [title],
       steward: 'tarc',
       displays_in: ['dl'],
-      publisher: ['Tufts University. Digital Collections and Archives.'],
+      publisher: ['Tufts University. Tufts Archival Research Center.'],
       tufts_license: ['http://tarc.tufts.edu/ua/access/rights-creator.html'],
       date_available: [now.to_s],
       date_uploaded: now.to_s,
