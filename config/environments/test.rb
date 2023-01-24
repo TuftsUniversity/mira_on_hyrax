@@ -48,8 +48,7 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  # config.assets.compile = true
-  # config.assets.js_compressor = :uglifier
+
   config.active_job.queue_adapter = :sidekiq
 
   # Configure the drafts strorage directory
