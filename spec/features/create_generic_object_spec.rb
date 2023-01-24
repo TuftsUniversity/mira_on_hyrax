@@ -71,8 +71,8 @@ RSpec.feature 'Create a GenericObject', :clean, js: true do
       expect(page).to have_select('Rights', selected: 'Springer Policy')
       fill_in 'Source', with: 'Source'
       fill_in 'Start Date', with: 'Start Date'
-      select 'dca', from: 'Steward'
-      expect(page).to have_select('Steward', selected: 'dca')
+      select 'tarc', from: 'Steward'
+      expect(page).to have_select('Steward', selected: 'tarc')
       fill_in 'Subject', with: 'Subject'
       fill_in 'Table of Contents', with: 'Table of Contents'
       fill_in 'Temporal', with: 'Temporal'
