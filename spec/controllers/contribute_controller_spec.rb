@@ -117,7 +117,7 @@ describe ContributeController do
                                                   creator: 'John Doe', attachment: uploaded_file }, deposit_type: deposit_type.id }
 
           contribution = Pdf.find(assigns[:contribution].tufts_pdf.id)
-          expect(contribution.steward).to eq 'dca'
+          expect(contribution.steward).to eq 'tarc'
           expect(contribution.displays_in).to eq ['dl']
           expect(contribution.publisher).to eq ['Tufts University. Digital Collections and Archives.']
           expect(contribution.tufts_license).to eq [deposit_type.license_name]
