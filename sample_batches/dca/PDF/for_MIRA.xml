@@ -45,7 +45,7 @@
                <tufts:visibility>open</tufts:visibility>
                <model:hasModel>Pdf</model:hasModel>
                <dc11:publisher>Digital Collections and Archives, Tufts University.</dc11:publisher>
-               <tufts:steward>dca</tufts:steward>
+               <tufts:steward>tarc</tufts:steward>
                <bibframe:heldBy>Archives</bibframe:heldBy>
                <tufts:displays_in>dl</tufts:displays_in>
                <tufts:aspace_cuid>UP150.001.002</tufts:aspace_cuid>
@@ -86,7 +86,7 @@
                <tufts:visibility>open</tufts:visibility>
                <model:hasModel>Pdf</model:hasModel>
                <dc11:publisher>Digital Collections and Archives, Tufts University.</dc11:publisher>
-               <tufts:steward>dca</tufts:steward>
+               <tufts:steward>tarc</tufts:steward>
                <bibframe:heldBy>Archives</bibframe:heldBy>
                <tufts:displays_in>dl</tufts:displays_in>
                <tufts:aspace_cuid>UP150.001.003</tufts:aspace_cuid>
@@ -128,7 +128,7 @@
                <tufts:visibility>open</tufts:visibility>
                <model:hasModel>Pdf</model:hasModel>
                <dc11:publisher>Digital Collections and Archives, Tufts University.</dc11:publisher>
-               <tufts:steward>dca</tufts:steward>
+               <tufts:steward>tarc</tufts:steward>
                <bibframe:heldBy>Archives</bibframe:heldBy>
                <tufts:displays_in>dl</tufts:displays_in>
                <tufts:aspace_cuid>UP150.001.004.00001</tufts:aspace_cuid>
@@ -169,7 +169,7 @@
                <tufts:visibility>open</tufts:visibility>
                <model:hasModel>Pdf</model:hasModel>
                <dc11:publisher>Digital Collections and Archives, Tufts University.</dc11:publisher>
-               <tufts:steward>dca</tufts:steward>
+               <tufts:steward>tarc</tufts:steward>
                <bibframe:heldBy>Archives</bibframe:heldBy>
                <tufts:displays_in>dl</tufts:displays_in>
                <tufts:aspace_cuid>UP150.001.005</tufts:aspace_cuid>
