@@ -35,7 +35,7 @@ class Contribution
       steward: 'tarc',
       displays_in: ['dl'],
       publisher: ['Tufts University. Digital Collections and Archives.'],
-      tufts_license: ['http://dca.tufts.edu/ua/access/rights-creator.html'],
+      tufts_license: ['http://tarc.tufts.edu/research/policies-fees/reproductions-and-use'],
       date_available: [now.to_s],
       date_uploaded: now.to_s,
       internal_note: [note]

@@ -40,7 +40,7 @@ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
           <dc:temporal>1987</dc:temporal>
           <dc11:creator>Unknown</dc11:creator>
           <dc:publisher>Digital Collections and Archives, Tufts University</dc:publisher>
-          <dc:rights>http://dca.tufts.edu/ua/access/rights.html</dc:rights>
+          <dc:rights>http://tarc.tufts.edu/research/policies-fees/reproductions-and-use</dc:rights>
           <dc:identifier>http://hdl.handle.net/10427/448</dc:identifier>
           <dc:isPartOf>UA136</dc:isPartOf>
           <dc:created>07/02/2002</dc:created>
@@ -82,7 +82,7 @@ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
           <dc:temporal>1987</dc:temporal>
           <dc11:creator>Unknown</dc11:creator>
           <dc:publisher>Digital Collections and Archives, Tufts University</dc:publisher>
-          <dc:rights>http://dca.tufts.edu/ua/access/rights.html</dc:rights>
+          <dc:rights>http://tarc.tufts.edu/research/policies-fees/reproductions-and-use</dc:rights>
           <dc:identifier>http://hdl.handle.net/10427/448</dc:identifier>
           <dc:isPartOf>UA136</dc:isPartOf>
           <dc:created>07/02/2002</dc:created>

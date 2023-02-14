@@ -1,11 +1,11 @@
 terms:
-    - id: http://dca.tufts.edu/research/policies-fees/reproductions-and-use
+    - id: http://tarc.tufts.edu/research/policies-fees/reproductions-and-use
       term: DCA Detailed Rights
       active: true
-    - id: http://dca.tufts.edu/research/help-with-copyright/copyright-and-citations-for-material-from-the-edward-r-murrow-collection
+    - id: http://tarc.tufts.edu/research/help-with-copyright/copyright-and-citations-for-material-from-the-edward-r-murrow-collection
       term: Murrow Collection Rights
       active: true
-    - id: http://dca.tufts.edu/research/help-with-copyright/copyright-and-citations-for-bostonian-society-images
+    - id: http://tarc.tufts.edu/research/help-with-copyright/copyright-and-citations-for-bostonian-society-images
       term: Bostonian Society Images
       active: true
     - id: http://creativecommons.org/licenses/by/4.0/
