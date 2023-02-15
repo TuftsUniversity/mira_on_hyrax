@@ -9,7 +9,7 @@ RSpec.describe Ead do
 
   it_behaves_like 'a draftable model' do
     let(:change_map) do
-      { title: ['Another title'], displays_in: ['dca'], subject: ['Testing'] }
+      { title: ['Another title'], displays_in: ['tarc'], subject: ['Testing'] }
     end
   end
 

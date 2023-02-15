@@ -9,7 +9,7 @@ RSpec.describe Pdf do
     subject(:model) { work }
 
     let(:change_map) do
-      { title: ['Another title'], displays_in: ['dca'], subject: ['Testing'] }
+      { title: ['Another title'], displays_in: ['tarc'], subject: ['Testing'] }
     end
   end
 

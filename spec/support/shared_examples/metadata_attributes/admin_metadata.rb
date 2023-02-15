@@ -84,7 +84,7 @@ shared_examples 'has admin metadata attributes' do
   end
 
   it 'has rights_note' do
-    work.rights_note = 'A note about DCA Detailed Rights'
+    work.rights_note = 'A note about TARC Detailed Rights'
     expect(work.resource.dump(:ttl))
       .to match(/purl\.org\/dc\/elements\/1.1\/rights/)
   end
