@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+         xmlns:bibframe="http://bibframe.org/vocab/"
+         xmlns:dc="http://purl.org/dc/terms/"
+         xmlns:dc11="http://purl.org/dc/elements/1.1/"
+         xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
+         xmlns:edm="http://www.europeana.eu/schemas/edm/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+         xmlns:marc="http://www.loc.gov/MARC21/slim"
+         xmlns:marcrelators="http://id.loc.gov/vocabulary/relators/"
+         xmlns:model="info:fedora/fedora-system:def/model#"
+         xmlns:premis="http://www.loc.gov/premis/rdf/v1#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:scholarsphere="http://scholarsphere.psu.edu/ns#"
+         xmlns:terms="http://dl.tufts.edu/terms#"
+         xmlns:tufts="http://dl.tufts.edu/terms#"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <ListRecords>
+      <record>
+         <metadata>
+            <mira_import>
+               <tufts:filename type="representative">sample.mpg</tufts:filename>
+               <tufts:filename type="transcript">sample.srt</tufts:filename>
+               <tufts:visibility>authenticated</tufts:visibility>
+               <model:hasModel>Video</model:hasModel>               
+               <dc:title>Sample</dc:title>         
+               <dc:extent>1 online resource (1 video file (approximately 95 min.)) : sound, color with black and white sequences.</dc:extent>
+               <dc11:description>Originally produced in 2019.</dc11:description>
+               <tufts:oclc>1176277667</tufts:oclc>
+               <dc11:language>eng</dc11:language>
+               <dc11:publisher/>
+               <dc:source>Original print publication: [United States] :[publisher not identified],[2020]</dc:source>
+               <dc:isPartOf/>
+               <dc11:date>2020</dc11:date>
+               <dc:created>2021-11-08T13:31:58.368-05:00</dc:created>
+               <dc:type>MovingImage</dc:type>
+               <dc:format>application/mp4</dc:format>
+               <dc11:subject>Motion pictures--Sound effects.</dc11:subject>
+               <dc11:subject>Sound in motion pictures.</dc11:subject>
+               <dc11:subject>Sound--Recording and reproducing.</dc11:subject>
+               <dc11:subject>Motion pictures--Sound effects</dc11:subject>
+               <dc11:subject>Sound in motion pictures</dc11:subject>
+               <dc11:subject>Sound--Recording and reproducing</dc11:subject>
+               <edm:rights>http://rightsstatements.org/vocab/InC/1.0/</edm:rights>
+               <terms:steward>tisch</terms:steward>
+               <tufts:qr_note>Metadata reviewed by: pwalke05 on 2021-11-08T13:31:58.368-05:00.</tufts:qr_note>
+               <tufts:internal_note/>
+               <terms:displays_in>dl</terms:displays_in>
+            </mira_import>
+         </metadata>
+      </record>
+   </ListRecords>
+</OAI-PMH>
