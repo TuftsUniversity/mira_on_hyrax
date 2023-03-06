@@ -34,7 +34,7 @@ class Contribution
       title: [title],
       steward: 'tarc',
       displays_in: ['dl'],
-      publisher: ['Tufts Archival Research Center.'],
+      publisher: ['Tufts Archival Research Center'],
       tufts_license: ['http://tarc.tufts.edu/research/policies-fees/reproductions-and-use'],
       date_available: [now.to_s],
       date_uploaded: now.to_s,

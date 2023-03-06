@@ -119,7 +119,7 @@ describe ContributeController do
           contribution = Pdf.find(assigns[:contribution].tufts_pdf.id)
           expect(contribution.steward).to eq 'tarc'
           expect(contribution.displays_in).to eq ['dl']
-          expect(contribution.publisher).to eq ['Tufts Archival Research Center.']
+          expect(contribution.publisher).to eq ['Tufts Archival Research Center']
           expect(contribution.tufts_license).to eq [deposit_type.license_name]
         end
 
