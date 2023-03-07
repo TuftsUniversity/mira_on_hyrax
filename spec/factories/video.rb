@@ -1,5 +1,14 @@
 # frozen_string_literal: true
 FactoryBot.define do
+  factory :video do
+    title { [FFaker::Book.title] }
+    displays_in { ['nowhere'] }
+    visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
+    rights_statement { ['http://bostonhistory.org/photorequest.html'] }
+  end
+end
+
+FactoryBot.define do
   factory :tufts_video, class: Video do
     transient do
       user { FactoryBot.create(:user) } # find_or_create ???

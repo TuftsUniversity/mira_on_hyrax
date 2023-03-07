@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 FactoryBot.define do
+  factory :audio do
+    title { ['Test'] }
+    visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
+  end
+end
+FactoryBot.define do
   factory :tufts_MS123_audio, class: Audio do
     transient do
       user { FactoryBot.create(:user) } # find_or_create ???
