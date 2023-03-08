@@ -23,8 +23,6 @@ module Tufts
       go_again?(start_index, rows, response["response"]["numFound"]) && update_index(start_index + loop_index, rows)
     end
 
-    private
-
     def self.go_again?(start_index, rows, num_found)
       num_found > rows.to_i + start_index
     end
@@ -45,5 +43,7 @@ module Tufts
         Rails.logger.info "no transcript #{id}"
       end
     end
+
+    private_class_method :conditionally_update_record, :av_ids, :go_again?
   end
 end
