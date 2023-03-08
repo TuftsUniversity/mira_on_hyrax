@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI>
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title/>
+        <author/>
+      </titleStmt>
+      <extent/>
+      <publicationStmt>
+        <distribution>Tufts Technology Services</distribution>
+        <address>
+          <addrLine>Tufts University</addrLine>
+          <addrLine>16 Dearborn Road</addrLine>
+          <addrLine>Somerville, MA, 02155</addrLine>
+        </address>
+        <idno/>
+        <availability status="free">
+          <p>This publication is freely available for scholarly or educational use.</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <recordingStmt>
+          <recording type="audio" dur="1056800ms">
+            <date/>
+            <equipment>
+              <p/>
+            </equipment>
+            <respStmt>
+              <resp/>
+              <name/>
+            </respStmt>
+          </recording>
+        </recordingStmt>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <editorialDecl>
+        <stdVals>Standard date values are given in ISO form: yyyy-mm-dd.<p/></stdVals>
+      </editorialDecl>
+      <classDecl>
+        <taxonomy id="LCSH">
+          <bible>
+            <title>Library of Congress</title>
+          </bible>
+        </taxonomy>
+      </classDecl>
+    </encodingDesc>
+    <profileDesc>
+      <creation>
+        <date/>
+      </creation>
+      <langUsage>
+        <language id="EN" usage="100">English.</language>
+      </langUsage>
+      <particDesc/>
+    </profileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <timeline id="transcript_timeline" unit="millisecond" origin="timepoint_begin">
+        <when id="timepoint_begin" absolute="beginning of recording"/>
+<when id="timepoint_1" since="timepoint_begin" interval="6428"/>
+<when id="timepoint_2" since="timepoint_begin" interval="35730"/>
+<when id="timepoint_3" since="timepoint_begin" interval="56020"/>
+<when id="timepoint_4" since="timepoint_begin" interval="78740"/>
+<when id="timepoint_5" since="timepoint_begin" interval="102610"/>
+<when id="timepoint_6" since="timepoint_begin" interval="128020"/>
+<when id="timepoint_7" since="timepoint_begin" interval="150200"/>
+<when id="timepoint_8" since="timepoint_begin" interval="170950"/>
+<when id="timepoint_9" since="timepoint_begin" interval="200870"/>
+<when id="timepoint_10" since="timepoint_begin" interval="230210"/>
+<when id="timepoint_11" since="timepoint_begin" interval="247060"/>
+<when id="timepoint_12" since="timepoint_begin" interval="265650"/>
+<when id="timepoint_13" since="timepoint_begin" interval="286630"/>
+<when id="timepoint_14" since="timepoint_begin" interval="303220"/>
+<when id="timepoint_15" since="timepoint_begin" interval="323130"/>
+<when id="timepoint_16" since="timepoint_begin" interval="345370"/>
+<when id="timepoint_17" since="timepoint_begin" interval="364010"/>
+<when id="timepoint_18" since="timepoint_begin" interval="386600"/>
+<when id="timepoint_19" since="timepoint_begin" interval="406590"/>
+<when id="timepoint_20" since="timepoint_begin" interval="430520"/>
+<when id="timepoint_21" since="timepoint_begin" interval="449650"/>
+<when id="timepoint_22" since="timepoint_begin" interval="465640"/>
+<when id="timepoint_23" since="timepoint_begin" interval="486270"/>
+<when id="timepoint_24" since="timepoint_begin" interval="509580"/>
+<when id="timepoint_25" since="timepoint_begin" interval="543010"/>
+<when id="timepoint_26" since="timepoint_begin" interval="563460"/>
+<when id="timepoint_27" since="timepoint_begin" interval="584690"/>
+<when id="timepoint_28" since="timepoint_begin" interval="606640"/>
+<when id="timepoint_29" since="timepoint_begin" interval="628910"/>
+<when id="timepoint_30" since="timepoint_begin" interval="655130"/>
+<when id="timepoint_31" since="timepoint_begin" interval="679867"/>
+<when id="timepoint_32" since="timepoint_begin" interval="705940"/>
+<when id="timepoint_33" since="timepoint_begin" interval="726226"/>
+<when id="timepoint_34" since="timepoint_begin" interval="760430"/>
+<when id="timepoint_35" since="timepoint_begin" interval="779000"/>
+<when id="timepoint_36" since="timepoint_begin" interval="799150"/>
+<when id="timepoint_37" since="timepoint_begin" interval="827550"/>
+<when id="timepoint_38" since="timepoint_begin" interval="845930"/>
+<when id="timepoint_39" since="timepoint_begin" interval="866180"/>
+<when id="timepoint_40" since="timepoint_begin" interval="888950"/>
+<when id="timepoint_41" since="timepoint_begin" interval="916510"/>
+<when id="timepoint_42" since="timepoint_begin" interval="935510"/>
+<when id="timepoint_43" since="timepoint_begin" interval="962160"/>
+<when id="timepoint_44" since="timepoint_begin" interval="979930"/>
+<when id="timepoint_45" since="timepoint_begin" interval="996800"/>
+<when id="timepoint_end" since="timepoint_begin" interval="1056800"/>
+      </timeline><div1 id="transcript.1" n="Transcript"><u rend="transcript_chunk" start="timepoint_1" n="1" end="timepoint_2">
+<u>Is a course that totally focused on answering the question, how did we first come to have high quality evidence in any of the sciences? And from the wording that's obviously a historical question. And we're going to do a fair amount of history. And certainly one of the goals in this course is for you to come to appreciate how much more complicated the actual history of science was, than anything you've probably ever imagined it to be.</u>
+</u><u rend="transcript_chunk" start="timepoint_2" n="2" end="timepoint_3">
+<u>If you've not done serious research in the history of science. But it's also a philosophy question, because what's constitutes high quality evidence that's not automatically apparent? It's gonna take me 28 weeks, actually, to get to the conclusion of what is high quality evidence. And when we will get there.</u>
+</u><u rend="transcript_chunk" start="timepoint_3" n="3" end="timepoint_4">
+<u>We got there in the late part of the 19th century, though, Newton's Principia was absolutely instrumental to getting us there. But, it took the better part of 200 years to realize the promise that was in it. It's unfortunate it's 28 weeks, but I don't see any way to cut it down to less than that.</u>
+</u><u rend="transcript_chunk" start="timepoint_4" n="4" end="timepoint_5">
+<u>The one thing that is worth throwing out at you. Is the high quality evidence is much, much stronger and more impressive than mere agreement between calculation and observation. That's what makes the course worthwhile frankly, is the form of the evidence is much more powerful than mere agreement. I'm gonna go off for a moment and talk about the course itself.</u>
+</u><u rend="transcript_chunk" start="timepoint_5" n="5" end="timepoint_6">
+<u>Let's start with the syllabus, which you should have copies of. So this is the syllabus for the first semester. The second semester, which I don't, I didn't put up a syllabus for, we will read the Principia, cover to cover. That's what one of the many things that make this course unique in the world, reading it cover to cover.</u>
+</u><u rend="transcript_chunk" start="timepoint_6" n="6" end="timepoint_7">
+<u>And then spend the last three weeks, that'll take us ten weeks to work through. And then the last three weeks will be the assimilation of the Principia carrying us forward into the 19th century. This semester is going to be spent putting you in a position to read the Principia in its historical context.</u>
+</u><u rend="transcript_chunk" start="timepoint_7" n="7" end="timepoint_8">
+<u>Now what that means is read it the way somebody at the time would have. Somebody very knowledgeable at the time would have. But you need to know what they knew, and what they were perfectly aware, they did not know what questions were foremost in their mind. How those questions came to be foremost in their mind.</u>
+</u><u rend="transcript_chunk" start="timepoint_8" n="8" end="timepoint_9">
+<u>And that was a process that extended mostly through the 17th century. So, all but the first two weeks of these courses are going to extend from the year 1600. Which happens to be when Kepler moved to location of Tycho Brahe. And started working with him. From then to 16th century January 1685, which is when Newton started writing the Principia.</u>
+</u><u rend="transcript_chunk" start="timepoint_9" n="9" end="timepoint_10">
+<u>Having a small embryo of it, nine page embryo of it in November of 1684. That's 9 handwritten pages turned into 510 printed pages. And what is useful from this semester, is everything in the Principia is totally sensible that it's in there. Provided you know what the historical context was, and how many questions he was answering in the book.</u>
+</u><u rend="transcript_chunk" start="timepoint_10" n="10" end="timepoint_11">
+<u>Not knowing that, then having a standard picture, you look at the Principia, and say, well there's only parts of this that are really interesting are about 35 pages. Because that's the stuff where he established Kepler's Laws of Motion, Law of Gravity, etc. Why is all the rest the book there?</u>
+</u><u rend="transcript_chunk" start="timepoint_11" n="11" end="timepoint_12">
+<u>In fact, the way the book is almost always taught, is some 35 pages are read and the rest of the book is ignored. That's why this course is different and why I hope you find it interesting. For undergraduates, the second half of this course counts for science credit.</u>
+</u><u rend="transcript_chunk" start="timepoint_12" n="12" end="timepoint_13">
+<u>The first half doesn't, except under partition, but we can certainly do that. Now, this is 14 weeks, we're off November 11th because of a holiday. That means I have a class, final class of this semester is the day after classes end. I will have reading for you for just that reason.</u>
+</u><u rend="transcript_chunk" start="timepoint_13" n="13" end="timepoint_14">
+<u>The last class will have a minimal reading, but it will pull the whole course together and prepare you. There are two types of people in this room, those who are just gonna sit in. I'll come back to that, but the people sitting in will get a lot of history.</u>
+</u><u rend="transcript_chunk" start="timepoint_14" n="14" end="timepoint_15">
+<u>What they won't do, unless they do three main writing assignments. Is to look critically at states of evidence. You're gonna have three writing assignments, all of which are going to be done in the form of drafts. I will comment extensively on them. And you will rewrite them at the end of the semester.</u>
+</u><u rend="transcript_chunk" start="timepoint_15" n="15" end="timepoint_16">
+<u>And your grade will be based solely on the rewritten version of those papers. Are re-written for a couple reasons. The main reason is I'm making you look at various questions, at a time when you're gonna be better prepared later in the course to write the paper. But of course, what I'm trying to do is prime you to a set of questions, that will remain on the floor you'll go to.</u>
+</u><u rend="transcript_chunk" start="timepoint_16" n="16" end="timepoint_17">
+<u>From my point of view, I think of this as a course on the history of evidence. Very few historians do history of evidence, partly because it's not local. It extends for centuries. Tonight we're gonna start in 800 B.C. and get to 150 AD. And then next week we're gonna get to 1600.</u>
+</u><u rend="transcript_chunk" start="timepoint_17" n="17" end="timepoint_18">
+<u>So we're gonna do 2,000 years in two classes. Not so carefully as the rest of what we do. But, nevertheless, that's what, how evidence has worked in science. A relatively small number of people, highly trained, technically trained to work on an area over a very, very long period of time.</u>
+</u><u rend="transcript_chunk" start="timepoint_18" n="18" end="timepoint_19">
+<u>In this case, starting with the Babylonians and moving forward. I'll get to that in a few moments. But the paper's for the people's who are enrolled in the course. The paper's will be your main learning. In fact, you know, I should offer an apology. I know perfectly well that lecturing is not the way to teach courses.</u>
+</u><u rend="transcript_chunk" start="timepoint_19" n="19" end="timepoint_20">
+<u>My problem in this course, is I can't ask you to read even a small fraction of what you really should at least be conversive with. So a large part of classes will be to fill you in on a lot of the history that compliments the assigned reading. The assigned reading itself, each week I will give out a single sheet called focus questions.</u>
+</u><u rend="transcript_chunk" start="timepoint_20" n="20" end="timepoint_21">
+<u>I'm gonna give you the reading and give you six, seven questions that are meant for you to focus on. The idea here is fairly simple. The reading is gonna contain a huge amount of material that's of secondary importance to this course. So I don't want you to try to absorb everything in the reading.</u>
+</u><u rend="transcript_chunk" start="timepoint_21" n="21" end="timepoint_22">
+<u>I'm not saying, don't do that, that's up to you. But if you simply read with those focal questions in front of you the way somebody doing research does. When I read most of the time I have one or two questions in front of me and I'm reading only to look for the information on those questions.</u>
+</u><u rend="transcript_chunk" start="timepoint_22" n="22" end="timepoint_23">
+<u>Of course, what happens to me, I hit something I don't expect, and spend a week reading and then come back. But the whole idea here, is to use the focal questions to see what it is I'm wanting you to be able to pick out of the reading. If I were to give a final exam, I would simply select focal questions and see if you could answer.</u>
+</u><u rend="transcript_chunk" start="timepoint_23" n="23" end="timepoint_24">
+<u>And if you can answer all the focal questions from the 13 weeks that you will have them. You will have absorbed everything I could possibly ask you to absorb. From this semester. And you will be in great position to jump into the Principia. All right, now the other thing I wanted to look at assuming I'm able to is trunk.</u>
+</u><u rend="transcript_chunk" start="timepoint_24" n="24" end="timepoint_25">
+<u>All right, so each week there will be a class with a title. In this case Class One overview of course Ptolemaic astronomy. It will normally have three sections. This one has only two because there's no assigned reading. So, the three folders will normally be assigned reading. And if it's not in books that I've ordered, it will simply be online, and you download it to read.Then, the section called Notes and Appendix consists of always the same thing.</u>
+</u><u rend="transcript_chunk" start="timepoint_25" n="25" end="timepoint_26">
+<u>Two documents, one of which has an A at the end of it. That's the handout. It's called Appendix, it's always referred to as Appendix in the notes. The other are the notes I've developed over 25 years that I work from. This is essentially of record of what I have learned that I base the course on.</u>
+</u><u rend="transcript_chunk" start="timepoint_26" n="26" end="timepoint_27">
+<u>It's a resource how you use it is totally up to you. This is at the moment the note for next week. I changed the notes. There may be a thousand copies of those notes out there starting in 1987. But each year, they're different. And now they're finally getting to a state that I think they're sufficiently polished.</u>
+</u><u rend="transcript_chunk" start="timepoint_27" n="27" end="timepoint_28">
+<u>that I'm ready to have the course recorded. But how you use those is really up to you. Let me just look at the notes for one second to show you something about them. Assuming I can get what I want. Trunk is very slow at times. I want the table of contents.</u>
+</u><u rend="transcript_chunk" start="timepoint_28" n="28" end="timepoint_29">
+<u>What you'll see is a very detailed table of contents. So you can use the notes as a reference source going in on any one topic, just by following the table of contents. And at the bottom of this select sources. It's not a bibliography. A bibliography for any one of the weeks that I'm going to be covering will fill 20 or 30 pages.</u>
+</u><u rend="transcript_chunk" start="timepoint_29" n="29" end="timepoint_30">
+<u>It's the sources I've used over 25 years, in effect in preparing the notes and what I've learned. And at the bottom, for the first time, partly because we're recording this, you've got credits for the appendices. That is, all images and other things I've lifted out, will now be at least credited to the extent that nobody can say I'm not giving proper credit for them.</u>
+</u><u rend="transcript_chunk" start="timepoint_30" n="30" end="timepoint_31">
+<u>But I repeat the notes are a resource that you can use in any way you wish. I want the sheet that's passing around. I'm happy to give everybody here full access to trunk. Oh I had one other thing to call your attention to. There will be a section each week called supplementary material.</u>
+</u><u rend="transcript_chunk" start="timepoint_31" n="31" end="timepoint_32">
+<u>In this case it's, It's not assigned reading. It's material that I think you may want to have access to, that isn't easy always to gain access to. And each week on the back of the assigned reading, I will give an explanation for anything that's on the supplementary material, in case you wanna go in and look at it.</u>
+</u><u rend="transcript_chunk" start="timepoint_32" n="32" end="timepoint_33">
+<u>You won't have to read the whole thing to figure out why it's there. Like, this week, the two things that are going to be there is the opening section of Ptolemy's Almagest. Where he explains his basic working assumptions. Followed by a very, very excellent paper by Noel Swerdlow, it's a name you'll hear a lot for the first two weeks.</u>
+</u><u rend="transcript_chunk" start="timepoint_33" n="33" end="timepoint_34">
+<u>On how Ptolemy arrived at the crucial feature of his approach to planetary motion. Couple of comments. Why is this a Philosophy of Science course? Well, from my point of view, when I first taught it, now 1987, the 300th anniversary of the Principia. The reason I taught it was quite simply, I knew I would never read the Principia cover to cover unless I taught the course.</u>
+</u><u rend="transcript_chunk" start="timepoint_34" n="34" end="timepoint_35">
+<u>So, it was a vehicle for me to teach the course. And I knew from, you'll see later in this course, Curtis Wilson, the late Curtis Wilson, he died a year ago. Had written a long monograph that sets up this first semester to a very great extent, and makes it possible to do this semester.</u>
+</u><u rend="transcript_chunk" start="timepoint_35" n="35" end="timepoint_36">
+<u>So I thought I would teach the course one time. I taught it, I did prepare notes. Three years Bernard Cohen later asked me to resume the course on a regular basis. So that the new translation of the Principia could be tested in this course which it was for ten years.</u>
+</u><u rend="transcript_chunk" start="timepoint_36" n="36" end="timepoint_37">
+<u>Revised constantly from student input, ect. And during that time I came to realize that reading the Principia had totally changed my views, and philosophy of science. Probably for two reasons. It was the first time I had really looked at any particular episode in history of evidence Where I started from fairly early on and gone all the way down to modern times and doing it did radically change my view.</u>
+</u><u rend="transcript_chunk" start="timepoint_37" n="37" end="timepoint_38">
+<u>The second reason though is that as far as I can see, and I mean this seriously. Nobody ever thought more carefully about how to do high quality evidence. Then Newton did in the Principia. He doesn't tell you this. You have to figure out, you have to ask, why is this in here?</u>
+</u><u rend="transcript_chunk" start="timepoint_38" n="38" end="timepoint_39">
+<u>Why is this proposition in here, to start seeing it? But, as you'll see at the end of this semester, already 20 year, 15 years before he started the Principia. He was really deeply dedicated to the idea that there could be much, much higher quality evidence in science than anybody was then imagining.</u>
+</u><u rend="transcript_chunk" start="timepoint_39" n="39" end="timepoint_40">
+<u>And on my picture, the Principia offered him an opportunity to do something that he initially couldn't do with optics. Or for that matter with chemistry. But in doing so, he basically changed the way people develop evidence in science. And last thing on this, and then I'll open for questions, and then we'll start substance tonight.</u>
+</u><u rend="transcript_chunk" start="timepoint_40" n="40" end="timepoint_41">
+<u>There are two ways to study philosophy of science. The standard way is to read philosophers about science. The problem with that, quite frankly, is almost no philosopher of science knows anymore science than what they got in high school and undergraduate courses. And it's a feature of high school and undergraduate courses, that you learn very near zero about the evidence for what you're learning.</u>
+</u><u rend="transcript_chunk" start="timepoint_41" n="41" end="timepoint_42">
+<u>In fact, what you tend to learn are myths. Okay, things that actually didn't happen. Like there was no apple that fell on, etc, but that's a minor one. I'll do a much better myth tonight in showing you that Ptolemy was extraordinarily high quality science, not something to laugh at, at all.</u>
+</u><u rend="transcript_chunk" start="timepoint_42" n="42" end="timepoint_43">
+<u>But, The effect of this is, philosophers of science are basically writing in response to one another. Not really engaging the science, at least the science on the side of details and evidence. And what this course taught me is, that's what I should be doing. And obviously, I continue to teach this course, because I think it's worthwhile for others.</u>
+</u><u rend="transcript_chunk" start="timepoint_43" n="43" end="timepoint_44">
+<u>I don't, good question now, how many people have gone through this course here, Stanford last time, simulcast to Notre Dame. But it's now the order of 500 to 1,000 people. And most of them can say they're among the very few people in the world to have read the Principia cover to cover.</u>
+</u><u rend="transcript_chunk" start="timepoint_44" n="44" end="timepoint_45">
+<u>I've never had a student complain. There are what, two people in here from last time? Pat and actually not last time in Cameron's case, two times ago. I'll let you judge. My test was, Michael Friedman asked me to Stanford so he could take the course a second time.</u>
+</u><u rend="transcript_chunk" start="timepoint_45" n="45" end="timepoint_46">
+<u>and then said he got much more out of it the second time, than the first time. That's enough to persuade me for what it's worth.</u>
+</u></div1>
+
+    </body>
+  </text>
+</TEI>

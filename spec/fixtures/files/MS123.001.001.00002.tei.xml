@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE TEI.2 PUBLIC "-//TEI P4//DTD Main DTD Driver File//EN"
+"http://dca.tufts.edu/schema/tei/tei2.dtd" [
+ <!ENTITY % TEI.corpus 'INCLUDE'>
+ <!ENTITY % TEI.figures 'INCLUDE'>
+ <!ENTITY % TEI.spoken 'INCLUDE'>
+ <!ENTITY % TEI.linking 'INCLUDE'>
+ <!ENTITY % TEI.XML 'INCLUDE'>
+]>
+<TEI.2>
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+	<title>Interview with Horace Works</title>
+	<author>Kenneth J. Cleary</author>
+      </titleStmt>
+      <extent>24125 Bytes</extent>
+      <publicationStmt>
+	<distributor>Tufts University Digital Collections and Archives</distributor>
+	<address>
+	  <addrLine>Tufts University</addrLine>
+	  <addrLine>35 Professors Row</addrLine>
+	  <addrLine>Tisch Library Medford, MA 01255</addrLine>
+	</address>
+	<idno>tufts:central:dca:MS123:MS123.001.001.00002</idno>
+	<availability status="free">
+	  <p>This publication is freely available for scholarly or educational use.</p>
+	</availability>
+      </publicationStmt>
+      <sourceDesc>
+	<recordingStmt>
+	  <recording type="audio" dur="1288498ms">
+	    <date>2005-02-15</date>
+	    <equipment>
+	      <p>audio tape</p>
+	    </equipment>
+	    <respStmt>
+	      <resp>interview conducted by:</resp>
+	      <name>Kenneth J. Cleary</name>
+	    </respStmt>
+	  </recording>
+	</recordingStmt>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <editorialDecl>
+	<stdVals>
+	  <p>Standard date values are given in ISO form: yyyy-mm-dd.</p>
+	</stdVals>
+      </editorialDecl>
+      <classDecl>
+	<taxonomy id="LCSH">
+	  <bibl>
+	    <title>Library of Congress Subject Headings</title>
+	  </bibl>
+	</taxonomy>
+	<taxonomy id="LC">
+	  <bibl>
+	    <title>Library of Congress</title>
+	  </bibl>
+	</taxonomy>
+      </classDecl>
+    </encodingDesc>
+    <profileDesc>
+      <creation>
+	<date>2006-02-09</date>
+      </creation>
+      <langUsage>
+	<language id="EN" usage="100">English.</language>
+      </langUsage>
+      <particDesc>
+	<person id="HW" role="interviewee" sex="m"><p>Horace Works</p></person>
+	<person id="KC" role="interviewer" sex="m"><p>Kenneth J. Cleary</p></person>
+      </particDesc>
+    </profileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <timeline id="transcript_timeline" unit="millisecond" origin="timepoint_begin">
+	<when id="timepoint_begin" absolute="beginning of recording"/>
+	<when id="timepoint_1" since="timepoint_begin" interval="0"/>
+	<when id="timepoint_2" since="timepoint_begin" interval="11800"/>
+	<when id="timepoint_3" since="timepoint_begin" interval="28500"/>
+	<when id="timepoint_4" since="timepoint_begin" interval="37100"/>
+	<when id="timepoint_5" since="timepoint_begin" interval="89900"/>
+	<when id="timepoint_6" since="timepoint_begin" interval="96200"/>
+	<when id="timepoint_7" since="timepoint_begin" interval="159700"/>
+	<when id="timepoint_8" since="timepoint_begin" interval="189500"/>
+	<when id="timepoint_9" since="timepoint_begin" interval="217200"/>
+	<when id="timepoint_10" since="timepoint_begin" interval="241300"/>
+	<when id="timepoint_11" since="timepoint_begin" interval="283400"/>
+	<when id="timepoint_12" since="timepoint_begin" interval="316700"/>
+	<when id="timepoint_13" since="timepoint_begin" interval="353700"/>
+	<when id="timepoint_14" since="timepoint_begin" interval="415100"/>
+	<when id="timepoint_15" since="timepoint_begin" interval="466800"/>
+	<when id="timepoint_16" since="timepoint_begin" interval="495900"/>
+	<when id="timepoint_17" since="timepoint_begin" interval="541600"/>
+	<when id="timepoint_18" since="timepoint_begin" interval="575300"/>
+	<when id="timepoint_19" since="timepoint_begin" interval="639800"/>
+	<when id="timepoint_20" since="timepoint_begin" interval="667800"/>
+	<when id="timepoint_21" since="timepoint_begin" interval="688200"/>
+	<when id="timepoint_22" since="timepoint_begin" interval="747700"/>
+	<when id="timepoint_23" since="timepoint_begin" interval="806800"/>
+	<when id="timepoint_24" since="timepoint_begin" interval="843200"/>
+	<when id="timepoint_25" since="timepoint_begin" interval="895900"/>
+	<when id="timepoint_26" since="timepoint_begin" interval="958400"/>
+	<when id="timepoint_27" since="timepoint_begin" interval="993300"/>
+	<when id="timepoint_28" since="timepoint_begin" interval="1038400"/>
+	<when id="timepoint_29" since="timepoint_begin" interval="1089000"/>
+	<when id="timepoint_30" since="timepoint_begin" interval="1101900"/>
+	<when id="timepoint_31" since="timepoint_begin" interval="1172200"/>
+	<when id="timepoint_32" since="timepoint_begin" interval="1232599"/>
+	<when id="timepoint_end" since="timepoint_begin" interval="1288498"/>
+      </timeline>
+      <div1 id="transcript.1" n="Transcript">
+	<u rend="transcript_chunk" start="timepoint_1" n="1" end="timepoint_2">
+	  <gap desc="inaudible"/>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_2" n="2" end="timepoint_3">
+	  <u who="HW">It was a group of young men and we started a team... we weren't any good, we were bad like I said we lost 25 straight games. He stuck with us and we stuck with him and after a period of time we started to win.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_3" n="3" end="timepoint_4">
+	  <u who="KC">Can you, can you talk about, can you give any examples of how he motivated you to continue a season when you lost 25 games?</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_4" n="4" end="timepoint_5">
+	  <u who="HW">Well, He was an easy-going person But uh, he was, he always taught, he showed us how to do things. And he wanted to explain to  us number one that you have to lose a game the same way that you won a game. You could <gap desc="inaudible"/> 'cause you're winning' but you can't go down in the dumps 'cause you lose.... So that kinda motivated us and he was always encouraging all of us.Not necessarily one in particular. It was a team effort. Now, of course, I have a lot of personal things, he motivated me a lot personally because I got close to him and he got close to me. So there is an awful lot that I got from him</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_5" n="5" end="timepoint_6">
+	  <u who="KC">Well what are some of those things that you learned from him... through playing baseball... what are some of those things you'll carry through your life?</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_6" n="6" end="timepoint_7">
+	  <u who="HW">Well, not all of it's baseball. </u>
+	  <u who="KC">Well, right but this is an example</u>
+	  <u who="HW">I guess, Working together, doing things together was important. You had to win the same way that you lost. you can't be down in the dumps and say, "I'm going to give up".So that encoraged us. And another thing was that he could always find a person with some leadership capablities. And once, I think, once he was able to determine that you had those kind of qualities, it didn't matter who it was, he'd encourage you to do better, that you could do better. Not that he was gonna do anything for you., it was the encouragment. In my case, I started off in <gap desc="inaudible"/> and everything that I did he stayed right along with me. Like I said, he had a bowling team.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_7" n="7" end="timepoint_8">
+	  <u who="HW">The bowling team. Like I said, this was a church, members of the church and these were adults, a lot of them 5, 6, 10 years older than I was. But I still bowled with them, but I couldn't compete with them because they were so much better. But he felt then that he encouraged me to come and stick with it.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_8" n="8" end="timepoint_9">
+	  <u who="HW">Number one, I had a knack for figures, so that meant I could keep score and things like that and also I ended up being the captain of the team. Even though I really, I really didn't bowl, but it was just that a thing he motivated me to keep going and the respect I was getting from the older people, they were much older then I.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_9" n="9" end="timepoint_10">
+	  <u who="HW">But all of these people were, in my case, most of these people that were always encouraging me that I could go just a step further. And they pushed me a long, in my church life, him and two or three of the same fellas. That's what they did. And I went into the Masonic order, that's how I know most of them. I went in to the Masonic order</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_10" n="10" end="timepoint_11">
+	  <u who="HW">Mr. Isaacs and his brother was very instrumental with many other men in the community that took me under their wing And they moved me right along and gave me my first appointment and I moved right a long that way, you know, that way. Mr. Isaacs was a knack for figures and with a calculator or something he could take numbers and add things up. And that was another thing that kinda got me into dealing with finances and money everything that I've ever been in or whatever. I told you about the time that I started working with the credit union.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_11" n="11" end="timepoint_12">
+	  <u who="KC">What was the name of that place?</u>
+	  <u who="HW">The Mystic Valley Federal Credit Union.</u>
+	  <u who="KC">Mystic Valley Federal Credit Union, right.</u>
+	  <u who="HW">Mystic Valley Federal Credit Union. I kinda took over because the fella who had run it was sick. And they didn't wanna close it down and close it out.  So they convinced me that, you could do it. You have some sort of background. But everybody that got me involved always supported me. I could always get some support some where if I felt that I couldn't do something or didn't measure up.  See...</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_12" n="12" end="timepoint_13">
+	  <u who="KC">So the foundation came from playing baseball?</u>
+	  <u who="HW">Yep, baseball and of course as I moved along the Church structure and the bowling team.</u>
+	  <u who="KC">And these were thing that you wouldn't have normally gotten involved in.</u>
+	  <u who="HW">No, normally I wouldn't have probably gotten involved. And I was a paper boy that was the number one thing, I was a paper boy around here and got to know a lot of the families and a lot of the people. They got to know me and they felt that I had something going. But he was number one...</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_13" n="13" end="timepoint_14">
+	  <u who="HW">He's why I'm in this house!</u>
+	  <u who="KC">Yeah talk about that, Can you explain to me more? </u>
+	  <u who="HW">Well what happened was, he knew that this house was going to be for sale and it was a friend of his and he said, I don't know, before you sell it, let me talk to one of my friends".  And I knew the people that were living there at the time... so he comes to me, and he says, Horace, Mr. Stoaks they're going to sell their house and it's a good size house, you have a large family this is the placce you'd like it!" And I says, "I can't afford a house, I have no money!". And he said, "now don't worry! You want a house!" I said well naturally, but on the other hand, I was living with my mother in law and she was taking good care of me! But she encourages me, you got an offer to get a house.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_14" n="14" end="timepoint_15">
+	  <u who="KC">Do you mind me asking how old you were?</u>
+	  <u who="HW">At the time, About 30 years, 1963...</u>
+	  <u who="KC">And so from there?</u>
+	  <u who="HW">Well, from there I said, "Now where am I gonna get money from?  And he said, well, don't worry! And that was another thing. And his wife spoke about this. He did so many things. it's the gospel... he did so many things for other people, he'd go out of his way... Like the equipment when we played baseball and things like that! Whether he got it out of his own pocket of went somewhere else, he always provided for us.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_15" n="15" end="timepoint_16">
+	  <u who="HW">He said to me, "Well, I know Mr. Barkley at the bank." And I knew Mr. Barkley too because some of the work I did in the community regarding  the credit union, I knew him, but I didn't know him to the extent where I'd go and get a mortgage. But he said, don't worry, I spoke to Mr. Barkley, and if you're interested in buying a home I will do my best to take care of it.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_16" n="16" end="timepoint_17">
+	  <u who="HW">I said well I don't have any money. So Mr. Isaacs gave me the money, the down payment for the house. </u>
+	  <u who="KC">He gave you the down payment.</u>
+	  <u who="HW">He gave me the money. He said, " Alright, Now you want that house...." I think at the time when I bought the house it was $7500 and I needed $7300 and he gave me the money I needed to get the mortgage and that's how I got this house. I paid him back, you know, but he was instrumental... he did things like that, you know. And we moved in, that's how I got into this house and we've always worked together at the church handling the finances of the community church. </u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_17" n="17" end="timepoint_18">
+	  <u who="KC">How did his generosity then affect how you lead you life... in the future?</u>
+	  <u who="HW">Well, I've always felt that I owe somebody something. I was a state boy; I lived with two different families and people always took a liking to me and I took a liking to them. And as I started moving along and started  doing things I just felt, I even feel today, some kind of pay-back, through my kids and all.  </u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_18" n="18" end="timepoint_19">
+	  <u who="HW">I go out now every night doing something, not looking for money. It's always been my knack to start somewhere and ultimately I end up the leader. I don't go out there and say, "I'm gonna be the leader," I start at the bottom and through my networking and my dealing with people, just... everything I've ever been in, I just end up in the leadership. This isn't something I've gone out there and planned to do, I try to stay in the background, but it's always worked that way, but it's always been a positive thing. But in order for it to be a positive thing, I had to have the help of somebody, and I've always appreciated that. And I brought my kids up the same way, that they need to be able to do something and not always have their hand out, just do good.Just go out and do it. And ultimately good things happen</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_19" n="19" end="timepoint_20">
+	  <u who="KC">And those are some of the things that were instilled in you...</u>
+	  <u who="HW">Oh yeah, I had five kids of my own; I put four through college, I started a business, a landscaping business and was cutting lawns for senior citizens who couldn't mow their lawns or pay anyone else to do it. And while I was doing that I was grooming other kids like somebody used to groom me.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_20" n="20" end="timepoint_21">
+	  <u who="HW">I used to work for the post office and I'd come back from the post office and send 3 or four kids off on the job, kids that were in high school... go off and cut the grass or whatever. And I'd do the fancy stuff, I kept them busy. Well, I did it for 19 years and had a lot of kids working for me, a lot of kids working for me.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_21" n="21" end="timepoint_22">
+	  <u who="HW">But I mean, those are the kinds of skills and motivation that I got from Mr. Isaacs. And others, but in particular him. He'd always say, my son. You know, I have a son of my own, but you're my son too. Even to this day his wife I consider her a mother. But just those things, you know, have worked out. I think most of us, I know Mr. Kountz, we grew up together, and he could probably tell you the say same kind of thing, The way we measured him over the years. Mr. Jeffers and a lot of people you have working with the group, have gotten something positive from their association with Mr. Isaacs definitely so. Wally and I grew up together. </u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_22" n="22" end="timepoint_23">
+	  <u who="KC">Um, Just briefly, Can you just tell me about some of the qualities he had that you admired the most? Just anything.</u>
+	  <u who="HW">Well, I think... I would say he was easy going, but he wasn't easy going. He just had a knack for dealing with people, he was always very, very quiet, like his wife and daughter have said. I never heard him swear or anything like that. He never hollered at me. But he was always encouraging you to do something a little better. If you said to him, "Now I can't do this." he'd say, "now, yes you can. Just keep trying." Or he'd suggest something that you needed to do or that you should be doing to get yourself to do better. Really, other than that I really can't say</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_23" n="23" end="timepoint_24">
+	  <u who="HW">Exactly than what he would do or say. It was just the idea that I had total respect for him. Like I said, He took me under his wing. He looked out and saw that I was doing the right thing and opened a little door here and there and was pushing me right along, you know. And doing this, I call it networking. It involved my church life, it involved my dealing with the city of Medford civically, all of these kinds of things.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_24" n="24" end="timepoint_25">
+	  <u who="HW">Um, Now again some of the things I'm doing now, he just didn't do. He just didn't feel.I can't say he wasn't qualified to do it, again he was kinda laid back. I was more for him to push somebody else up and again I get that kind of... I don't concern myself with getting myself out there and pushing myself., I don't recall when I was in a situation where I pushed someone out of the way to gain something that I wanted. I just don't do that. It's just my ability to network.,And I think What I'm doing is basically what he did in his day for me; I'm trying to do for young folks now.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_25" n="25" end="timepoint_26">
+	  <u who="HW">Dealing with kids at the High school... counseling kids, young adults, those are the  things I learned from Mr. Isaacs... he motivated me to do these kind of things. Now sports, My younger son was quite an athlete but  he got that too from Mr. Isaacs. He didn't come out from Mr. Isaacs tutelage like I did, but that again, what I got form Mr. Isaacs, I passed on to my son and he's doing extremely well. And today I'm doing the same thing for my grandson. I go to all his baseball game, football games... when his father can't go, I go. And I encourage him. But that's the same thing that Mr. Isaacs did for me. My son was a great ball player and my grandson is coming along too. He gonna graduate from high school and go to Merrimack with a football scholarship.</u>
+	  <u who="KC">Awesome.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_26" n="26" end="timepoint_27">
+	  <u who="HW">My son here up here, he graduated Tufts '79 on a baseball scholarship. So those are the things I learned from Mr. Isaacs, you know.  And I try to do and I try to do it even today. I got involved in the school system... some of the kids, they were having problems with racial imbalance and were claiming that they weren't getting treated right in the school systems and they wanted someone to go to the school system to find this out. </u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_27" n="27" end="timepoint_28">
+	  <u who="HW">So the, mayor says to me, Now Mr. Works, Horace, he says, I got a job for you. I want you to go to the school and see what's going on. So they hired me as a security guard. So kept the place secured because that's how they paid me. But I was counseling kids with the teachers and the community people. You know I would go in a kid would be telling me A teacher was doing this or that. Or the football coach didn't like me that's why I don't play football.But I mean, I got totally involved, because I was finding out a lot of the kids were going home and telling their parents wasn't true. So now we like to get the parents and the get kid and get the school administration and we sit down and hash it out. So I went a long way for that. </u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_28" n="28" end="timepoint_29">
+	  <u who="HW">The only reason I don't have the job now is that I got hurt, I was trying to break up a fight. I kid I was counseling in school and I was counseling him that morning.  He said Mr. Works I'm OK. Three hours later during the lunch break, It was a boy and a girl one of those kind of things. A boy came down the corridor, I had no idea who this kid was.And he came up and smacked that kid and I grabbed him before I knew it two of his friends tried to grab him and they tried to grab me and they threw me down to the floor and I injured my knee and I had to have an operation on my knee and I was out of work for about a year and a half. And then finally they were going to offer me a job to be a monitor of the <unclear>Lux</unclear> program in the cafeteria. I said that's where all the trouble is. I don't need that right now.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_29" n="29" end="timepoint_30">
+	  <u who="HW">So the city made a deal with me. The thought well if we can pay him for another year and a half he'll be seventy years old and you probably aren't going to work anyway. And that's what happened. </u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_30" n="30" end="timepoint_31">
+	  <u who="HW">The reason I'm involved at BU now is on the account of someone, some kids were saying they were having some difficulty, they wanted some African American people to be involved with the programing. And somebody comes along and says Mr. Horace, give us a couple of hours, half day, then it's three days. Now they want me every day. But I enjoy doing what I'm doing and when I there I'm with college students. Something I have a problem with is their behavior, the drinking and the pot and all that. But these kids will sit down and talk to me just like I was one of them. But on the other hand I try to explain to them, we're going to take your word to have respect for all of those values. And they respect me for that. I don't beat them over the head just like Mr. Isaacs didn't beat me over the heads. So those are the positive things I learned from him... basically that's the whole story.</u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_31" n="31" end="timepoint_32">
+	  <u who="HW">I put him on the highest, other then my father-in-law who are like my own parents.Other then my father-in-law,  My mother and father-in-law were top-notch. He was the top guy.  Then I had a pastor a Reverend <gap desc="inaudible"/> Today I'm doing many of the things he did as a pastor. For 42 years I'm involved in my denomination.  <gap desc="inaudible"/> So those are the positive things I got from Mr. Isaacs. I always called him Pop.Actually, Rather then Mr. Isaacs. </u>
+	</u>
+	<u rend="transcript_chunk" start="timepoint_32" n="32" end="timepoint_end">
+	  <u who="HW">KC: Fantastic</u>
+	  <u who="HW">It really, really was. Here's a fella that you can't say to much. All the kids that grew up with me, none of us would have bad things to say. He encouraged us all. Alot of us. I stayed here, Wally stayed here. Alot of my, the people I grew up with went into the service. At the time, I got married young so I didn't go into the service. But alot of the went into the service. Alot of them moved away and are scattered all over the country. But they'd all say the same thing, he was top notch, really.</u>
+	  <u who="KC">Fantastic, that's what I was looking for Mr. Works. I appreciate it. Alright.</u>
+          <event desc="end tape"/>
+	</u>
+      </div1>
+    </body>
+  </text>
+</TEI.2>
