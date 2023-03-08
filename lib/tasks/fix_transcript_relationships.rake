@@ -9,6 +9,7 @@ namespace :tufts do
     if args[:offset].nil?
       puts('example usage: rake tufts:fix_transcript_relationships[offset]')
     else
+      Rails.logger = Logger.new(STDOUT)
       start_index = args[:offset].to_i
       rows = '50000'
       Tufts::TranscriptUtils.update_index(start_index, rows)
