@@ -47,7 +47,7 @@ gem 'blacklight', '6.24.0'
 gem 'blacklight_advanced_search'
 gem 'whenever', require: false
 
-gem 'tufts-curation', git: 'https://github.com/TuftsUniversity/tufts-curation', tag: 'v1.2.11'
+gem 'tufts-curation', git: 'https://github.com/TuftsUniversity/tufts-curation', tag: 'v1.3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
