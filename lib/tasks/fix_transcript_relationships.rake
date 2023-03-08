@@ -3,7 +3,7 @@ require 'active_fedora'
 require 'tufts/transcript_utils'
 
 namespace :tufts do
-  desc 'change https to http in the rights_statement attribute of all DL objects'
+  desc 'updates index for all av objects with transcripts'
 
   task :fix_transcript_relationships, [:offset] => [:environment] do |_t, args|
     if args[:offset].nil?
