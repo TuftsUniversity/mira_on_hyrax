@@ -35,13 +35,9 @@ module Tufts
 
     def self.conditionally_update_record(id)
       object = ActiveFedora::Base.find(id)
-      if !object.transcript_id.nil?
-        object.update_index
-        object.save
-        Rails.logger.info "updated #{id}"
-      else
-        Rails.logger.info "no transcript #{id}"
-      end
+      object.update_index
+      object.save
+      Rails.logger.info "updated #{id}"
     end
 
     private_class_method :conditionally_update_record, :av_ids, :go_again?
