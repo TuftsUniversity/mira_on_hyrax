@@ -2,8 +2,8 @@
 
 ## Getting Started
 
-* Review the current ESCP docuemntation for setting up mod_shib
-* Review the known issues because they're a bit confusing
+* Review the current [ESCP (formerly ESAI) documentation](https://tuftswork.atlassian.net/wiki/spaces/EnterpriseSystems/pages/89463785/Setting+Up+An+SP+for+Shibboleth) for setting up mod_shib
+* Review the [Known Issues](#known-issues) because they're a bit confusing
 
 ## Known Issues
 * Shibboleth mirrors wasn't working properly. [INC1038238]
@@ -107,7 +107,32 @@ $ vi /etc/shibboleth/shibboleth2.xml
     <Attribute name="urn:oid:2.16.840.1.113730.3.1.241" id="displayName"/>
 ```
 
-8. Work with ESCP on making sure they're releasing these attributes to the SP.
+8. Work with ESCP on making sure they're releasing these attributes to the SP, and that they've added the SP metadata to the IdP, here is a sample request:
+
+```
+Hi,
+ 
+I’m trying to set up shibboleth for TDL, right now I’m working on getting dev-dl (https://dev-dl.lib.tufts.edu) set up with stage shib. 
+ 
+I followed this set of directions:
+https://wikis.uit.tufts.edu/confluence/display/EnterpriseSystems/Setting+Up+An+SP+for+Shibboleth
+ 
+Here’s my metadata:
+https://dev-dl.lib.tufts.edu/Shibboleth.sso/Metadata
+ 
+I'd like these attributes to be released:
+<Attribute name="urn:oid:0.9.2342.19200300.100.1.1" id="uid"/>
+<Attribute name="urn:oid:0.9.2342.19200300.100.1.3" id="mail"/>
+<Attribute name="urn:oid:2.5.4.4" id="sn"/>
+<Attribute name="urn:oid:2.5.4.42" id="givenName"/>
+<Attribute name="urn:oid:2.16.840.1.113730.3.1.241" id="displayName"/>
+ 
+I haven’t configured the application yet.
+ 
+Thanks,
+Mike
+ 
+```
 
 9. mod_shib config is in `/etc/httpd/conf.d/shib.conf`, these are the changes I made in the TDL config:
 
