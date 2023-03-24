@@ -17,6 +17,9 @@
     Cannot find a valid baseurl for repo: shibboleth       
     
     ```   
+* Another possible error we saw on RHEL8 is:
+Status code: 404 for https://shibboleth.net/downloads/service-provider/RPMS/RPM-GPG-KEY-cantor (IP: 3.213.250.186)
+
 * With the above fixed at least in RHEL7, I hit a cert issue:
 
 ```
@@ -45,6 +48,7 @@ GPG key retrieval failed: [Errno 14] HTTPS Error 404 - Not Found
 ## Links
 * [ESCP (formerly ESAI) documentation](https://tuftswork.atlassian.net/wiki/spaces/EnterpriseSystems/pages/89463785/Setting+Up+An+SP+for+Shibboleth)
 * [DCE Cookbook on Shib and Hyrax (for reference, we uses some of this)](https://curationexperts.github.io/recipes/authentication/shibboleth.html)
+* [Shib apache docs](https://shibboleth.atlassian.net/wiki/spaces/SP3/pages/2065335062/Apache)
 
 ## Notes
 
@@ -61,6 +65,7 @@ GPG key retrieval failed: [Errno 14] HTTPS Error 404 - Not Found
 
 
 ## Configuration
+1. cd `/etc/shibboleth`
 1. Get the IdP Metadata, on dev hosts you want shib stage on prod you want shib prod:
 
 Prod:
@@ -71,10 +76,13 @@ mv shibboleth shib-idp-prod-idp-metadata.xml
 ```
 
 Stage:
+
 ```
 wget https://shib-idp-stage.uit.tufts.edu/idp/shibboleth
-shibboleth shib-idp-stage-idp-metadata.xml
+mv shibboleth shib-idp-stage-idp-metadata.xml
 ```
+
+2. Run keygen.sh generate a new SP Key
 
 2. Open the mod_shib configuration file for editing:
 $ vi /etc/shibboleth/shibboleth2.xml
@@ -107,34 +115,8 @@ $ vi /etc/shibboleth/shibboleth2.xml
     <Attribute name="urn:oid:2.16.840.1.113730.3.1.241" id="displayName"/>
 ```
 
-8. Work with ESCP on making sure they're releasing these attributes to the SP, and that they've added the SP metadata to the IdP, here is a sample request:
 
-```
-Hi,
- 
-I’m trying to set up shibboleth for TDL, right now I’m working on getting dev-dl (https://dev-dl.lib.tufts.edu) set up with stage shib. 
- 
-I followed this set of directions:
-https://wikis.uit.tufts.edu/confluence/display/EnterpriseSystems/Setting+Up+An+SP+for+Shibboleth
- 
-Here’s my metadata:
-https://dev-dl.lib.tufts.edu/Shibboleth.sso/Metadata
- 
-I'd like these attributes to be released:
-<Attribute name="urn:oid:0.9.2342.19200300.100.1.1" id="uid"/>
-<Attribute name="urn:oid:0.9.2342.19200300.100.1.3" id="mail"/>
-<Attribute name="urn:oid:2.5.4.4" id="sn"/>
-<Attribute name="urn:oid:2.5.4.42" id="givenName"/>
-<Attribute name="urn:oid:2.16.840.1.113730.3.1.241" id="displayName"/>
- 
-I haven’t configured the application yet.
- 
-Thanks,
-Mike
- 
-```
-
-9. mod_shib config is in `/etc/httpd/conf.d/shib.conf`, these are the changes I made in the TDL config:
+8. mod_shib config is in `/etc/httpd/conf.d/shib.conf`, these are the changes I made in the TDL config:
 
 ```
 # https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPApacheConfig
@@ -202,6 +184,49 @@ ShibCompatValidUser Off
 
 ```
 
+	9. Enable service /bin/systemctl enable shibd.service
+
+10. Start service: systemctl restart shibd.service
+
+11. Restart apache httpd: systemctl restart httpd
+
+
+8. Work with ESCP on making sure they're releasing these attributes to the SP, and that they've added the SP metadata to the IdP, here is a sample request:
+
+```
+Hi,
+ 
+I’m trying to set up shibboleth for TDL, right now I’m working on getting dev-dl (https://dev-dl.lib.tufts.edu) set up with stage shib. 
+ 
+I followed this set of directions:
+https://wikis.uit.tufts.edu/confluence/display/EnterpriseSystems/Setting+Up+An+SP+for+Shibboleth
+ 
+Here’s my metadata:
+https://dev-dl.lib.tufts.edu/Shibboleth.sso/Metadata
+ 
+I'd like these attributes to be released:
+<Attribute name="urn:oid:0.9.2342.19200300.100.1.1" id="uid"/>
+<Attribute name="urn:oid:0.9.2342.19200300.100.1.3" id="mail"/>
+<Attribute name="urn:oid:2.5.4.4" id="sn"/>
+<Attribute name="urn:oid:2.5.4.42" id="givenName"/>
+<Attribute name="urn:oid:2.16.840.1.113730.3.1.241" id="displayName"/>
+ 
+I haven’t configured the application yet.
+ 
+Thanks,
+Mike
+ 
+```
+
+## Troubleshooting RHEL8
+* On RHEL8 for the version of passenger we're runnign in MIRA we had to add a location directive to the virtualhost from MIRA to disable Passenger:
+
+```
+<Location  /Shibboleth.sso>
+  PassengerEnabled off
+</Location>
+```
+
 ## Operational Notes
 
 * service shibd restart -- restart service aftter configuration changes
@@ -213,3 +238,29 @@ ShibCompatValidUser Off
 ## Usage
 Once mod_shib is installed and configured, you can use it to authenticate users via SAML-based SSO.
 
+## Repo Files
+
+* RHEL 7
+
+```
+[shibboleth]
+name=Shibboleth
+type=rpm-md
+mirrorlist=https://shibboleth.net/cgi-bin/mirrorlist.cgi/CentOS_7
+gpgcheck=1
+gpgkey=https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
+        https://shibboleth.net/downloads/service-provider/RPMS/cantor.repomd.xml.key
+enabled=1
+
+```
+
+* RHEL8
+
+```
+[Shibboleth]
+async = 1
+gpgcheck = 1
+gpgkey = https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.keyhttps://shibboleth.net/downloads/service-provider/RPMS/cantor.repomd.xml.key
+mirrorlist = https://shibboleth.net/cgi-bin/mirrorlist.cgi/CentOS_8
+name = Shibboleth YUM repo
+```
