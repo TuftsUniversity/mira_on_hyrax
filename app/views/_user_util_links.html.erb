@@ -14,17 +14,21 @@
         <span class="caret"></span>
       <% end %>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
-  <% if current_user.admin? %>
-        <li><%= link_to t("hyrax.toolbar.dashboard.menu"), hyrax.dashboard_path %></li>
+        <% if current_user.admin? %>
+          <li><%= link_to t("hyrax.toolbar.dashboard.menu"), hyrax.dashboard_path %></li>
 
-        <li class="divider"></li>
-  <% end %>
-        <li><%= link_to t("hyrax.toolbar.profile.logout"), main_app.destroy_user_session_path %></li>
+          <li class="divider"></li>
+        <% end %>
+        <% if Rails.env.production? || Rails.env.stage? %>
+          <li><%= link_to t("hyrax.toolbar.profile.logout"), "#{request.base_url}/Shibboleth.sso/Logout?return=#{request.base_url}/sign_out" %> </li>
+        <% else %>
+          <li><%= link_to t("hyrax.toolbar.profile.logout"), main_app.destroy_user_session_path %></li>
+        <% end %>
       </ul>
     </li><!-- /.btn-group -->
   <% else %>
     <li>
-      <%= link_to main_app.new_user_session_path do %>
+      <%= link_to main_app.new_user_session_path, method: :post do %>
         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> <%= t("hyrax.toolbar.profile.login") %>
       <% end %>
     </li>

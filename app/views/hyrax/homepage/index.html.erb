@@ -22,7 +22,7 @@
       <p>To submit your scholarship, log in using your Tufts username and password.  </p>
 
       <p>      <%= link_to main_app.new_user_session_path do %>
-        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> <%= t("hyrax.toolbar.profile.login") %>
+        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> <%= link_to t("hyrax.toolbar.profile.login"), main_app.new_user_session_path, method: :post %>
       <% end %></p>
   <% end %>
 </div>
