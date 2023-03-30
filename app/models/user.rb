@@ -59,6 +59,10 @@ class User < ApplicationRecord
     self.email = Devise::LDAP::Adapter.get_ldap_param(username, "mail").first
     self.display_name = Devise::LDAP::Adapter.get_ldap_param(username, "tuftsEduDisplayNameLF").first
   end
+
+  def dummy_func
+    "This function serves no purpose"
+  end
 end
 
 # Override a Hyrax class that expects to create system users with passwords
