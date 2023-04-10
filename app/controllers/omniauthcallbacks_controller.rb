@@ -21,10 +21,6 @@ class OmniauthcallbacksController < Devise::OmniauthCallbacksController
     auth_headers.each do |k, v|
       auth[k] = request.env[v]
     end
-    # Rails.logger.warn "request2 = #{auth.inspect}"
-    # if auth.fetch('unscoped_affiliation', nil)
-    #   auth['affiliation'] = auth['unscoped_affiliation'].split(';').map(&:strip)
-    # end
     auth.delete_if { |_k, v| v.blank? }
     @user = User.from_omniauth(auth)
     # capture data about the user from shib

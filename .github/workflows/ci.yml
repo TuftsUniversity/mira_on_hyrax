@@ -13,7 +13,7 @@ jobs:
     env:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       DEFAULT_ADMIN_SET: 'default'
-      # DATABASE_AUTH: true
+      DATABASE_AUTH: true
       DATA_STORAGE: ./public
       TEMP_STORAGE: ./public
       ALLOW_NOTIFICATIONS: true
