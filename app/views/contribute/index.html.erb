@@ -19,9 +19,7 @@
 
       <p>To submit your scholarship, log in using your Tufts username and password.  </p>
 
-      <p><%= link_to "Login", new_user_session_path, class: 'btn-primary btn' %></p>
-
-      <p><a href="http://uit.tufts.edu/?pid=744">Tufts Simplified Sign-On Enabled</a></p>
+      <p><%= link_to "Login", main_app.new_user_session_path, method: :post, class: 'btn-primary btn' %></p>
 
 
   <%# Display the following options for logged in users %>

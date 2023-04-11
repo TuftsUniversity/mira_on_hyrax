@@ -45,6 +45,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'blacklight', '6.24.0'
 gem 'blacklight_advanced_search'
+gem 'omniauth', '1.9.1'
+gem 'omniauth-shibboleth'
 gem 'whenever', require: false
 
 gem 'tufts-curation', git: 'https://github.com/TuftsUniversity/tufts-curation', tag: 'v1.3.0'

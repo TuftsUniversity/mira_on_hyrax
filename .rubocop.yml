@@ -45,9 +45,11 @@ Layout/LineLength:
     - lib/tasks/fix_1143.rake
 Metrics/ModuleLength:
   Exclude:
+    - app/models/user.rb
     - app/controllers/concerns/hyrax/works_controller_behavior.rb
 Metrics/MethodLength:
   Exclude:
+    - app/controllers/omniauthcallbacks_controller.rb
     - app/lib/tufts/import_record.rb
     - app/models/forms/contribution.rb
     - app/models/forms/generic_tisch_deposit.rb
@@ -129,3 +131,6 @@ RSpec/LetSetup:
   Exclude:
     - spec/features/create_collection_spec.rb
     - spec/features/add_work_to_collection_spec.rb
+
+RSpec/MultipleExpectations:
+  Enabled: false
