@@ -260,7 +260,8 @@ enabled=1
 [Shibboleth]
 async = 1
 gpgcheck = 1
-gpgkey = https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.keyhttps://shibboleth.net/downloads/service-provider/RPMS/cantor.repomd.xml.key
+gpgkey = https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
+        https://shibboleth.net/downloads/service-provider/RPMS/cantor.repomd.xml.key
 mirrorlist = https://shibboleth.net/cgi-bin/mirrorlist.cgi/CentOS_8
 name = Shibboleth YUM repo
 ```
