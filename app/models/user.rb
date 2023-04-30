@@ -93,7 +93,9 @@ module Hyrax::User
       u = ::User.find_or_create_by(username: user_key)
       u.display_name = user_key
       u.email = "#{user_key}@example.com"
-      u.password = ('a'..'z').to_a.shuffle(random: Random.new).join
+      if Rails.env.development? || Rails.env.test?
+        u.password = ('a'..'z').to_a.shuffle(random: Random.new).join
+      end
       u.save
       u
     rescue ActiveRecord::RecordNotUnique
