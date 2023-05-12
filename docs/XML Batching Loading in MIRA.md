@@ -16,7 +16,7 @@ When an object with an embargo is created by XML ingest, the associated file is 
 
 ## Routes
 
-* I think you know this but you can list routes to see what the application is publishing for actions around batch import too:
+* You can list routes to see what the application is publishing for actions around batch import too:
 
 ```
                       xml_imports POST     /xml_imports(.:format)                                                                   hyrax/xml_imports#create
@@ -54,13 +54,13 @@ This is the more specific implemenation:
 
 `app/lib/tufts/mira_xml_importer.rb`
 
-Again though its not really manipulating data at the field level.
+Again though its not really manipulating data at the field level though, and thats the bug we're looking for here.
 
 ## Jobs
 
 `app/lib/import_job.rb`
 
-* Does one thing runs a import service to import an object.
+* Does one thing runs a import service to import an object.  But good to keep in mind now that whatever is happening is probably happening asynchronously.
 
 ## Services
 
@@ -91,7 +91,21 @@ Again though its not really manipulating data at the field level.
 
 ## And so whats the fix?
 
-* There's really 2 paths to take here I think at first glance, the 1st would be to look at how the file_types are getting pushed around to this code, and do something similar with the embargo fields.
+* There's really 2-ish paths to take here I think at first glance, the 1st would be to look at how the file_types are getting pushed around to this code, and do something similar with the embargo fields.
 
 * The 2nd is to debug this into the hyrax gem and see what its doing with the visibility fields, and why and try to conform with what it expects.
+
+* The 3rd, I would delve into the parent class `AttachFilesToWorkJob` I think this is the right path.  `AttachTypedFilesToWorkJob` messes with visibility on line 10. and that method is in the parent class:
+```
+
+    # The attributes used for visibility - sent as initial params to created FileSets.
+    def visibility_attributes(attributes)
+      attributes.slice(:visibility, :visibility_during_lease,
+                       :visibility_after_lease, :lease_expiration_date,
+                       :embargo_release_date, :visibility_during_embargo,
+                       :visibility_after_embargo)
+    end
+```
+
+And so I look at that And I think I need to get that populated so that the parent here can properly set the embargo, so I would start with that goal and work backwards from there.
 
