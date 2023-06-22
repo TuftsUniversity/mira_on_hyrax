@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+          xmlns:bf2="http://bibframe.org/vocab/"
+          xmlns:bibframe="http://bibframe.org/vocab/"
+          xmlns:dc="http://purl.org/dc/terms/"
+          xmlns:dc11="http://purl.org/dc/elements/1.1/"
+          xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
+          xmlns:edm="http://www.europeana.eu/schemas/edm/"
+          xmlns:foaf="http://xmlns.com/foaf/0.1/"
+          xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+          xmlns:marcrelators="http://id.loc.gov/vocabulary/relators/"
+          xmlns:model="info:fedora/fedora-system:def/model#"
+          xmlns:premis="http://www.loc.gov/premis/rdf/v1#"
+          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+          xmlns:scholarsphere="http://scholarsphere.psu.edu/ns#"
+          xmlns:terms="http://dl.tufts.edu/terms#"
+          xmlns:tufts="http://dl.tufts.edu/terms#"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <ListRecords>
+      <record>
+         <metadata>
+            <mira_import>
+               <tufts:filename type="representative">Norman_tuftssackler_0845D_10689.pdf</tufts:filename>
+               <dc11:creator>Krobath, Danielle.</dc11:creator>
+               <model:hasModel>Pdf</model:hasModel>
+               <tufts:visibility>open</tufts:visibility>
+               <dc:title>THIS IS A TEST 2</dc:title>
+               <terms:displays_in>nowhere</terms:displays_in>
+               <terms:embargo_release_date>2023-07-11</terms:embargo_release_date>
+            </mira_import>
+         </metadata>
+      </record>
+   </ListRecords>
+</OAI-PMH>

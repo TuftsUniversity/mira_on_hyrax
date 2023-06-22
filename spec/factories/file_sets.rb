@@ -21,21 +21,5 @@ FactoryBot.define do
     trait :registered do
       read_groups { ["registered"] }
     end
-
-    trait :with_public_embargo do
-      after(:build) do |file, evaluator|
-        file.embargo = FactoryBot.create(:public_embargo, embargo_release_date: evaluator.embargo_release_date)
-      end
-    end
-
-    factory :file_with_work do
-      after(:build) do |file, _evaluator|
-        file.title = ['testfile']
-      end
-      after(:create) do |file, evaluator|
-        Hydra::Works::UploadFileToFileSet.call(file, evaluator.content) if evaluator.content
-        create(:work, user: evaluator.user).members << file
-      end
-    end
   end
 end
