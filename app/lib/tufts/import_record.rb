@@ -110,12 +110,28 @@ module Tufts
 
     def visibility_during_embargo
       return nil if metadata.nil?
-      metadata.xpath('./tufts:visibility_during_embargo', mapping.namespaces).children.map(&:content).first
+      visibility_during_embargo = metadata.xpath('./tufts:visibility_during_embargo', mapping.namespaces).children.map(&:content).first
+
+      return visibility_during_embargo unless visibility_during_embargo.nil?
+      return nil if visibility_during_embargo.nil? && embargo_release_date.nil?
+
+      # Default to private
+      Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
     end
 
     def visibility_after_embargo
       return nil if metadata.nil?
-      metadata.xpath('./tufts:visibility_after_embargo', mapping.namespaces).children.map(&:content).first
+
+      visibility_after_embargo = metadata.xpath('./tufts:visibility_after_embargo', mapping.namespaces).children.map(&:content).first
+      return visibility_after_embargo unless visibility_after_embargo.nil?
+      return nil if visibility_after_embargo.nil? && embargo_release_date.nil?
+
+      # Should default to inputed visibility
+      visibility = metadata.xpath('./tufts:visibility', mapping.namespaces).first.content
+      return visibility unless visibility.nil?
+
+      # If no info to go off of default public
+      Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
     end
 
     def embargo_release_date
