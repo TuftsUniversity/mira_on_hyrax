@@ -1,7 +1,7 @@
 
 <%= render 'form_media', f: f %>
 
-<% if @curation_concern.class.to_s == 'Audio' || @curation_concern.class.to_s == 'Video' %>
+<% if @curation_concern.class.to_s == 'Audio' || @curation_concern.class.to_s == 'Video' || @curation_concern.class.to_s == 'GenericObject' %>
     <div class="well transcript-selection">
         <%= render_edit_field_partial(:transcript_id, f: f) %>
     </div>
