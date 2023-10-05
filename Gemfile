@@ -22,7 +22,7 @@ gem 'okcomputer'
 gem 'pdf-reader'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2'
-gem 'rmagick', '4.2.4'
+gem 'rmagick', '4.2.6'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -49,7 +49,7 @@ gem 'omniauth', '1.9.1'
 gem 'omniauth-shibboleth'
 gem 'whenever', require: false
 
-gem 'tufts-curation', git: 'https://github.com/TuftsUniversity/tufts-curation', tag: 'v1.3.0'
+gem 'tufts-curation', git: 'https://github.com/TuftsUniversity/tufts-curation', tag: 'v1.3.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

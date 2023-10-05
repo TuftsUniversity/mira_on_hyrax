@@ -6,11 +6,11 @@ module Tufts
       Hash[transcript_files.map { |file| [file.to_s, file.id] }]
     end
 
-    def transcript?(file, type)
-      if type == "Video"
-        file.mime_type.nil? || file.mime_type.include?('xml') || file.mime_type.include?('plain')
+    def transcript?(file, object_type)
+      if object_type == "Video" || object_type == "Generic Object"
+        ['xml', 'plain', 'vtt'].any? { |mime_type| file.mime_type&.include?(mime_type) }
       else
-        file.mime_type.nil? || file.mime_type.include?('xml')
+        file.mime_type&.include?('xml')
       end
     end
   end

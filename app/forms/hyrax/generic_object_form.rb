@@ -3,7 +3,9 @@
 #  `rails generate hyrax:work GenericObject`
 module Hyrax
   class GenericObjectForm < Hyrax::Forms::WorkForm
+    include Tufts::HasTranscriptForm
     self.model_class = ::GenericObject
+    self.terms += [:transcript_id]
     self.terms += Tufts::Terms.shared_terms
     Tufts::Terms.remove_terms.each { |term| terms.delete(term) }
     self.required_fields = [:title, :displays_in]
