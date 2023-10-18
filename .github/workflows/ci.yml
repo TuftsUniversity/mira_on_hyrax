@@ -107,3 +107,5 @@ jobs:
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Run brakeman
+        run: bundle exec brakeman
