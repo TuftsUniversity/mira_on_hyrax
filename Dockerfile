@@ -23,6 +23,7 @@ RUN apt-get update && apt-get upgrade -y && \
 RUN apt-get install chromium -y
 
 RUN apt-get install -y wget
+RUN apt remove --purge imagemagick -y
 RUN t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && bash "$t" && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
 
 # fetch clamav local database
