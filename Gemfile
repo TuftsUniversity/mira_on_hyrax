@@ -103,3 +103,6 @@ end
 # github security updates list
 gem "devise", ">= 4.6.0"
 gem "rubyzip", ">= 1.2.2"
+
+# playing around
+gem "brakeman"

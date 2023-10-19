@@ -161,6 +161,7 @@ GEM
     bootstrap_form (4.2.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
+    brakeman (5.4.1)
     breadcrumbs_on_rails (3.0.1)
     browse-everything (1.1.2)
       addressable (~> 2.5)
@@ -989,6 +990,7 @@ DEPENDENCIES
   bixby
   blacklight (= 6.24.0)
   blacklight_advanced_search
+  brakeman
   byebug
   capybara
   capybara-maleficent
