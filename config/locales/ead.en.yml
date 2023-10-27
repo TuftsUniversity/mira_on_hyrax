@@ -1,8 +1,0 @@
-en:
-  hyrax:
-    icons:
-      ead:     'fa fa-file-text-o'
-    select_type:
-      ead:
-        name:               "EAD"
-        description:        "EAD works"
