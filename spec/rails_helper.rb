@@ -85,7 +85,7 @@ if ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
   Capybara.app_host = "http://#{ip}:#{Capybara.server_port}"
 else
   Webdrivers::Chromedriver.required_version = '106.0.5249.21'
-  custom_chrome_path = '/opt/hostedtoolcache/chromium/1036826/x64/chrome'
+  custom_chrome_path = '/opt/hostedtoolcache/chromium/1113648/x64/chrome'
 
   # Adding chromedriver for js testing.
   Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
