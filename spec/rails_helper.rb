@@ -84,7 +84,7 @@ if ENV['IN_DOCKER'].present? || ENV['HUB_URL'].present?
   ip = IPSocket.getaddress(Socket.gethostname)
   Capybara.app_host = "http://#{ip}:#{Capybara.server_port}"
 else
-  Webdrivers::Chromedriver.required_version = '106.0.5249.21'
+  Webdrivers::Chromedriver.required_version = '113.0.5636.0'
   custom_chrome_path = '/opt/hostedtoolcache/chromium/1113648/x64/chrome'
 
   # Adding chromedriver for js testing.
