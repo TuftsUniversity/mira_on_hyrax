@@ -12,7 +12,7 @@ namespace :tufts do
     }
 
     brian = {
-      email: 'brian.goodmoni@tufts.edu',
+      email: 'brian.goodmon@tufts.edu',
       username: 'bgoodm01',
       password: SecureRandom.hex
     }
