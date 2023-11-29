@@ -109,7 +109,8 @@ FactoryBot.define do
       with_solr_document { false }
     end
     sequence(:title) { |n| ["Collection Title #{n}"] }
-    sequence(:ead) { |n| ["EAD id #{n}"] }
+    sequence(:call_number) { |n| ["Call Number #{n}"] }
+    sequence(:finding_aid) { |n| ["Finding Aid #{n}"] }
 
     after(:build) do |collection, evaluator|
       collection.apply_depositor_metadata(evaluator.user.user_key)
@@ -186,7 +187,8 @@ FactoryBot.define do
     end
 
     sequence(:title) { |n| ["Typeless Collection Title #{n}"] }
-    sequence(:ead) { |n| ["EAD #{n}"] }
+    sequence(:call_number) { |n| ["Call Number #{n}"] }
+    sequence(:finding_aid) { |n| ["Finding Aid #{n}"] }
 
     after(:build) do |collection, evaluator|
       collection.apply_depositor_metadata(evaluator.user.user_key)

@@ -11,8 +11,8 @@ module Tufts
     def make_seed_data_hash
       seed_hash = {}
       SEED_DATA.each do |c|
-        ead = c[:ead]
-        seed_hash[ead] = c
+        call_number = c[:call_number]
+        seed_hash[call_number] = c
       end
       seed_hash
     end
@@ -24,28 +24,29 @@ module Tufts
     def create
       default = Hyrax::CollectionType.find_or_create_default_collection_type
       # admin_set = Hyrax::CollectionType.find_or_create_admin_set_type
-      @seed_data.each_key do |collection_id|
-        find_or_create_collection(collection_id, default)
+      @seed_data.each_key do |call_number|
+        find_or_create_collection(call_number, default)
       end
     end
 
-    # Given a collection id, find or create the collection.
+    # Given a collection's call number, find or create the collection.
     # If the collection has been deleted, eradicate it so the id can be
     # re-used, and re-create the collection object.
-    # @param [String] ead_id
+    # @param [String] call_number
     # @return [Collection]
-    def find_or_create_collection(ead_id, default)
-      col = Collection.where(ead: ead_id)
-      create_collection(ead_id, default) if col.empty?
+    def find_or_create_collection(call_number, default)
+      col = Collection.where(call_number: call_number)
+      create_collection(call_number, default) if col.empty?
     end
 
-    # @param [String] ead_id
+    # @param [String] call_number
     # @return [Collection]
-    def create_collection(ead_id, default = Hyrax::CollectionType.find_or_create_default_collection_type)
+    def create_collection(call_number, default = Hyrax::CollectionType.find_or_create_default_collection_type)
       collection = Collection.new
-      collection_hash = @seed_data[ead_id]
+      collection_hash = @seed_data[call_number]
       collection.title = Array(collection_hash[:title])
-      collection.ead = Array(collection_hash[:ead])
+      collection.call_number = Array(collection_hash[:call_number])
+      collection.finding_aid = Array(collection_hash[:finding_aid])
       collection.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
       collection.collection_type = default
       collection.save
@@ -66,11 +67,11 @@ module Tufts
     # @param [Class] work_type
     # @return [Collection]
     def collection_for_work_type(work_type)
-      ead_id = @seed_data.select { |_key, hash| hash[:work_types].include? work_type }.keys.first
+      call_number = @seed_data.select { |_key, hash| hash[:work_types].include? work_type }.keys.first
 
-      cols = Collection.where(ead: ead_id)
+      cols = Collection.where(call_number: call_number)
       if cols.empty?
-        create_collection(ead_id)
+        create_collection(call_number)
       else
         cols.first
       end
@@ -79,32 +80,38 @@ module Tufts
     SEED_DATA = [
       {
         title: "Tufts Published Scholarship, 1987-2014",
-        ead: "tufts:UA069.001.DO.PB",
+        call_number: "PB",
+        finding_aid: "https://archives.tufts.edu/repositories/2/resources/100",
         work_types: [GenericDeposit, GenericTischDeposit, GisPoster, UndergradSummerScholar, FacultyScholarship]
       },
       {
         title: "Fletcher School Records, 1923 -- 2016",
-        ead: "tufts:UA069.001.DO.UA015",
+        call_number: "UA015",
+        finding_aid: "https://archives.tufts.edu/repositories/2/resources/120",
         work_types: [CapstoneProject]
       },
       {
         title: "Cummings School of Veterinary Medicine records, 1969-2012",
-        ead: "tufts:UA069.001.DO.UA041",
+        call_number: "UA041",
+        finding_aid: "https://archives.tufts.edu/repositories/2/resources/4",
         work_types: [CummingsThesis]
       },
       {
         title: "Undergraduate honors theses, 1929-2015",
-        ead: "tufts:UA069.001.DO.UA005",
+        call_number: "UA005",
+        finding_aid: "https://archives.tufts.edu/repositories/2/resources/123",
         work_types: [HonorsThesis]
       },
       {
         title: "Public Health and Professional Degree Programs Records, 1990 -- 2011",
-        ead: "tufts:UA069.001.DO.UA187",
+        call_number: "UA187",
+        finding_aid: "https://archives.tufts.edu/repositories/2/resources/253",
         work_types: [PublicHealth]
       },
       {
         title: "Department of Education records, 2007-02-01-2014",
-        ead: "tufts:UA069.001.DO.UA071",
+        call_number: "UA071",
+        finding_aid: "https://archives.tufts.edu/repositories/2/resources/9",
         work_types: [QualifyingPaper]
       }
     ].freeze

@@ -164,7 +164,6 @@ en:
           doi: 'DOI'
   activefedora:
     models:
-      ead: 'EAD'
       pdf: 'PDF'
       rcr: 'RCR'
       tei: 'TEI'
@@ -214,6 +213,7 @@ en:
           audience:  'Audience'
           based_near:  'Based Near'
           bibliographic_citation:  'Bibliographic Citation'
+          call_number: 'Call Number'
           contributor:  'Contributor'
           corporate_name:  'Corporate Name'
           createdby:  'Created By'
@@ -230,10 +230,10 @@ en:
           description:  'Description'
           displays_in:  'Displays in Portal'
           downloadable: 'Downloadable'
-          ead: 'EAD'
           embargo_note:  'Embargo Note'
           end_date:  'End Date'
           extent:  'Extent'
+          finding_aid: 'Finding Aid'
           format_label:  'Format'
           funder:  'Funder'
           genre:  'Genre'

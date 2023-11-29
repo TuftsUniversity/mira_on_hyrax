@@ -8,7 +8,8 @@ RSpec.describe Collection, type: :model do
     let(:work) { collection }
   end
 
-  it "can have an associated EAD" do
-    expect(collection.ead.first).to start_with "EAD id"
+  it "has an associated call_number and finding_aid" do
+    expect(collection.call_number.first).to start_with "Call Number"
+    expect(collection.finding_aid.first).to start_with "Finding Aid"
   end
 end
