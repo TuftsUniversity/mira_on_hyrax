@@ -2,9 +2,16 @@
 
 The Handle.Net Registry (HNR) is run by Corporation for National Research Initiatives (CNRI). CNRI is a Multi-Primary Administrator (MPA) of the Global Handle Registry (GHR), authorized by the DONA Foundation to allot prefixes to users of the Handle System. The DONA Foundation is a non-profit organization based in Geneva that has taken over responsibility for the evolution of CNRI's Digital Object (DO) Architecture including outreach around the world. One of the Foundation's responsibilities is to administer and maintain the overall operation of the GHR, a task that was previously performed by CNRI.
 
+## Version
+
+As of 12/1/2023 our currenty Handle version is 9.0.3
+
 ## Handle Prefixes at Tufts
+
 * Our production prefix is : 10427
 * Our test prefix is : 10427.TEST
+
+10427 appears in our handle resolver URLs.  For example, https://dl.tufts.edu/concern/pdfs/9z903d650, has a handle of http://hdl.handle.net/10427/9Z903D650 which resolves back to the dl URL.  10427 indicates the object is stored at Tufts.
 
 ## Cost
 
@@ -171,7 +178,7 @@ Handle should get created successfully.
 
 ### Trace a Handle
 
-Even if you can't create a handle you should verify you can read to determin if its a read or writing issue.
+Even if you can't create a handle you should verify you can read to determin if its a read or writing issue.  If there is a problem with reading a handle, this should help you debug where it is blocked.
 
 ```
 cd /usr/local/samvera/handle_software/handle-9.3.0/bin
