@@ -6,6 +6,8 @@ The Handle.Net Registry (HNR) is run by Corporation for National Research Initia
 
 As of 12/1/2023 our currenty Handle version is 9.0.3
 
+Handle requires a version/serial number for every deployment, we deploy infrequently, so we typically just use the two digit year of deployment.  If we have already used the year we just append an incremental number on the end.  Current deployment is 2302.
+
 ## Handle Prefixes at Tufts
 
 * Our production prefix is : 10427
