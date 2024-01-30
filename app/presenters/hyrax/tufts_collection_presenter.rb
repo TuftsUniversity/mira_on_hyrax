@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-# Override Hyrax CollectionPresenter with a local version that adds the EAD field
+# Override Hyrax CollectionPresenter with a local version that adds the Call Number and Finding Aid fields
 module Hyrax
   class TuftsCollectionPresenter < CollectionPresenter
-    delegate :ead, to: :solr_document
+    delegate :call_number, :finding_aid, to: :solr_document
 
     def nested_collection_pathnames
       solr_document['nesting_collection__pathnames_ssim']
@@ -28,7 +28,7 @@ module Hyrax
     end
 
     def self.terms
-      Hyrax::CollectionPresenter.terms + [:ead]
+      Hyrax::CollectionPresenter.terms + [:call_number, :finding_aid]
     end
   end
 end

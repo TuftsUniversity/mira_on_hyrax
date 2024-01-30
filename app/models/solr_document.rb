@@ -72,7 +72,11 @@ class SolrDocument
     fetch(Solrizer.solr_name('file_date_created', :stored_searchable), [])
   end
 
-  def ead
-    self[Solrizer.solr_name('ead')]
+  def call_number
+    self[Solrizer.solr_name('call_number')]
+  end
+
+  def finding_aid
+    self[Solrizer.solr_name('finding_aid')]
   end
 end

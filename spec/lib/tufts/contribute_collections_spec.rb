@@ -15,10 +15,11 @@ RSpec.describe Tufts::ContributeCollections, :clean do
     it "creates a collection object for each item in the seed array" do
       expect(Collection.count).to eq(6)
     end
-    it "populates title and legacy identifier" do
-      c = Collection.where(ead: "tufts:UA069.001.DO.PB")
+    it "populates title, call number and finding aid" do
+      c = Collection.where(call_number: "PB")
       expect(c.first.title.first).to eq("Tufts Published Scholarship, 1987-2014")
-      expect(c.first.ead.first).to eq("tufts:UA069.001.DO.PB")
+      expect(c.first.call_number.first).to eq("PB")
+      expect(c.first.finding_aid.first).to eq("https://archives.tufts.edu/repositories/2/resources/100")
     end
   end
 
@@ -29,13 +30,15 @@ RSpec.describe Tufts::ContributeCollections, :clean do
     it "finds the right collection for a given work type" do
       faculty_scholarship_collection = cc.collection_for_work_type(FacultyScholarship)
       expect(faculty_scholarship_collection).to be_instance_of(Collection)
-      expect(faculty_scholarship_collection.ead).to eq(['tufts:UA069.001.DO.PB'])
+      expect(faculty_scholarship_collection.call_number).to eq(['PB'])
+      expect(faculty_scholarship_collection.finding_aid).to eq(['https://archives.tufts.edu/repositories/2/resources/100'])
     end
     it "recovers if one of the expected collections has been deleted" do
-      Collection.where(ead: 'tufts:UA069.001.DO.PB').first.delete
+      Collection.where(call_number: 'PB').first.delete
       faculty_scholarship_collection = cc.collection_for_work_type(FacultyScholarship)
       expect(faculty_scholarship_collection).to be_instance_of(Collection)
-      expect(faculty_scholarship_collection.ead).to eq(['tufts:UA069.001.DO.PB'])
+      expect(faculty_scholarship_collection.call_number).to eq(['PB'])
+      expect(faculty_scholarship_collection.finding_aid).to eq(['https://archives.tufts.edu/repositories/2/resources/100'])
     end
   end
 end

@@ -38,17 +38,6 @@
       <metadata>
         <mira_import>
           <tufts:filename>your_file_here</tufts:filename>
-          <tufts:visibility>open</tufts:visibility>
-          <model:hasModel>Ead</model:hasModel>
-          <dc:title>Sample Data: War of the Forbidden Ninja</dc:title>
-          <tufts:displays_in>dl</tufts:displays_in>
-        </mira_import>
-      </metadata>
-    </record>
-    <record>
-      <metadata>
-        <mira_import>
-          <tufts:filename>your_file_here</tufts:filename>
           <tufts:visibility>restricted</tufts:visibility>
           <model:hasModel>GenericObject</model:hasModel>
           <dc:title>Sample Data: Codename: Red Cat</dc:title>

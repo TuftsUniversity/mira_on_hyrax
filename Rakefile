@@ -119,8 +119,6 @@ task compute_handles2: :environment do
           model = 'images/'
         when "Pdf"
           model = 'pdfs/'
-        when "Ead"
-          model = 'eads/'
         when "Rcr"
           model = 'rcrs/'
         when "Audio"
@@ -208,8 +206,6 @@ task compute_handles: :environment do
           model = 'images/'
         when "Pdf"
           model = 'pdfs/'
-        when "Ead"
-          model = 'eads/'
         when "Rcr"
           model = 'rcrs/'
         when "Audio"
@@ -241,33 +237,12 @@ task collection_by_title: :environment do
     begin
       puts "PROCESSING PID : #{pid}"
       obj = ActiveFedora::Base.find(pid)
-      if obj.class.to_s == "Ead"
-        puts "FOUND EAD NEXT"
-        next
-      end
-
       col = Collection.find(title)
       obj.member_of_collections = [col]
       obj.save!
     rescue ActiveFedora::ObjectNotFoundError
       puts "ERROR not found #{pid} #{title}"
     end
-  end
-end
-
-desc "add to collection"
-task add_to_collection_descriptions: :environment do
-  puts "Loading File"
-  CSV.foreach("/usr/local/hydra/epigaea/eads.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    pid = row[0]
-    obj = ActiveFedora::Base.find(pid)
-    col = Collection.find("vd66vz89n")
-
-    obj.member_of_collections << col
-
-    obj.save!
-  rescue ActiveFedora::ObjectNotFoundError
-    puts "ERROR not found #{pid}"
   end
 end
 
@@ -314,36 +289,6 @@ task remove_from_collection: :environment do
       item = ActiveFedora::Base.find(mem.id)
       obj.member_of_collections << item
     end
-    obj.save!
-  rescue ActiveFedora::ObjectNotFoundError
-    puts "ERROR not found #{pid}"
-  end
-end
-
-desc "ead matching"
-task ead_matching: :environment do
-  puts "Loading File"
-  CSV.foreach("/usr/local/hydra/epigaea/eads.txt", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    pid = row[0]
-    title = row[1]
-    obj = ActiveFedora::Base.find(pid)
-    cols = Collection.where(title_tesim: title)
-    col_desc = Collection.find('vd66vz89n')
-
-    if cols.empty?
-      puts "EAD #{pid} has no matching collection"
-      a = Collection.new(title: [title])
-      a.apply_depositor_metadata 'apruit01'
-      a.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
-      a.save!
-      a = a.reload
-      obj.member_of_collections = [a, col_desc]
-    else
-      puts "EAD #{pid} has a matching collection and can be added."
-      col = cols.first
-      obj.member_of_collections = [col, col_desc]
-    end
-
     obj.save!
   rescue ActiveFedora::ObjectNotFoundError
     puts "ERROR not found #{pid}"
@@ -463,27 +408,6 @@ task f3_updates: :environment do
   end
 end
 
-desc "iterate collections"
-task iterate_and_fix_collections1: :environment do
-  colls = Collection.all
-  colls.each do |col|
-    ead_id = col.ead
-    ead_id = ead_id.to_a.first
-    substring = "DO"
-    ead_id = "" if ead_id.nil?
-    count =  ead_id.scan(/(?=#{substring})/).count
-
-    if count > 1
-      ead_id = ead_id.sub(substring + ".", "")
-      puts "FIX #{ead_id}"
-      col.ead = [ead_id]
-      col.save
-    else
-      puts "OK"
-    end
-  end
-end
-
 desc "apply genres"
 task apply_genre: :environment do
   file = File.read('genre.json')
@@ -497,25 +421,6 @@ task apply_genre: :environment do
     o.genre = doc['genre_tesim']
     o.save!
     puts "#{o.id} #{doc['genre_tesim']}"
-  end
-end
-
-desc "iterate collections"
-task iterate_and_fix_collections: :environment do
-  colls = Collection.all
-  colls.each do |col|
-    ead_id = col.ead
-    ead_id = ead_id.to_a.first
-    puts "class #{ead_id.class}"
-    eads = Ead.where(legacy_pid_tesim: ead_id)
-    eads = eads.to_a.first unless eads.to_a.empty?
-    if eads.instance_of? Ead
-      eads.member_of_collections = [col]
-      eads.save
-      puts "Add #{eads} with legacy_pid (#{ead_id}) to #{col.id}"
-    else
-      puts "SKIPPING"
-    end
   end
 end
 
