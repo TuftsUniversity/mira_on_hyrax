@@ -17,7 +17,7 @@ RSpec.describe Tufts::ContributeCollections, :clean do
     end
     it "populates title, call number and finding aid" do
       c = Collection.where(call_number: "PB")
-      expect(c.first.title.first).to eq("Tufts Published Scholarship, 1987-2014")
+      expect(c.first.title.first).to eq("Tufts Published Scholarship")
       expect(c.first.call_number.first).to eq("PB")
       expect(c.first.finding_aid.first).to eq("https://archives.tufts.edu/repositories/2/resources/100")
     end

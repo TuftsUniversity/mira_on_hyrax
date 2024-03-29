@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 module Tufts
   # Create and maintain the Collection objects required by the Contribute controller
+  # Note that the rake task that uses this class is called at the initialization of a new TDL environment.
+  # It runs in production only once (e.g. Fedora 3 -> 4 migration), but it's useful in development environments
+  # since they are recreated more frequently.
+
   class ContributeCollections
     attr_reader :seed_data
 
@@ -79,37 +83,37 @@ module Tufts
 
     SEED_DATA = [
       {
-        title: "Tufts Published Scholarship, 1987-2014",
+        title: "Tufts Published Scholarship",
         call_number: "PB",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/100",
         work_types: [GenericDeposit, GenericTischDeposit, GisPoster, UndergradSummerScholar, FacultyScholarship]
       },
       {
-        title: "Fletcher School Records, 1923 -- 2016",
+        title: "Fletcher School Records",
         call_number: "UA015",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/120",
         work_types: [CapstoneProject]
       },
       {
-        title: "Cummings School of Veterinary Medicine records, 1969-2012",
+        title: "Cummings School of Veterinary Medicine Records",
         call_number: "UA041",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/4",
         work_types: [CummingsThesis]
       },
       {
-        title: "Undergraduate honors theses, 1929-2015",
+        title: "Senior Honors Theses",
         call_number: "UA005",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/123",
         work_types: [HonorsThesis]
       },
       {
-        title: "Public Health and Professional Degree Programs Records, 1990 -- 2011",
+        title: "Public Health and Professional Degree Programs Records",
         call_number: "UA187",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/253",
         work_types: [PublicHealth]
       },
       {
-        title: "Department of Education records, 2007-02-01-2014",
+        title: "Department of Education Records",
         call_number: "UA071",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/9",
         work_types: [QualifyingPaper]
