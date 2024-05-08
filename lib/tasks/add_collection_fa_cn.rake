@@ -12,8 +12,7 @@ namespace :tufts do
     # causes the deprecation warning to happen at the top of the task's output so that no legitimate error messages
     # get lost in between the deprecation warnings.  It doesn't matter if the collection is actually found or not.
     begin
-      collections = Collection.where(title: "Foobar") # returns an empty ActiveFedora::Relation
-      collection = collections.first
+      Collection.where(title: "Foobar").first # returns an empty ActiveFedora::Relation
     rescue StandardError => ex
       puts("\nError when calling Collection.first: #{ex}.")
       exit
@@ -43,6 +42,8 @@ namespace :tufts do
     collection_titles = {}
     lines             = {}
     errors            = []
+    not_found         = []
+    found_multiple    = []
 
     csv_file.each.with_index(2) do |line, line_number|
       row_values = line.strip.split(',', 3) # split the line into three values on the first two commas
@@ -100,13 +101,34 @@ namespace :tufts do
       line = lines[line_number]
       collection_title = line[:collection_title]
       collections = Collection.where(title: collection_title)
+      matching_collections = []
 
-      if collections.nil? || collections.first.nil?
-        errors.append("The collection #{line[:collection_title]} on line #{line_number} of #{filename} is not found in MIRA.")
-      elsif collections.length > 1
-        errors.append("The title #{line[:collection_title]} on line #{line_number} of #{filename} matches #{collections.length} collections.")
+      # There may be multiple collections that sort of match this title;  ignore any that aren't an exact match.
+      # Ignore case, because there are many collections in MIRA with titles like "Something Or Somebody records or papers" that should be
+      # "Something Or Somebody Records Or Papers" with a capital R or P.
+
+      collections.each do |collection|
+        matching_collections.append(collection) if collection[:title].first.casecmp(collection_title).zero?
+      end
+
+      if matching_collections.empty?
+        not_found.append("The collection #{line[:collection_title]} on line #{line_number} of #{filename} is not found in MIRA.")
+
+        unless collections.empty?
+          not_found.append("    Maybe the title of #{collections.length == 1 ? 'this collection' : 'one of these collections'} is misspelled in MIRA:")
+
+          collections.each do |collection|
+            not_found.append("    #{collection.id}  #{collection[:title].first}")
+          end
+        end
+      elsif matching_collections.length > 1
+        found_multiple.append("The title #{line[:collection_title]} on line #{line_number} of #{filename} matches #{matching_collections.length} collections:")
+
+        matching_collections.each do |collection|
+          found_multiple.append("    #{collection.id}  #{collection[:title].first}")
+        end
       else
-        collection              = collections.first
+        collection              = matching_collections.first
         old_call_number         = collection[:call_number].first
         old_finding_aid_link    = collection[:finding_aid].first
         new_call_number         = line[:call_number]
@@ -115,7 +137,7 @@ namespace :tufts do
         update_finding_aid_link = new_finding_aid_link != old_finding_aid_link
 
         if update_call_number || update_finding_aid_link
-          puts("Updating collection #{collection_title}  old call number: #{old_call_number}  "\
+          puts("#{save_updates ? 'Updating' : 'Would update'} collection #{collection_title}  old call number: #{old_call_number}  "\
             "old finding aid link: #{old_finding_aid_link}  new call number: #{new_call_number}  new finding aid link: #{new_finding_aid_link}.")
 
           collection[:call_number] = [new_call_number]      if update_call_number
@@ -132,6 +154,16 @@ namespace :tufts do
     # Output all the error messages after all the processing has been done.
     puts("") unless errors.empty?
     errors.each do |error|
+      puts(error)
+    end
+
+    puts("") unless not_found.empty?
+    not_found.each do |error|
+      puts(error)
+    end
+
+    puts("") unless found_multiple.empty?
+    found_multiple.each do |error|
       puts(error)
     end
   end
