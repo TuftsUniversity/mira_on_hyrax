@@ -265,3 +265,16 @@ gpgkey = https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
 mirrorlist = https://shibboleth.net/cgi-bin/mirrorlist.cgi/CentOS_8
 name = Shibboleth YUM repo
 ```
+
+* RHEL9
+```
+[shibboleth]
+name=Shibboleth (rockylinux9)
+# Please report any problems to https://shibboleth.atlassian.net/jira
+type=rpm-md
+mirrorlist=https://shibboleth.net/cgi-bin/mirrorlist.cgi/rockylinux9
+gpgcheck=1
+gpgkey=https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
+        https://shibboleth.net/downloads/service-provider/RPMS/cantor.repomd.xml.key
+enabled=1
+```
