@@ -15,7 +15,7 @@ RSpec.feature 'submit a PHPD Field Experience/Capstone contribution' do
   end
   scenario do
     visit '/contribute'
-    find('#deposit_type').find(:xpath, 'option[8]').select_option
+    find('#deposit_type').find(:xpath, 'option[9]').select_option
     click_button 'Begin'
     attach_file('PDF to upload', pdf_path)
     fill_in 'Capstone Project Title', with: FFaker::Book.title

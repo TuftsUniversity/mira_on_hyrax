@@ -1,0 +1,22 @@
+<%# NOTE: this form uses bootstrap_form_for and bootstrap_forms helpers - see: https://github.com/sethvargo/bootstrap_forms %>
+
+<%= f.text_field :title, label: 'Title', required: true %>
+
+<%= f.text_field :creator, label: 'Creator', value: @contribution.creator, required: true, readonly: 'readonly'  %>
+
+<% if params['contribution'] && params['contribution']['contributor'] %>
+  <%= react_component('ContributeOtherAuthors', {contributor: params['contribution']['contributor']}, {camelize_props: true}) %>
+<% else %>
+  <%= react_component('ContributeOtherAuthors', {contributor: []}, {camelize_props: true}) %>
+<% end %>
+
+<%= f.text_field :department, label: 'Department', 'data-autocomplete': '/authorities/search/local/departments'  %>
+<script>
+  Tufts.autocomplete()
+</script>
+
+<%= f.text_field :advisor, label: 'Advisor' %>
+
+<%= f.select :embargo, standard_embargos,  label: 'Embargo', help: 'An embargo will restrict all access to your work until the selected time has passed'  %>
+
+<%= f.text_area :abstract, label: 'Short Description', rows: 5, class: 'col-sm-8'  %>

@@ -15,7 +15,7 @@ RSpec.feature 'submit an Undergraduate Summer Scholars contribution' do
   end
   scenario do
     visit '/contribute'
-    find('#deposit_type').find(:xpath, 'option[11]').select_option
+    find('#deposit_type').find(:xpath, 'option[12]').select_option
     click_button 'Begin'
     attach_file('PDF to upload', pdf_path)
     fill_in 'Title', with: FFaker::Book.title

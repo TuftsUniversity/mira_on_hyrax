@@ -86,7 +86,7 @@ module Tufts
         title: "Tufts Published Scholarship",
         call_number: "PB",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/100",
-        work_types: [GenericDeposit, GenericTischDeposit, GisPoster, UndergradSummerScholar, FacultyScholarship]
+        work_types: [GenericDeposit, GenericTischDeposit, GisPoster, UndergradSummerScholar, FacultyScholarship, GradScholarship]
       },
       {
         title: "Fletcher School Records",
