@@ -58,6 +58,7 @@ config/handle.yml
 config/pdf_pages.yml
 config/tufts.yml
 config/sidekiq.yml
+config/ga.yml
 # Rubymine
 .idea
 
