@@ -15,7 +15,7 @@ RSpec.feature 'submit a Masters in Animal and Pubic Policy contribution' do
   end
   scenario do
     visit '/contribute'
-    find('#deposit_type').find(:xpath, 'option[7]').select_option
+    select 'Masters in Animal and Public Policy', from: 'deposit_type'
     click_button 'Begin'
     attach_file('PDF to upload', pdf_path)
     fill_in 'Title', with: FFaker::Book.title
