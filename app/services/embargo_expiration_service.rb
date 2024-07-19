@@ -70,13 +70,23 @@ class EmbargoExpirationService
     expirations = find_expirations
     expirations.each do |expiration|
       Rails.logger.warn "ETD #{expiration.id}: Expiring embargo"
-      expiration.visibility = expiration.visibility_after_embargo if expiration.visibility_after_embargo
-      expiration.file_sets.each do |file_set|
-        file_set.visibility = expiration.visibility
-        file_set.save!
+
+      if expiration.visibility_after_embargo
+        expiration.visibility = expiration.visibility_after_embargo
       end
+
+      if expiration.respond_to?(:file_sets)
+        expiration.file_sets.each do |file_set|
+          file_set.visibility = expiration.visibility
+          file_set.save!
+        end
+      else
+        expiration.visibility = expiration.visibility_after_embargo if expiration.visibility_after_embargo
+        expiration.save!
+      end
+
       expiration.deactivate_embargo!
-      expiration.embargo.save
+      expiration.embargo.save if expiration.respond_to?(:embargo)
       expiration.save
     end
   end
