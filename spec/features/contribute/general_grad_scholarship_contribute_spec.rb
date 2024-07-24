@@ -6,7 +6,6 @@ include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'General Graduate Scholarship', :clean, js: true do
-  # TODO: make a csv file
   let(:csv_path) { Rails.root.join('config', 'deposit_type_seed.csv').to_s }
   let(:importer) { DepositTypeImporter.new(csv_path) }
   let(:pdf_path) { Rails.root.join('spec', 'fixtures', 'hello.pdf') }

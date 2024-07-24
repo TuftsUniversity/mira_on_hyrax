@@ -15,8 +15,8 @@ module Tufts
     def make_seed_data_hash
       seed_hash = {}
       SEED_DATA.each do |c|
-        call_number = c[:call_number]
-        seed_hash[call_number] = c
+        data_id = c[:id]
+        seed_hash[data_id] = c
       end
       seed_hash
     end
@@ -28,8 +28,8 @@ module Tufts
     def create
       default = Hyrax::CollectionType.find_or_create_default_collection_type
       # admin_set = Hyrax::CollectionType.find_or_create_admin_set_type
-      @seed_data.each_key do |call_number|
-        find_or_create_collection(call_number, default)
+      @seed_data.each_key do |data_id|
+        find_or_create_collection(data_id, default)
       end
     end
 
@@ -38,19 +38,20 @@ module Tufts
     # re-used, and re-create the collection object.
     # @param [String] call_number
     # @return [Collection]
-    def find_or_create_collection(call_number, default)
-      col = Collection.where(call_number: call_number)
-      create_collection(call_number, default) if col.empty?
+    def find_or_create_collection(data_id, default)
+      col = Collection.where(id: data_id)
+      create_collection(data_id, default) if col.empty?
     end
 
-    # @param [String] call_number
+    # @param [String] data_id
     # @return [Collection]
-    def create_collection(call_number, default = Hyrax::CollectionType.find_or_create_default_collection_type)
+    def create_collection(data_id, default = Hyrax::CollectionType.find_or_create_default_collection_type)
       collection = Collection.new
-      collection_hash = @seed_data[call_number]
+      collection_hash = @seed_data[data_id]
       collection.title = Array(collection_hash[:title])
-      collection.call_number = Array(collection_hash[:call_number])
-      collection.finding_aid = Array(collection_hash[:finding_aid])
+      collection.id = collection_hash[:id]
+      collection.call_number = Array(collection_hash[:call_number]) if collection_hash.key?(:call_number)
+      collection.finding_aid = Array(collection_hash[:finding_aid]) if collection_hash.key?(:finding_aid)
       collection.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
       collection.collection_type = default
       collection.save
@@ -71,11 +72,11 @@ module Tufts
     # @param [Class] work_type
     # @return [Collection]
     def collection_for_work_type(work_type)
-      call_number = @seed_data.select { |_key, hash| hash[:work_types].include? work_type }.keys.first
+      data_id = @seed_data.select { |_key, hash| hash[:work_types].include? work_type }.keys.first
 
-      cols = Collection.where(call_number: call_number)
+      cols = Collection.where(id: data_id)
       if cols.empty?
-        create_collection(call_number)
+        create_collection(data_id)
       else
         cols.first
       end
@@ -84,39 +85,50 @@ module Tufts
     SEED_DATA = [
       {
         title: "Tufts Published Scholarship",
+        id: "2j62s484w",
         call_number: "PB",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/100",
-        work_types: [GenericDeposit, GenericTischDeposit, GisPoster, UndergradSummerScholar, FacultyScholarship, GradScholarship]
+        work_types: [GenericDeposit, GenericTischDeposit, GisPoster, UndergradSummerScholar, FacultyScholarship]
       },
       {
         title: "Fletcher School Records",
+        id: "0g354f20t",
         call_number: "UA015",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/120",
         work_types: [CapstoneProject]
       },
       {
         title: "Cummings School of Veterinary Medicine Records",
+        id: "xd07gs68j",
         call_number: "UA041",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/4",
         work_types: [CummingsThesis]
       },
       {
         title: "Senior Honors Theses",
+        id: "8910jt56k",
         call_number: "UA005",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/123",
         work_types: [HonorsThesis]
       },
       {
         title: "Public Health and Professional Degree Programs Records",
+        id: "cz30q546w",
         call_number: "UA187",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/253",
         work_types: [PublicHealth]
       },
       {
         title: "Department of Education Records",
+        id: "sq87bt605",
         call_number: "UA071",
         finding_aid: "https://archives.tufts.edu/repositories/2/resources/9",
         work_types: [QualifyingPaper]
+      },
+      {
+        title: "Student Scholarship",
+        id: "nk322d32h",
+        work_types: [GradScholarship]
       }
     ].freeze
   end
