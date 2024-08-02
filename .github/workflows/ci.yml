@@ -56,10 +56,11 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler: "2.1.4"
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Update rubygems
-      run: |
-        gem update --system 3.3.27
-        gem install bundler:2.1.4
+    # TODO: Tempoary remove this update untill ruby 3
+    # - name: Update rubygems
+    #   run: |
+    #     gem update --system
+    #     gem install bundler:2.1.4
 
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
