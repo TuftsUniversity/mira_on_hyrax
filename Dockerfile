@@ -1,4 +1,4 @@
-FROM ruby:2.7.5
+FROM ruby:2.7.7
 
 ARG RAILS_ENV
 ARG SECRET_KEY_BASE
@@ -36,7 +36,7 @@ RUN npm install -g yarn
 RUN apt-get remove -y imagemagick
 
 RUN apt-get install -y wget
-RUN t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && bash "$t" && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
+# RUN t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && bash "$t" && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
 
 # fetch clamav local database
 # initial update of av databases
