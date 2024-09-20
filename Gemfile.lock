@@ -6,10 +6,10 @@ GIT
 
 GIT
   remote: https://github.com/TuftsUniversity/tufts-curation
-  revision: 730d30f9b21c853a218731535ed26c9686394a2e
-  tag: v1.3.2
+  revision: dca6e64f42be22ff4ddc1266de92ee9cb98080dc
+  tag: v1.3.4
   specs:
-    tufts-curation (0.1.0)
+    tufts-curation (1.3.4)
       active-fedora (>= 11.5, <= 12.99)
       activerecord
       activesupport
