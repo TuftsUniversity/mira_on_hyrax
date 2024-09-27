@@ -5,15 +5,11 @@ class GradScholarship < Contribution
   attr_accessor :department
   validates :department, presence: true
 
-  self.attributes += [:advisor]
-  self.ignore_attributes += [:advisor]
-  attr_accessor :advisor
-  validates :advisor, presence: true
-
   protected
 
   def copy_attributes
     super
+    @tufts_pdf.bibliographic_citation = [bibliographic_citation] if bibliographic_citation
     @tufts_pdf.subject = [department]
     @tufts_pdf.creator_department = [creator_dept]
   end

@@ -12,7 +12,7 @@ RSpec.feature 'General Graduate Scholarship', :clean, js: true do
   let(:user) { FactoryBot.create(:user) }
   let(:admin) { FactoryBot.create(:admin) }
   let(:title) { FFaker::Movie.unique.title }
-  let(:advisory) { "advisory" }
+  let(:bibliographic_citation) { FFaker::Book.genre }
   let(:short_description) { FFaker::Book.description }
 
   before do
@@ -38,7 +38,7 @@ RSpec.feature 'General Graduate Scholarship', :clean, js: true do
     page.execute_script %{ $('ul.ui-autocomplete li.ui-menu-item:contains("Dept. of Geology")').trigger('mouseenter').click() }
     expect(find_field('Department').value).to eq 'Dept. of Geology'
 
-    fill_in 'Advisor', with: advisory
+    fill_in "contribution_bibliographic_citation", with: bibliographic_citation
 
     click_button 'Agree & Deposit'
     expect(page).to have_content 'Your deposit has been submitted for approval.'

@@ -15,8 +15,8 @@
   Tufts.autocomplete()
 </script>
 
-<%= f.text_field :advisor, label: 'Advisor' %>
-
 <%= f.select :embargo, standard_embargos,  label: 'Embargo', help: 'An embargo will restrict all access to your work until the selected time has passed'  %>
+
+<%= f.text_field :bibliographic_citation, label: 'Bibliographic Citation', help: '<b>Optional</b> - the bibliographic citation field may be left blank'.html_safe %>
 
 <%= f.text_area :abstract, label: 'Short Description', rows: 5, class: 'col-sm-8'  %>
