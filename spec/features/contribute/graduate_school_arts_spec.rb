@@ -15,7 +15,7 @@ RSpec.feature 'submit a Graduate School of Arts and Sciences Education Qualifyin
   end
   scenario do
     visit '/contribute'
-    find('#deposit_type').find(:xpath, 'option[6]').select_option
+    select 'Graduate School of Arts and Sciences Education Qualifying Papers', from: 'deposit_type'
     click_button 'Begin'
     attach_file('PDF to upload', pdf_path)
     fill_in 'Title', with: FFaker::Book.title
