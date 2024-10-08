@@ -1,4 +1,4 @@
-FROM ruby:2.7.5
+FROM ruby:2.7.7
 
 ARG RAILS_ENV
 ARG SECRET_KEY_BASE
@@ -23,7 +23,7 @@ RUN apt-get update && apt-get upgrade -y && \
 RUN apt-get install chromium -y
 
 RUN apt-get install -y wget
-RUN t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && bash "$t" && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
+# RUN t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && bash "$t" && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
 
 # fetch clamav local database
 # initial update of av databases
@@ -37,6 +37,8 @@ ENV PATH /opt/fits:$PATH
 
 # Increase stack size limit to help working with large works
 ENV RUBY_THREAD_MACHINE_STACK_SIZE 8388608
+
+RUN gem install rubygems-update -v 3.2.3
 
 RUN gem update --system
 
