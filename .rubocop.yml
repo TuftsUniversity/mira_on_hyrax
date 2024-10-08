@@ -80,19 +80,6 @@ RSpec/ExampleLength:
     - spec/controllers/deposit_types_controller_spec.rb
 RSpec/MessageSpies:
   Enabled: false
-RSpec/MultipleExpectations:
-  Exclude:
-    - spec/lib/tufts/input_sanitizer_spec.rb
-    - spec/controllers/contribute_controller_spec.rb
-    - spec/controllers/tufts/publication_status_controller_spec.rb
-    - spec/controllers/hyrax/audios_controller_spec.rb
-    - spec/features/**/*
-    - spec/jobs/**/*
-    - spec/lib/tufts/contribute_collections_spec.rb
-    - spec/lib/tufts/metadata_exporter_spec.rb
-    - spec/lib/tufts/workflow_setup_spec.rb
-    - spec/services/**/*
-    - spec/support/shared_examples/metadata_ordered_fields.rb
 RSpec/NestedGroups:
   Max: 4
 RSpec/ScatteredSetup:

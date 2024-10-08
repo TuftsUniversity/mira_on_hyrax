@@ -503,11 +503,10 @@ task :fix_av, [:av_path] => :environment do |_task, args|
         if file_sets.length > 1
           file_sets.each do |file_set|
             # Check if the file is a transcript file
-            if ['text/xml', 'text/plain'].include?(file_set.to_solr['mime_type_ssi'])
-              obj.transcript_id = file_set.id
-              obj.save!
-              puts "Transcript set for PID #{pid}"
-            end
+            next unless ['text/xml', 'text/plain'].include?(file_set.to_solr['mime_type_ssi'])
+            obj.transcript_id = file_set.id
+            obj.save!
+            puts "Transcript set for PID #{pid}"
           end
         end
       rescue Ldp::HttpError, ActiveFedora::ObjectNotFoundError => e
