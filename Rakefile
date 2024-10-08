@@ -442,20 +442,82 @@ task update_fileset_index: :environment do
   end
 end
 
-desc "update_object_index"
-task update_object_index: :environment do
-  puts "Loading File"
-  CSV.foreach("/usr/local/hydra/epigaea/objects_to_update.csv", headers: false, header_converters: :symbol, encoding: "ISO8859-1:utf-8") do |row|
-    pid = row[0]
-    puts pid.to_s
-    begin
-      a = ActiveFedora::Base.find(pid, cast: true)
-      a.update_index
-    rescue Ldp::HttpError
-      puts "ERROR on #{pid}"
-    rescue ActiveFedora::ObjectNotFoundError
-      puts "ERROR on #{pid}"
+desc "Update object index using a CSV file of PIDs."
+task :update_object_index, [:file_path] => :environment do |_task, args|
+  # Check if the file_path argument is provided
+  file_path = args[:file_path] || ARGV[1]
+
+  # Validate argument presence
+  if file_path.nil?
+    puts('Example usage: rake update_object_index[/path/to/pid_list.csv]')
+    exit 1
+  end
+
+  # Proceed with loading and processing the CSV file
+  puts "Loading File #{file_path}"
+  begin
+    CSV.foreach(file_path, headers: false, encoding: "ISO8859-1:utf-8") do |row|
+      pid = row[0]
+      puts "Processing PID: #{pid}"
+
+      begin
+        # Find the ActiveFedora object and update its index
+        obj = ActiveFedora::Base.find(pid, cast: true)
+        obj.update_index
+        puts "Index updated for PID #{pid}"
+      rescue Ldp::HttpError, ActiveFedora::ObjectNotFoundError => e
+        puts "Error processing PID #{pid}: #{e.class} - #{e.message}"
+      end
     end
+  rescue Errno::ENOENT
+    puts "File not found: #{file_path}"
+  rescue StandardError => e
+    puts "An error occurred: #{e.message}"
+  end
+end
+
+desc "Fix AV objects by processing a CSV file with pids and setting the transcript_id."
+task :fix_av, [:av_path] => :environment do |_task, args|
+  # Check if the av_path argument is provided
+  av_path = args[:av_path] || ARGV[1]
+
+  # Validate argument presence
+  if av_path.nil?
+    puts('Example usage: rake fix_av[/path/to/list.csv]')
+    exit 1
+  end
+
+  # Proceed with loading and processing the CSV file
+  puts "Loading File #{av_path}"
+  begin
+    CSV.foreach(av_path, headers: false, encoding: "ISO8859-1:utf-8") do |row|
+      pid = row[0]
+      puts "Processing PID: #{pid}"
+
+      begin
+        # Find the ActiveFedora object
+        obj = ActiveFedora::Base.find(pid, cast: true)
+        file_sets = obj.file_sets
+
+        # Check if there is more than one file set
+        if file_sets.length > 1
+          file_sets.each do |file_set|
+            # Check if the file is a transcript file
+            if ['text/xml', 'text/plain'].include?(file_set.to_solr['mime_type_ssi'])
+              obj.transcript_id = file_set.id
+              obj.save!
+              puts "Transcript set for PID #{pid}"
+            end
+          end
+        end
+      rescue Ldp::HttpError, ActiveFedora::ObjectNotFoundError => e
+        puts "Error processing PID #{pid}: #{e.class} - #{e.message}"
+      end
+    end
+  rescue Errno::ENOENT
+    puts "File not found: #{av_path}"
+  rescue StandardError => e
+    puts "An error occurred: #{e.message}"
   end
 end
 
