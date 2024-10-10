@@ -34,7 +34,7 @@ module Sipity
   # workflow_id: 8, workflow_state_id: 20, created_at: "2017-07-07 13:39:42", updated_at: "2017-07-07 13:39:42">
   #
   # @see https://github.com/rails/globalid Rails' GlobalID library
-  class Entity < ActiveRecord::Base
+  class Entity < ApplicationRecord
     self.table_name = 'sipity_entities'
 
     belongs_to :workflow, class_name: 'Sipity::Workflow'
