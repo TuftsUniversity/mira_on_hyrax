@@ -49,7 +49,7 @@ gem 'omniauth', '1.9.1'
 gem 'omniauth-shibboleth'
 gem 'whenever', require: false
 
-gem 'tufts-curation', git: 'https://github.com/TuftsUniversity/tufts-curation', tag: 'v1.3.6'
+gem 'tufts-curation', git: 'https://github.com/TuftsUniversity/tufts-curation', tag: 'v1.3.7'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger  console
