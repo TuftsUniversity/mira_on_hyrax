@@ -1,20 +1,21 @@
 terms:
-  - id: JDMPH
-    term: 'JD/MPH'
-    term: 'MS Nutrition/MPH'
-  - id: MSBSMPH
-    term: 'MS Biomedical Sciences/MPH'
+  - id: DPT
+    term: 'Doctor of Physical Therapy'
   - id: DVMMPH
     term: 'DVM/MPH'
+  - id: JDMPH
+    term: 'JD/MPH'
   - id: MDMPH
     term: 'MD/MPH'
-  - id: PAMPH
-    term: 'PA/MPH'
-  - id: MPH	
+  - id: MPH 
     term: 'MPH'
   - id: MSBS
     term: 'MS in Biomedical Sciences'
+  - id: MSBSMPH
+    term: 'MS Biomedical Sciences/MPH'
+  - id: MSNMPH
+    term: 'MS Nutrition/MPH'
+  - id: PAMPH
+    term: 'PA/MPH'
   - id: PA
     term: 'Physician Assistant'
-  - id: DPT
-    term: 'Doctor of Physical Therapy'
