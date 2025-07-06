@@ -18,7 +18,7 @@ RSpec.feature 'submit a Tufts University School of Medicine Graduate Programs co
     select 'Tufts University School of Medicine Graduate Programs', from: 'deposit_type'
     click_button 'Begin'
     attach_file('PDF to upload', pdf_path)
-    fill_in 'Capstone Project Title', with: FFaker::Book.title
+    fill_in 'Project Title', with: FFaker::Book.title
     select 'MPH', from: 'Degree'
     fill_in 'Short Description', with: FFaker::Book.description
     click_button 'Agree & Deposit'
