@@ -32,6 +32,11 @@ class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
   delegate :record?, :record_for, :records, to: :parser
 
   ##
+  # @!attribute [w] parser
+  #   @return [Tufts::MiraXmlImporter]
+  attr_writer :parser
+
+  ##
   # @!attribute uploaded_file_ids [rw]
   #   @return [Array<String>]
   # @!attribute record_ids [rw]
@@ -52,20 +57,13 @@ class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
   ##
   # @return [Hash<String, String> a hash associating object ids with job ids
   def enqueue!
-    return_hash = uploaded_files.each_with_object({}) do |file, hsh|
-      filename = file.file.file.filename
-      next unless id_exists_for?(filename: filename)
-
-      id = record_ids[filename]
+    return_hash = ready_records.each_with_object({}) do |record, hsh|
+      id = record_ids[record.file]
       next unless item_processable?(id: id)
 
-      record = record_for(file: filename)
-      next unless record.file == filename && upload_completed?(record: record)
-
-      files_for_import = uploaded_files.select { |f| record.files.include?(f.file.file.filename) }
-      hsh[id] = ImportJob.perform_later(self, files_for_import, record_ids[record.file]).job_id
+      hsh[id] = ImportJob.perform_later(self, uploaded_files_for(record: record), id).job_id
     end
-    Hyrax::Workflow::BatchImportNotification.new(batch).call
+    Hyrax::Workflow::BatchImportNotification.new(batch).call if return_hash.any?
     return_hash
   end
 
@@ -78,7 +76,7 @@ class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
   ##
   # @return [Tufts::Importer]
   def parser
-    Tufts::MiraXmlImporter.new(file: metadata_file.file)
+    @parser ||= Tufts::MiraXmlImporter.new(file: metadata_file.file)
   end
 
   ##
@@ -116,19 +114,14 @@ class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # @private Mint ids for items ready to enqueue
   # @return [Boolean]
   def mint_ids
-    uploaded_filenames = uploaded_files.map { |up| up.file.file.filename }
-
-    uploaded_filenames.each do |filename|
-      next if id_exists_for?(filename: filename)
-
-      record = record_for(file: filename)
-
-      # skip unless it's the primary file and the record is complete
-      next unless record.file == filename && upload_completed?(record: record)
+    records.each do |record|
+      next if record.file.blank?
+      next if id_exists_for?(filename: record.file)
+      next unless upload_completed?(record: record)
 
       id = NOID_SERVICE.mint
 
-      record_ids[filename] = id
+      record_ids[record.file] = id
       batch.ids << id
     end
 
@@ -207,6 +200,20 @@ class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def upload_completed?(record:)
     record.files.all? do |record_file|
       uploaded_files.map { |f| f.file.file.filename }.include?(record_file)
+    end
+  end
+
+  def ready_records
+    records.select do |record|
+      record.file.present? &&
+        id_exists_for?(filename: record.file) &&
+        upload_completed?(record: record)
+    end
+  end
+
+  def uploaded_files_for(record:)
+    uploaded_files.select do |uploaded_file|
+      record.files.include?(uploaded_file.file.file.filename)
     end
   end
 end # rubocop:enable Metrics/ClassLength
