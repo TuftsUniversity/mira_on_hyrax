@@ -118,8 +118,16 @@ jobs:
         bundle exec rails assets:precompile &> /dev/null
     - name: Run tests
       run: |
-        bundle exec rake hydra:test_server &
-        sleep 210
+        bundle exec rake hydra:test_server > tmp/hydra-test-server.log 2>&1 &
+
+        for i in {1..120}; do
+          if curl -fsS http://127.0.0.1:8986/rest > /dev/null; then
+            break
+          fi
+          sleep 2
+        done
+
+        curl -fsS http://127.0.0.1:8986/rest > /dev/null || (cat tmp/hydra-test-server.log && exit 1)
         xvfb-run -a bundle exec rake spec
       env:
         RAILS_ENV: test
