@@ -110,10 +110,6 @@ jobs:
     - name: Set up sipity
       run: |
         RAILS_ENV=test bundle exec rake hyrax:workflow:load
-    - name: Setup hyrax test environment
-      run: |
-        bundle exec rake hydra:test_server &
-        sleep 210
     - name: Rubocop
       run: |
         bundle exec rubocop
@@ -121,7 +117,10 @@ jobs:
       run: |
         bundle exec rails assets:precompile &> /dev/null
     - name: Run tests
-      run: xvfb-run -a bundle exec rake spec
+      run: |
+        bundle exec rake hydra:test_server &
+        sleep 210
+        xvfb-run -a bundle exec rake spec
       env:
         RAILS_ENV: test
         TMPDIR: /tmp
