@@ -118,8 +118,8 @@ jobs:
         bundle exec rails assets:precompile &> /dev/null
     - name: Run tests
       run: |
-        docker compose --env-file config/env.intel.conf up -d db-test solr-test fcrepo-test redis-test chrome
-        docker compose --env-file config/env.intel.conf run --rm --no-deps test bash -lc "./build/entrypoint.sh && xvfb-run -a bundle exec rake spec"
+        docker compose --env-file config/env.intel.conf up -d test
+        docker compose --env-file config/env.intel.conf exec -T test bundle exec rake spec
       env:
         RAILS_ENV: test
         TMPDIR: /tmp
