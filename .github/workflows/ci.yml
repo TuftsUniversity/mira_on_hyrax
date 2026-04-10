@@ -56,15 +56,6 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler: "2.1.4"
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Cache Hydra test wrappers
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.solr_wrapper
-          ~/.fcrepo_wrapper
-        key: ${{ runner.os }}-hydra-wrappers-${{ hashFiles('Gemfile.lock', 'config/fcrepo_wrapper_test.yml', 'solr/conf/**') }}
-        restore-keys: |
-          ${{ runner.os }}-hydra-wrappers-
     # TODO: Tempoary remove this update untill ruby 3
     # - name: Update rubygems
     #   run: |
@@ -127,18 +118,8 @@ jobs:
         bundle exec rails assets:precompile &> /dev/null
     - name: Run tests
       run: |
-        bundle exec rake hydra:test_server > tmp/hydra-test-server.log 2>&1 &
-
-        for i in {1..300}; do
-          if curl -fsS http://127.0.0.1:8985/solr > /dev/null && curl -fsS http://127.0.0.1:8986/rest > /dev/null; then
-            break
-          fi
-          sleep 2
-        done
-
-        curl -fsS http://127.0.0.1:8985/solr > /dev/null || (cat tmp/hydra-test-server.log && exit 1)
-        curl -fsS http://127.0.0.1:8986/rest > /dev/null || (cat tmp/hydra-test-server.log && exit 1)
-        xvfb-run -a bundle exec rake spec
+        docker compose --env-file config/env.intel.conf up -d db-test solr-test fcrepo-test redis-test chrome
+        docker compose --env-file config/env.intel.conf run --rm --no-deps test bash -lc "./build/entrypoint.sh && xvfb-run -a bundle exec rake spec"
       env:
         RAILS_ENV: test
         TMPDIR: /tmp
