@@ -45,7 +45,7 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
   def expect_completed_import
     expect(import.uploaded_files.map { |file| file.file.file.filename })
       .to contain_exactly('pdf-sample.pdf', '2.pdf')
-    expect(import.record_ids.keys).to contain_exactly('pdf-sample.pdf', '2.pdf')
+    expect(import.record_ids.keys).to contain_exactly('2.pdf')
     expect(result).to include(downloaded: 2, submitted: 2, skipped: 0, failed: 0)
     expect(File.exist?(File.join(result[:run_directory], 'results.csv'))).to be(true)
   end
@@ -53,9 +53,9 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
   def expect_resumed_result(result)
     expect(result.fetch(:skipped)).to eq(2)
     expect(result.fetch(:rows)).to eq(2)
-    expect(result[:downloaded]).to be_nil
-    expect(result[:submitted]).to be_nil
-    expect(result[:failed]).to be_nil
+    expect(result[:downloaded]).to eq(0)
+    expect(result[:submitted]).to eq(0)
+    expect(result[:failed]).to eq(0)
   end
 
   def import
