@@ -22,7 +22,7 @@ jobs:
       DB_PASSWORD: root
       TRAVIS: true
       SOLR_URL: http://127.0.0.1:8985/solr/test
-      FEDORA_URL: http://127.0.0.1:8986/fcrepo/rest
+      FEDORA_URL: http://127.0.0.1:8986/rest
 
     services:
       redis:
