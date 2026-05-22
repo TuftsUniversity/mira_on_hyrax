@@ -118,7 +118,7 @@ jobs:
 
         docker run -d --name ci-fcrepo-test \
           -p 8986:8080 \
-          lyrasis/fcrepo:4.7.5
+          ghcr.io/samvera/fcrepo4:4.7.5
 
         for i in {1..90}; do
           if curl --silent --fail "$SOLR_URL/admin/ping" > /dev/null && \
