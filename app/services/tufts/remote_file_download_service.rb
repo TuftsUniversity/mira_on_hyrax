@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 require 'fileutils'
-require 'net/http'
-require 'uri'
-
 module Tufts
   ##
   # Streams a public remote file to disk without loading the full payload into
   # memory. Public Box links are normalized to request a direct download.
   class RemoteFileDownloadService
+    include RemoteFileDownloadSupport
+
     DEFAULT_REDIRECT_LIMIT = 5
     DEFAULT_OPEN_TIMEOUT = 30
     DEFAULT_READ_TIMEOUT = 3600
@@ -45,26 +44,12 @@ module Tufts
     end
 
     def download!
-      attempts = 0
-
-      begin
-        attempts += 1
+      with_retries do
         prepare_destination!
         stream_response(uri: normalized_uri(url))
         destination_path
-      rescue *RETRIABLE_ERRORS => err
-        cleanup_partial_download!
-        raise err if attempts > retries
-
-        logger.warn("Retrying download for #{url} (attempt #{attempts}/#{retries}) because #{err.class}: #{err.message}") if logger
-        retry
-      rescue StandardError
-        cleanup_partial_download!
-        raise
       end
     end
-
-    private
 
     def cleanup_partial_download!
       FileUtils.rm_f(partial_download_path)
@@ -95,25 +80,9 @@ module Tufts
     def stream_response(uri:, redirect_limit: DEFAULT_REDIRECT_LIMIT)
       raise DownloadError, "Too many redirects for #{url}" if redirect_limit.negative?
 
-      Net::HTTP.start(uri.host, uri.port,
-                      use_ssl: uri.scheme == 'https',
-                      open_timeout: DEFAULT_OPEN_TIMEOUT,
-                      read_timeout: DEFAULT_READ_TIMEOUT) do |http|
-        request = Net::HTTP::Get.new(uri.request_uri)
-        request['User-Agent'] = 'mira_box_ingest'
-
-        http.request(request) do |response|
-          case response
-          when Net::HTTPSuccess
-            write_response(response)
-          when Net::HTTPRedirection
-            location = response['location']
-            raise DownloadError, "Redirect response missing location for #{url}" if location.blank?
-
-            stream_response(uri: URI.join(uri.to_s, location), redirect_limit: redirect_limit - 1)
-          else
-            raise DownloadError, "Failed to download #{url}: #{response.code} #{response.message}"
-          end
+      with_http(uri) do |http|
+        http.request(build_request(uri)) do |response|
+          handle_response(response, uri, redirect_limit)
         end
       end
     end

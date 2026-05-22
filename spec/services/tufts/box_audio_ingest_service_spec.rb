@@ -30,18 +30,19 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
   end
 
   it 'creates an XmlImport and enqueues ingest jobs for ready records' do
-    result = nil
+    expect { run_service }.to enqueue_job(ImportJob).exactly(:once)
+    expect_completed_import
+  end
 
-    expect do
-      result = described_class.run!(xml_path: xml_path,
-                                    manifest_path: manifest_file.path,
-                                    username: user.username,
-                                    batch_size: 2,
-                                    progress_io: progress_io)
-    end.to enqueue_job(ImportJob).exactly(:once)
+  it 'skips rows already uploaded when resuming an existing import' do
+    initial_result = run_service
+    resumed_result = nil
 
-    import = XmlImport.find(result[:import_id])
+    expect { resumed_result = resume_service(initial_result[:import_id]) }.not_to enqueue_job(ImportJob)
+    expect(resumed_result).to include(downloaded: 0, submitted: 0, skipped: 2, failed: 0)
+  end
 
+  def expect_completed_import
     expect(import.uploaded_files.map { |file| file.file.file.filename })
       .to contain_exactly('pdf-sample.pdf', '2.pdf')
     expect(import.record_ids.keys).to contain_exactly('pdf-sample.pdf')
@@ -49,22 +50,30 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
     expect(File.exist?(File.join(result[:run_directory], 'results.csv'))).to be(true)
   end
 
-  it 'skips rows already uploaded when resuming an existing import' do
-    initial_result = described_class.run!(xml_path: xml_path,
-                                          manifest_path: manifest_file.path,
-                                          username: user.username,
-                                          batch_size: 2,
-                                          progress_io: progress_io)
+  def import
+    XmlImport.find(result[:import_id])
+  end
 
-    expect do
-      @resumed_result = described_class.run!(xml_path: xml_path,
-                                             manifest_path: manifest_file.path,
-                                             username: user.username,
-                                             import_id: initial_result[:import_id],
-                                             batch_size: 2,
-                                             progress_io: progress_io)
-    end.not_to enqueue_job(ImportJob)
+  def result
+    @result ||= run_service
+  end
 
-    expect(@resumed_result).to include(downloaded: 0, submitted: 0, skipped: 2, failed: 0)
+  def resume_service(import_id)
+    described_class.run!(**run_arguments(import_id: import_id))
+  end
+
+  def run_service
+    described_class.run!(**run_arguments)
+  end
+
+  def run_arguments(import_id: nil)
+    {
+      xml_path: xml_path,
+      manifest_path: manifest_file.path,
+      username: user.username,
+      import_id: import_id,
+      batch_size: 2,
+      progress_io: progress_io
+    }
   end
 end

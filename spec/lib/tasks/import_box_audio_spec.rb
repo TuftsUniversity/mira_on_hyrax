@@ -25,21 +25,32 @@ RSpec.describe 'import:box_audio', type: :rake do
     allow(Tufts::BoxAudioIngestService).to receive(:run!)
       .and_return(import_id: 123, run_directory: '/tmp/box_ingest/xml_import_123')
 
-    ENV['XML'] = '/tmp/import.xml'
-    ENV['MANIFEST'] = '/tmp/manifest.csv'
-    ENV['USER'] = 'cli_user'
-    ENV['BATCH_SIZE'] = '10'
-    ENV['DOWNLOAD_RETRIES'] = '4'
+    set_task_environment
+    expect_task_output(run_task('import:box_audio'))
+  end
 
-    stdout = run_task('import:box_audio')
+  def expected_run_arguments
+    {
+      xml_path: '/tmp/import.xml',
+      manifest_path: '/tmp/manifest.csv',
+      username: 'cli_user',
+      import_id: nil,
+      batch_size: '10',
+      download_retries: '4'
+    }
+  end
 
-    expect(Tufts::BoxAudioIngestService).to have_received(:run!).with(xml_path: '/tmp/import.xml',
-                                                                      manifest_path: '/tmp/manifest.csv',
-                                                                      username: 'cli_user',
-                                                                      import_id: nil,
-                                                                      batch_size: '10',
-                                                                      download_retries: '4')
+  def expect_task_output(stdout)
+    expect(Tufts::BoxAudioIngestService).to have_received(:run!).with(expected_run_arguments)
     expect(stdout).to include('Finished XmlImport #123')
     expect(stdout).to include('Run directory: /tmp/box_ingest/xml_import_123')
+  end
+
+  def set_task_environment
+    ENV.update('XML' => '/tmp/import.xml',
+               'MANIFEST' => '/tmp/manifest.csv',
+               'USER' => 'cli_user',
+               'BATCH_SIZE' => '10',
+               'DOWNLOAD_RETRIES' => '4')
   end
 end
