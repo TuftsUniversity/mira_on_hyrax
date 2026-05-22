@@ -76,7 +76,7 @@ class XmlImport < ApplicationRecord # rubocop:disable Metrics/ClassLength
   ##
   # @return [Tufts::Importer]
   def parser
-    @parser ||= Tufts::MiraXmlImporter.new(file: metadata_file.file)
+    @parser || Tufts::MiraXmlImporter.new(file: metadata_file.file)
   end
 
   ##
