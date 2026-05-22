@@ -21,7 +21,8 @@ jobs:
       DB_USER: root
       DB_PASSWORD: root
       TRAVIS: true
-      FEDORA_URL: http://127.0.0.1:8986/rest
+      SOLR_URL: http://127.0.0.1:8985/solr/test
+      FEDORA_URL: http://127.0.0.1:8986/fcrepo/rest
 
     services:
       redis:
@@ -107,13 +108,32 @@ jobs:
       run: |
         RAILS_ENV=test bundle exec rake db:create
         RAILS_ENV=test bundle exec rake db:migrate --trace
+    - name: Start test containers
+      run: |
+        docker run -d --name ci-solr-test \
+          -p 8985:8983 \
+          -v "$GITHUB_WORKSPACE/solr/conf:/opt/solr/test-core-config/conf" \
+          solr:6.6.1 \
+          solr-precreate test /opt/solr/test-core-config
+
+        docker run -d --name ci-fcrepo-test \
+          -p 8986:8080 \
+          lyrasis/fcrepo:4.7.5
+
+        for i in {1..90}; do
+          if curl --silent --fail "$SOLR_URL/admin/ping" > /dev/null && \
+             curl --silent --fail "$FEDORA_URL" > /dev/null; then
+            exit 0
+          fi
+          sleep 5
+        done
+
+        docker logs ci-solr-test
+        docker logs ci-fcrepo-test
+        exit 1
     - name: Set up sipity
       run: |
         RAILS_ENV=test bundle exec rake hyrax:workflow:load
-    - name: Setup hyrax test environment
-      run: |
-        bundle exec rake hydra:test_server &
-        sleep 210
     - name: Rubocop
       run: |
         bundle exec rubocop
