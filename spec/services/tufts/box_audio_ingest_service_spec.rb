@@ -39,11 +39,7 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
     resumed_result = nil
 
     expect { resumed_result = resume_service(initial_result[:import_id]) }.not_to enqueue_job(ImportJob)
-    expect(resumed_result.fetch(:skipped)).to eq(2)
-    expect(resumed_result.fetch(:rows)).to eq(2)
-    expect(resumed_result[:downloaded]).to be_nil
-    expect(resumed_result[:submitted]).to be_nil
-    expect(resumed_result[:failed]).to be_nil
+    expect_resumed_result(resumed_result)
   end
 
   def expect_completed_import
@@ -52,6 +48,14 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
     expect(import.record_ids.keys).to contain_exactly('pdf-sample.pdf', '2.pdf')
     expect(result).to include(downloaded: 2, submitted: 2, skipped: 0, failed: 0)
     expect(File.exist?(File.join(result[:run_directory], 'results.csv'))).to be(true)
+  end
+
+  def expect_resumed_result(result)
+    expect(result.fetch(:skipped)).to eq(2)
+    expect(result.fetch(:rows)).to eq(2)
+    expect(result[:downloaded]).to be_nil
+    expect(result[:submitted]).to be_nil
+    expect(result[:failed]).to be_nil
   end
 
   def import
