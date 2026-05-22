@@ -68,7 +68,7 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
 
   def expect_summary
     expect(result).to include(downloaded: 2, submitted: 2)
-    expect(result[:skipped]).to be_nil
+    expect(result[:skipped]).to eq(0)
     expect(result[:failed]).to be_nil
   end
 
