@@ -30,37 +30,13 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
   end
 
   it 'logs to progress output when setup fails before the run logger is built' do
-    invalid_xml = Tempfile.new(['invalid_box_audio', '.xml'])
-    invalid_xml.write(<<~XML)
-      <?xml version="1.0" encoding="UTF-8"?>
-      <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/">
-        <ListRecords>
-          <record>
-            <metadata>
-              <mira_import xmlns:model="info:fedora/fedora-system:def/model#"
-                           xmlns:dc="http://purl.org/dc/terms/"
-                           xmlns:tufts="http://dl.tufts.edu/terms#">
-                <tufts:filename>bad.wav</tufts:filename>
-                <dc:title>Bad Record</dc:title>
-                <tufts:visibility></tufts:visibility>
-                <model:hasModel>Audio</model:hasModel>
-                <tufts:displays_in>dl</tufts:displays_in>
-              </mira_import>
-            </metadata>
-          </record>
-        </ListRecords>
-      </OAI-PMH>
-    XML
-    invalid_xml.rewind
+    with_invalid_xml_file do |invalid_xml|
+      expect { described_class.run!(**run_arguments(xml_path: invalid_xml.path)) }
+        .to raise_error(ActiveRecord::RecordInvalid)
+    end
 
-    expect do
-      described_class.run!(**run_arguments(xml_path: invalid_xml.path))
-    end.to raise_error(ActiveRecord::RecordInvalid)
-
-    expect(progress_io.string).to include('Box ingest failed for XmlImport #new: ActiveRecord::RecordInvalid')
-  ensure
-    invalid_xml.close
-    invalid_xml.unlink
+    expect(progress_io.string)
+      .to include('Box ingest failed for XmlImport #new: ActiveRecord::RecordInvalid')
   end
 
   it 'creates an XmlImport and enqueues ingest jobs for ready records' do
@@ -110,6 +86,29 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
     expect(File.exist?(File.join(result[:run_directory], 'results.csv'))).to be(true)
   end
 
+  def invalid_xml_content
+    <<~XML
+      <?xml version="1.0" encoding="UTF-8"?>
+      <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/">
+        <ListRecords>
+          <record>
+            <metadata>
+              <mira_import xmlns:model="info:fedora/fedora-system:def/model#"
+                           xmlns:dc="http://purl.org/dc/terms/"
+                           xmlns:tufts="http://dl.tufts.edu/terms#">
+                <tufts:filename>bad.wav</tufts:filename>
+                <dc:title>Bad Record</dc:title>
+                <tufts:visibility></tufts:visibility>
+                <model:hasModel>Audio</model:hasModel>
+                <tufts:displays_in>dl</tufts:displays_in>
+              </mira_import>
+            </metadata>
+          </record>
+        </ListRecords>
+      </OAI-PMH>
+    XML
+  end
+
   def import
     XmlImport.find(result[:import_id])
   end
@@ -124,6 +123,16 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
 
   def run_service
     described_class.run!(**run_arguments)
+  end
+
+  def with_invalid_xml_file
+    invalid_xml = Tempfile.new(['invalid_box_audio', '.xml'])
+    invalid_xml.write(invalid_xml_content)
+    invalid_xml.rewind
+    yield invalid_xml
+  ensure
+    invalid_xml.close
+    invalid_xml.unlink
   end
 
   def run_arguments(import_id: nil, xml_path: self.xml_path)
