@@ -29,6 +29,7 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
     manifest_file.unlink
   end
 
+  # rubocop:disable RSpec/ExampleLength
   it 'logs to progress output when setup fails before the run logger is built' do
     with_invalid_xml_file do |invalid_xml|
       expect { described_class.run!(**run_arguments(xml_path: invalid_xml.path)) }
@@ -38,6 +39,7 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
     expect(progress_io.string)
       .to include('Box ingest failed for XmlImport #new: ActiveRecord::RecordInvalid')
   end
+  # rubocop:enable RSpec/ExampleLength
 
   it 'creates an XmlImport and enqueues ingest jobs for ready records' do
     expect { run_service }.to enqueue_job(ImportJob).exactly(:once)
