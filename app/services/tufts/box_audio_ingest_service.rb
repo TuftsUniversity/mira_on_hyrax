@@ -33,7 +33,11 @@ module Tufts
       finalize_run!
     rescue StandardError => err
       cleanup_pending_uploads!
-      run_logger.log("Box ingest failed for XmlImport ##{import&.id || 'new'}: #{err.class}: #{err.message}")
+      if run_logger
+        run_logger.log("Box ingest failed for XmlImport ##{import&.id || 'new'}: #{err.class}: #{err.message}")
+      else
+        progress_io.puts("Box ingest failed for XmlImport ##{import&.id || 'new'}: #{err.class}: #{err.message}")
+      end
       raise
     end
   end
