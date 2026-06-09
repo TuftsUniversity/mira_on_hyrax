@@ -2,8 +2,8 @@
 require 'rails_helper'
 require 'rake'
 
-RSpec.describe 'import:box_audio', type: :rake do
-  let(:task_file) { File.expand_path('../../../../lib/tasks/import_box_audio.rake', __FILE__) }
+RSpec.describe 'import:remote_url', type: :rake do
+  let(:task_file) { File.expand_path('../../../../lib/tasks/import_remote_url.rake', __FILE__) }
 
   before do
     load_rake_environment [task_file]
@@ -16,17 +16,17 @@ RSpec.describe 'import:box_audio', type: :rake do
   end
 
   it 'prints usage when required inputs are missing' do
-    stdout = run_task('import:box_audio')
+    stdout = run_task('import:remote_url')
 
-    expect(stdout).to include('Usage: rake import:box_audio XML=/path/to/import.xml MANIFEST=/path/to/manifest.csv USER=cli_user')
+    expect(stdout).to include('Usage: rake import:remote_url XML=/path/to/import.xml MANIFEST=/path/to/manifest.csv USER=cli_user')
   end
 
   it 'invokes the ingest service with environment variables' do
-    allow(Tufts::BoxAudioIngestService).to receive(:run!)
-      .and_return(import_id: 123, run_directory: '/tmp/box_ingest/xml_import_123')
+    allow(Tufts::RemoteUrlIngestService).to receive(:run!)
+      .and_return(import_id: 123, run_directory: '/tmp/remote_url_ingest/xml_import_123')
 
     set_task_environment
-    expect_task_output(run_task('import:box_audio'))
+    expect_task_output(run_task('import:remote_url'))
   end
 
   def expected_run_arguments
@@ -41,9 +41,9 @@ RSpec.describe 'import:box_audio', type: :rake do
   end
 
   def expect_task_output(stdout)
-    expect(Tufts::BoxAudioIngestService).to have_received(:run!).with(expected_run_arguments)
+    expect(Tufts::RemoteUrlIngestService).to have_received(:run!).with(expected_run_arguments)
     expect(stdout).to include('Finished XmlImport #123')
-    expect(stdout).to include('Run directory: /tmp/box_ingest/xml_import_123')
+    expect(stdout).to include('Run directory: /tmp/remote_url_ingest/xml_import_123')
   end
 
   def set_task_environment

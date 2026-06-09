@@ -2,10 +2,10 @@
 module Tufts
   ##
   # Command-line ingest flow for pairing XML metadata with a CSV manifest of
-  # public Box URLs.
-  class BoxAudioIngestService
-    include BoxAudioIngestSetup
-    include BoxAudioIngestProcessing
+  # public remote URLs.
+  class RemoteUrlIngestService
+    include RemoteUrlIngestSetup
+    include RemoteUrlIngestProcessing
 
     REQUIRED_HEADERS = [:filename].freeze
 
@@ -34,9 +34,9 @@ module Tufts
     rescue StandardError => err
       cleanup_pending_uploads!
       if run_logger
-        run_logger.log("Box ingest failed for XmlImport ##{import&.id || 'new'}: #{err.class}: #{err.message}")
+        run_logger.log("Remote URL ingest failed for XmlImport ##{import&.id || 'new'}: #{err.class}: #{err.message}")
       else
-        progress_io.puts("Box ingest failed for XmlImport ##{import&.id || 'new'}: #{err.class}: #{err.message}")
+        progress_io.puts("Remote URL ingest failed for XmlImport ##{import&.id || 'new'}: #{err.class}: #{err.message}")
       end
       raise
     end

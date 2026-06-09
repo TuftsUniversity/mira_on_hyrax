@@ -1,13 +1,14 @@
 # frozen_string_literal: true
+# rubocop:disable RSpec/ExampleLength
 require 'rails_helper'
 
-RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
+RSpec.describe Tufts::RemoteUrlIngestService, :batch, :clean, :workflow do
   let!(:user) { FactoryBot.create(:user, username: 'cli_user') }
   let(:xml_path) { file_fixture('mira_xml_file_types.xml').to_s }
   let(:progress_io) { StringIO.new }
   let(:manifest_file) do
-    Tempfile.new(['box_audio_manifest', '.csv']).tap do |file|
-      file.write("filename,box_url\n")
+    Tempfile.new(['remote_url_manifest', '.csv']).tap do |file|
+      file.write("filename,remote_url\n")
       file.write("pdf-sample.pdf,https://box.example.test/pdf-sample.pdf\n")
       file.write("2.pdf,https://box.example.test/2.pdf\n")
       file.rewind
@@ -29,7 +30,6 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
     manifest_file.unlink
   end
 
-  # rubocop:disable RSpec/ExampleLength
   it 'logs to progress output when setup fails before the run logger is built' do
     with_invalid_xml_file do |invalid_xml|
       expect { described_class.run!(**run_arguments(xml_path: invalid_xml.path)) }
@@ -37,9 +37,8 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
     end
 
     expect(progress_io.string)
-      .to include('Box ingest failed for XmlImport #new: ActiveRecord::RecordInvalid')
+      .to include('Remote URL ingest failed for XmlImport #new: ActiveRecord::RecordInvalid')
   end
-  # rubocop:enable RSpec/ExampleLength
 
   it 'creates an XmlImport and enqueues ingest jobs for ready records' do
     expect { run_service }.to enqueue_job(ImportJob).exactly(:once)
@@ -128,7 +127,7 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
   end
 
   def with_invalid_xml_file
-    invalid_xml = Tempfile.new(['invalid_box_audio', '.xml'])
+    invalid_xml = Tempfile.new(['invalid_remote_url', '.xml'])
     invalid_xml.write(invalid_xml_content)
     invalid_xml.rewind
     yield invalid_xml
@@ -148,3 +147,4 @@ RSpec.describe Tufts::BoxAudioIngestService, :batch, :clean, :workflow do
     }
   end
 end
+# rubocop:enable RSpec/ExampleLength

@@ -35,7 +35,7 @@ module Tufts
 
     def build_request(uri)
       Net::HTTP::Get.new(uri.request_uri).tap do |request|
-        request['User-Agent'] = 'mira_box_ingest'
+        request['User-Agent'] = 'mira_remote_url_ingest'
       end
     end
 

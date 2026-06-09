@@ -4,7 +4,7 @@ require 'fileutils'
 require 'logger'
 
 module Tufts
-  class BoxAudioRunLogger
+  class RemoteUrlRunLogger
     attr_reader :import, :progress_io, :progress_logger
 
     def initialize(import:, progress_io:)
@@ -24,7 +24,7 @@ module Tufts
 
     def log_row(entry)
       CSV.open(results_path, File.exist?(results_path) ? 'ab' : 'wb') do |csv|
-        csv << %w[timestamp status filename box_url uploaded_file_id object_id message] unless File.size?(results_path)
+        csv << %w[timestamp status filename remote_url uploaded_file_id object_id message] unless File.size?(results_path)
         csv << csv_row(entry)
       end
     end
@@ -38,7 +38,7 @@ module Tufts
     end
 
     def run_directory
-      Rails.root.join('tmp', 'box_ingest', "xml_import_#{import.id}")
+      Rails.root.join('tmp', 'remote_url_ingest', "xml_import_#{import.id}")
     end
 
     private
@@ -48,7 +48,7 @@ module Tufts
         Time.current.iso8601,
         entry[:status],
         entry[:filename],
-        entry[:box_url],
+        entry[:remote_url],
         entry[:uploaded_file_id],
         entry[:object_id],
         entry[:message]

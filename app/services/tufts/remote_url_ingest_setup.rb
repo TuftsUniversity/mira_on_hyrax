@@ -2,7 +2,7 @@
 require 'csv'
 
 module Tufts
-  module BoxAudioIngestSetup
+  module RemoteUrlIngestSetup
     private
 
     attr_reader :import, :user, :progress_io
@@ -69,22 +69,22 @@ module Tufts
       load_or_create_import!
       build_run_state!
       import.batch.enqueue!
-      run_logger.log("Starting Box ingest for XmlImport ##{import.id}")
+      run_logger.log("Starting remote URL ingest for XmlImport ##{import.id}")
     end
 
     def finalize_run!
       submission_buffer.flush!
-      run_logger.log("Completed Box ingest for XmlImport ##{import.id}: #{summary_string}")
+      run_logger.log("Completed remote URL ingest for XmlImport ##{import.id}: #{summary_string}")
       summary.merge(import_id: import.id, run_directory: run_logger.run_directory.to_s)
     end
 
     def build_run_state!
-      @run_logger = Tufts::BoxAudioRunLogger.new(import: import, progress_io: progress_io)
+      @run_logger = Tufts::RemoteUrlRunLogger.new(import: import, progress_io: progress_io)
       run_logger.prepare!
       validate_manifest_headers!
       seed_known_record_filenames!
       seed_known_uploaded_filenames!
-      @submission_buffer = Tufts::BoxAudioSubmissionBuffer.new(
+      @submission_buffer = Tufts::RemoteUrlSubmissionBuffer.new(
         import: import,
         summary: summary,
         logger: run_logger,
@@ -95,8 +95,8 @@ module Tufts
 
     def validate_manifest_headers!
       headers = manifest_headers
-      missing_headers = BoxAudioIngestService::REQUIRED_HEADERS - headers
-      missing_headers << :box_url if (headers & %i[box_url url]).empty?
+      missing_headers = RemoteUrlIngestService::REQUIRED_HEADERS - headers
+      missing_headers << :remote_url if (headers & %i[remote_url box_url url]).empty?
       return if missing_headers.empty?
 
       raise ArgumentError, "Manifest is missing required headers: #{missing_headers.join(', ')}"

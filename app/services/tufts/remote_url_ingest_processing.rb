@@ -4,7 +4,7 @@ require 'fileutils'
 require 'set'
 
 module Tufts
-  module BoxAudioIngestProcessing
+  module RemoteUrlIngestProcessing
     private
 
     attr_reader :known_record_filenames, :known_uploaded_filenames,
@@ -33,15 +33,17 @@ module Tufts
 
     def process_row(row)
       filename = row[:filename].to_s.strip
-      box_url = row[:box_url].to_s.strip.presence || row[:url].to_s.strip.presence
+      remote_url = row[:remote_url].to_s.strip.presence ||
+                   row[:box_url].to_s.strip.presence ||
+                   row[:url].to_s.strip.presence
 
       summary[:rows] += 1
-      failure = validate_row(filename, box_url)
-      return record_skipped_row(filename, box_url, failure) if failure
+      failure = validate_row(filename, remote_url)
+      return record_skipped_row(filename, remote_url, failure) if failure
 
-      upload_downloaded_file(filename, box_url)
+      upload_downloaded_file(filename, remote_url)
     rescue StandardError => err
-      record_failed_row(filename, box_url, "#{err.class}: #{err.message}")
+      record_failed_row(filename, remote_url, "#{err.class}: #{err.message}")
     end
 
     def process_manifest!
@@ -51,20 +53,20 @@ module Tufts
       end
     end
 
-    def record_failed_row(filename, box_url, message)
+    def record_failed_row(filename, remote_url, message)
       summary[:failed] += 1
       known_uploaded_filenames.delete(filename) if filename.present?
-      run_logger.log_row(base_log_entry(filename, box_url).merge(status: 'failed', message: message))
+      run_logger.log_row(base_log_entry(filename, remote_url).merge(status: 'failed', message: message))
     end
 
     def record_for_filename(filename)
       import.record_for(file: filename)
     end
 
-    def record_skipped_row(filename, box_url, result)
+    def record_skipped_row(filename, remote_url, result)
       status, message = result
       summary[status.to_sym] += 1
-      run_logger.log_row(base_log_entry(filename, box_url).merge(status: status, message: message))
+      run_logger.log_row(base_log_entry(filename, remote_url).merge(status: status, message: message))
     end
 
     def seed_known_record_filenames!
@@ -79,34 +81,34 @@ module Tufts
       "rows=#{summary[:rows]} downloaded=#{summary[:downloaded]} submitted=#{summary[:submitted]} skipped=#{summary[:skipped]} failed=#{summary[:failed]}"
     end
 
-    def upload_downloaded_file(filename, box_url)
+    def upload_downloaded_file(filename, remote_url)
       staged_path = run_logger.downloads_directory.join(filename)
-      download_remote_file(box_url, staged_path)
+      download_remote_file(remote_url, staged_path)
       uploaded_file = create_uploaded_file!(path: staged_path)
-      submission_buffer.add(base_log_entry(filename, box_url, uploaded_file.id))
+      submission_buffer.add(base_log_entry(filename, remote_url, uploaded_file.id))
       known_uploaded_filenames.add(filename)
       summary[:downloaded] += 1
     ensure
       FileUtils.rm_f(staged_path) if defined?(staged_path) && staged_path.present?
     end
 
-    def download_remote_file(box_url, staged_path)
-      Tufts::RemoteFileDownloadService.download!(url: box_url,
+    def download_remote_file(remote_url, staged_path)
+      Tufts::RemoteFileDownloadService.download!(url: remote_url,
                                                  destination_path: staged_path.to_s,
                                                  retries: download_retries,
                                                  logger: run_logger.progress_logger)
     end
 
-    def validate_row(filename, box_url)
-      return ['failed', 'Manifest rows require filename and box_url columns'] if filename.blank? || box_url.blank?
+    def validate_row(filename, remote_url)
+      return ['failed', 'Manifest rows require filename and remote_url columns'] if filename.blank? || remote_url.blank?
 
       ensure_safe_filename!(filename)
       return ['failed', 'Filename does not match any record in the XML import'] unless known_record_filenames.include?(filename)
       return ['skipped', 'Filename already exists on this import; skipping'] if known_uploaded_filenames.include?(filename)
     end
 
-    def base_log_entry(filename, box_url, uploaded_file_id = nil)
-      { filename: filename, box_url: box_url, uploaded_file_id: uploaded_file_id, object_id: nil }
+    def base_log_entry(filename, remote_url, uploaded_file_id = nil)
+      { filename: filename, remote_url: remote_url, uploaded_file_id: uploaded_file_id, object_id: nil }
     end
   end
 end

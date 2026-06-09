@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Tufts
-  class BoxAudioSubmissionBuffer
+  class RemoteUrlSubmissionBuffer
     delegate :empty?, :size, to: :uploaded_file_ids
 
     attr_reader :import, :summary, :logger, :status_resolver, :progress_notifier
