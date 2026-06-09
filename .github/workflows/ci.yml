@@ -21,6 +21,7 @@ jobs:
       DB_USER: root
       DB_PASSWORD: root
       TRAVIS: true
+      SOLR_URL: http://127.0.0.1:8985/solr/test
       FEDORA_URL: http://127.0.0.1:8986/rest
 
     services:
@@ -46,7 +47,7 @@ jobs:
     - name: Install OS packages
       run: |
         sudo apt-get update
-        sudo apt-get install unzip imagemagick ghostscript libpq-dev libxslt-dev
+        sudo apt-get install unzip imagemagick libmagickwand-dev ghostscript libpq-dev libxslt-dev
     - uses: actions/checkout@v2
     - name: Set up Ruby
     # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
@@ -68,9 +69,26 @@ jobs:
 
     - name: Install FITS
       run: |
-        curl -o $HOME/fits-1.0.5.zip https://projects.iq.harvard.edu/files/fits/files/fits-1.0.5.zip | cat
+        if ! command -v ant >/dev/null; then
+          sudo apt-get update
+          sudo apt-get install -y ant
+        fi
+
+        curl --fail --location --output $HOME/fits-1.0.5.zip https://codeload.github.com/harvard-lts/fits/legacy.zip/refs/tags/1.0.5
         unzip $HOME/fits-1.0.5.zip -d $HOME
-        chmod u=u+x $HOME/fits-1.0.5/fits.sh
+        mv $HOME/harvard-lts-fits-* $HOME/fits-src-1.0.5
+
+        pushd $HOME/fits-src-1.0.5
+        ant compile-create-jar
+        mkdir -p $HOME/fits-1.0.5/lib
+        cp -R xml tools $HOME/fits-1.0.5/
+        cp -R lib/* $HOME/fits-1.0.5/lib/
+        cp lib-fits/fits-1.0.5.jar $HOME/fits-1.0.5/lib/
+        cp log4j.properties cpappend.bat fits.bat fits.sh fits-env.sh fits-ngserver.sh version.properties $HOME/fits-1.0.5/
+        cp *.md $HOME/fits-1.0.5/
+        popd
+
+        chmod u+x $HOME/fits-1.0.5/fits.sh
     - name: Set up MySQL
       run: |
         sudo systemctl enable mysql.service
@@ -90,13 +108,32 @@ jobs:
       run: |
         RAILS_ENV=test bundle exec rake db:create
         RAILS_ENV=test bundle exec rake db:migrate --trace
+    - name: Start test containers
+      run: |
+        docker run -d --name ci-solr-test \
+          -p 8985:8983 \
+          -v "$GITHUB_WORKSPACE/solr/conf:/opt/solr/test-core-config/conf" \
+          solr:6.6.1 \
+          solr-precreate test /opt/solr/test-core-config
+
+        docker run -d --name ci-fcrepo-test \
+          -p 8986:8080 \
+          ghcr.io/samvera/fcrepo4:4.7.5
+
+        for i in {1..90}; do
+          if curl --silent --fail "$SOLR_URL/admin/ping" > /dev/null && \
+             curl --silent --fail "$FEDORA_URL" > /dev/null; then
+            exit 0
+          fi
+          sleep 5
+        done
+
+        docker logs ci-solr-test
+        docker logs ci-fcrepo-test
+        exit 1
     - name: Set up sipity
       run: |
         RAILS_ENV=test bundle exec rake hyrax:workflow:load
-    - name: Setup hyrax test environment
-      run: |
-        bundle exec rake hydra:test_server &
-        sleep 210
     - name: Rubocop
       run: |
         bundle exec rubocop

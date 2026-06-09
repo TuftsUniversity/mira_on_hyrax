@@ -36,14 +36,10 @@ module Hyrax
         flash.alert = 'No files added. Please upload files before submitting.'
         redirect_to main_app.edit_xml_import_path(@import)
       else
-        # get filenames before save! cleans up mismatches
-        new_files = filename_hash(uploaded_file_ids)
+        result = Tufts::XmlImportSubmissionService.submit!(import: @import,
+                                                           uploaded_file_ids: uploaded_file_ids)
 
-        @import.uploaded_file_ids.concat(uploaded_file_ids)
-        @import.save!
-        @import.batch.enqueue!
-
-        prepare_notices!(@import, new_files)
+        prepare_notices!(result)
         redirect_to main_app.xml_import_path(@import)
       end
     end
@@ -67,64 +63,49 @@ module Hyrax
 
     ##
     # @private
-    # @param ids [Array<Integer>]
-    #
-    # @return [Hash<Integer, String>]
-    def filename_hash(ids)
-      Hyrax::UploadedFile.find(ids).each_with_object({}) do |file, hsh|
-        hsh[file.id] = file.file.file.filename
-      end
-    end
-
-    ##
-    # @private
-    # @param import    [XmlImport]
-    # @param filenames [Hash<Integer, String>]
+    # @param result [Tufts::XmlImportSubmissionService::Result]
     #
     # @return [void]
-    def prepare_notices!(import, filenames)
-      added, rejected = filenames.keys.partition do |id|
-        import.uploaded_file_ids.include?(id)
-      end
+    def prepare_notices!(result)
+      flash.notice = added_notice(result.added_filenames) if result.added_filenames.any?
 
-      flash.notice = added_notice(added, filenames) if added.any?
-
-      return if rejected.empty?
-
-      exists, unmatched =
-        rejected.partition { |id| import.record_ids.key?(filenames[id]) }
+      return if result.existing_filenames.empty? && result.unmatched_filenames.empty?
 
       flash.alert = "".dup
 
-      flash.alert.concat(unmatched_notice(unmatched, filenames)) if unmatched.any?
-      flash.alert.concat(exists_notice(exists, filenames))       if exists.any?
+      flash.alert.concat(unmatched_notice(result.unmatched_filenames)) if result.unmatched_filenames.any?
+      flash.alert.concat(exists_notice(result.existing_filenames))     if result.existing_filenames.any?
     end
 
     ##
     # @private
+    # @param added_filenames [Array<String>]
+    #
     # @return [String]
-    def added_notice(added, filenames)
-      return "Added #{added.count} files." if added.count > 10
+    def added_notice(added_filenames)
+      return "Added #{added_filenames.count} files." if added_filenames.count > 10
 
-      "Added files: #{added.map { |id| filenames[id] }.join(', ')}"
+      "Added files: #{added_filenames.join(', ')}"
     end
 
     ##
     # @private
+    # @param unmatched_filenames [Array<String>]
+    #
     # @return [String]
-    def unmatched_notice(unmatched, filenames)
-      return "#{unmatched.count} files did not match." if unmatched.count > 10
+    def unmatched_notice(unmatched_filenames)
+      return "#{unmatched_filenames.count} files did not match." if unmatched_filenames.count > 10
 
-      'Files did not match: ' \
-      "#{unmatched.map { |id| filenames[id] }.join(', ')};\n"
+      "Files did not match: #{unmatched_filenames.join(', ')};\n"
     end
 
     ##
     # @private
+    # @param existing_filenames [Array<String>]
+    #
     # @return [String]
-    def exists_notice(exists, filenames)
-      'Files already uploaded, new version is ignored: ' \
-      "#{exists.map { |id| filenames[id] }.join(', ')}"
+    def exists_notice(existing_filenames)
+      "Files already uploaded, new version is ignored: #{existing_filenames.join(', ')}"
     end
   end
 end
