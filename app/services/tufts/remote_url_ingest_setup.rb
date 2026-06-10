@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 require 'csv'
+require 'fileutils'
+require 'tempfile'
+require 'uri'
 
 module Tufts
   module RemoteUrlIngestSetup
     private
 
-    attr_reader :import, :user, :progress_io
+    attr_reader :import, :user, :progress_io, :staged_input_files
 
     def ensure_manifest_exists!
       raise ArgumentError, "Manifest file not found: #{manifest_path}" unless File.exist?(manifest_path)
@@ -64,12 +67,20 @@ module Tufts
     end
 
     def setup_run!
+      resolve_input_sources!
       ensure_manifest_exists!
       ensure_user!
       load_or_create_import!
       build_run_state!
       import.batch.enqueue!
       run_logger.log("Starting remote URL ingest for XmlImport ##{import.id}")
+    end
+
+    def cleanup_staged_inputs!
+      staged_input_files.each do |file|
+        FileUtils.rm_f("#{file.path}.part")
+        file.close!
+      end
     end
 
     def finalize_run!
@@ -100,6 +111,55 @@ module Tufts
       return if missing_headers.empty?
 
       raise ArgumentError, "Manifest is missing required headers: #{missing_headers.join(', ')}"
+    end
+
+    def resolve_input_sources!
+      @manifest_path = resolve_input_source!(manifest_source, label: 'manifest')
+      @xml_path = resolve_xml_source!
+    end
+
+    def resolve_xml_source!
+      return nil if import_id.present?
+
+      resolve_input_source!(xml_source, label: 'xml')
+    end
+
+    def resolve_input_source!(source, label:)
+      raise ArgumentError, "#{label.upcase} is required" if source.blank?
+      return source unless remote_source?(source)
+
+      stage_remote_input!(source, label: label)
+    end
+
+    def remote_source?(source)
+      uri = URI.parse(source)
+      uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
+    rescue URI::InvalidURIError, NoMethodError
+      false
+    end
+
+    def stage_remote_input!(source, label:)
+      tempfile = staged_input_file(label, source)
+      Tufts::RemoteFileDownloadService.download!(url: source,
+                                                 destination_path: tempfile.path,
+                                                 retries: download_retries,
+                                                 logger: Rails.logger)
+      tempfile.path
+    rescue StandardError
+      FileUtils.rm_f("#{tempfile.path}.part") if defined?(tempfile) && tempfile
+      tempfile&.close!
+      staged_input_files.delete(tempfile) if defined?(tempfile) && tempfile
+      raise
+    end
+
+    def staged_input_file(label, source)
+      extension = File.extname(URI.parse(source).path)
+      extension = '.tmp' if extension.blank?
+
+      Tempfile.new(["remote_url_ingest_#{label}_", extension]).tap do |file|
+        file.close
+        staged_input_files << file
+      end
     end
   end
 end

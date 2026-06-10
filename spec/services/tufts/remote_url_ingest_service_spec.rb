@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe Tufts::RemoteUrlIngestService, :batch, :clean, :workflow do
   let!(:user) { FactoryBot.create(:user, username: 'cli_user') }
   let(:xml_path) { file_fixture('mira_xml_file_types.xml').to_s }
+  let(:xml_url) { 'https://imports.example.test/import.xml' }
+  let(:manifest_url) { 'https://imports.example.test/manifest.csv' }
   let(:progress_io) { StringIO.new }
   let(:manifest_file) do
     Tempfile.new(['remote_url_manifest', '.csv']).tap do |file|
@@ -19,8 +21,15 @@ RSpec.describe Tufts::RemoteUrlIngestService, :batch, :clean, :workflow do
     ActiveJob::Base.queue_adapter = :test
 
     allow(Tufts::RemoteFileDownloadService).to receive(:download!) do |url:, destination_path:, **_kwargs|
-      source_filename = File.basename(url)
-      FileUtils.cp(file_fixture(source_filename), destination_path)
+      case url
+      when xml_url
+        FileUtils.cp(xml_path, destination_path)
+      when manifest_url
+        FileUtils.cp(manifest_file.path, destination_path)
+      else
+        source_filename = File.basename(url)
+        FileUtils.cp(file_fixture(source_filename), destination_path)
+      end
       destination_path
     end
   end
@@ -43,6 +52,16 @@ RSpec.describe Tufts::RemoteUrlIngestService, :batch, :clean, :workflow do
   it 'creates an XmlImport and enqueues ingest jobs for ready records' do
     expect { run_service }.to enqueue_job(ImportJob).exactly(:once)
     expect_completed_import
+  end
+
+  it 'supports remote XML and manifest sources' do
+    remote_result = nil
+
+    expect do
+      remote_result = described_class.run!(**run_arguments(xml_path: xml_url, manifest_path: manifest_url))
+    end.to enqueue_job(ImportJob).exactly(:once)
+
+    expect(remote_result).to include(downloaded: 2, submitted: 2)
   end
 
   it 'skips rows already uploaded when resuming an existing import' do
@@ -136,10 +155,10 @@ RSpec.describe Tufts::RemoteUrlIngestService, :batch, :clean, :workflow do
     invalid_xml.unlink
   end
 
-  def run_arguments(import_id: nil, xml_path: self.xml_path)
+  def run_arguments(import_id: nil, xml_path: self.xml_path, manifest_path: manifest_file.path)
     {
       xml_path: xml_path,
-      manifest_path: manifest_file.path,
+      manifest_path: manifest_path,
       username: user.username,
       import_id: import_id,
       batch_size: 2,

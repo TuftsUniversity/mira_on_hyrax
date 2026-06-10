@@ -18,7 +18,10 @@ RSpec.describe 'import:remote_url', type: :rake do
   it 'prints usage when required inputs are missing' do
     stdout = run_task('import:remote_url')
 
-    expect(stdout).to include('Usage: rake import:remote_url XML=/path/to/import.xml MANIFEST=/path/to/manifest.csv USER=cli_user')
+    expect(stdout).to include(
+      'Usage: rake import:remote_url XML=/path/or/url/to/import.xml ' \
+      'MANIFEST=/path/or/url/to/manifest.csv USER=cli_user'
+    )
   end
 
   it 'invokes the ingest service with environment variables' do

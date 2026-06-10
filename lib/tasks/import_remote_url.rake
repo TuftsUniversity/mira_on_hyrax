@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 namespace :import do
-  desc 'Ingest files from public remote URLs using XML metadata and a CSV manifest'
+  desc 'Ingest files from public remote URLs using XML metadata and a CSV manifest from local paths or URLs'
   task remote_url: :environment do
     xml_path = ENV['XML']
     manifest_path = ENV['MANIFEST']
@@ -10,8 +10,14 @@ namespace :import do
     download_retries = ENV.fetch('DOWNLOAD_RETRIES', '3')
 
     if manifest_path.blank? || (xml_path.blank? && import_id.blank?)
-      puts 'Usage: rake import:remote_url XML=/path/to/import.xml MANIFEST=/path/to/manifest.csv USER=cli_user'
-      puts 'Resume an existing import with: rake import:remote_url IMPORT_ID=123 MANIFEST=/path/to/manifest.csv USER=cli_user'
+      puts(
+        'Usage: rake import:remote_url XML=/path/or/url/to/import.xml ' \
+        'MANIFEST=/path/or/url/to/manifest.csv USER=cli_user'
+      )
+      puts(
+        'Resume an existing import with: rake import:remote_url IMPORT_ID=123 ' \
+        'MANIFEST=/path/or/url/to/manifest.csv USER=cli_user'
+      )
       next
     end
 

@@ -2,14 +2,15 @@
 module Tufts
   ##
   # Command-line ingest flow for pairing XML metadata with a CSV manifest of
-  # public remote URLs.
+  # public remote URLs. The XML and manifest inputs may be local paths or
+  # publicly accessible HTTP(S) URLs.
   class RemoteUrlIngestService
     include RemoteUrlIngestSetup
     include RemoteUrlIngestProcessing
 
     REQUIRED_HEADERS = [:filename].freeze
 
-    attr_reader :xml_path, :manifest_path, :username, :import_id,
+    attr_reader :xml_source, :manifest_source, :xml_path, :manifest_path, :username, :import_id,
                 :batch_size, :download_retries
 
     def self.run!(**kwargs)
@@ -17,6 +18,8 @@ module Tufts
     end
 
     def initialize(xml_path:, manifest_path:, username:, **options)
+      @xml_source = xml_path
+      @manifest_source = manifest_path
       @xml_path = xml_path
       @manifest_path = manifest_path
       @username = username
@@ -25,6 +28,7 @@ module Tufts
       @download_retries = [options.fetch(:download_retries, 3).to_i, 0].max
       @progress_io = options.fetch(:progress_io, $stdout)
       @summary = Hash.new(0)
+      @staged_input_files = []
     end
 
     def run!
@@ -39,6 +43,8 @@ module Tufts
         progress_io.puts("Remote URL ingest failed for XmlImport ##{import&.id || 'new'}: #{err.class}: #{err.message}")
       end
       raise
+    ensure
+      cleanup_staged_inputs!
     end
   end
 end

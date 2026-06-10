@@ -19,7 +19,7 @@ ssh tdrmira-prod-02.it.tufts.edu
 ## Become `rubyadm`
 
 ```bash
-sudo /bin/su - rubyadm
+sudo -u rubyadm -i
 ```
 
 ## Go To The Rails Root
@@ -40,6 +40,20 @@ bundle exec rake import:remote_url \
 ```
 
 If you are not using the dedicated CLI account, replace `USER=cli_user` with the depositor username you want on the created works.
+
+`XML=` and `MANIFEST=` may each be either:
+
+- A local filesystem path on the MIRA host
+- A public `http://` or `https://` URL reachable from the MIRA host
+
+Example with remote sources:
+
+```bash
+bundle exec rake import:remote_url \
+  XML=https://example.org/import.xml \
+  MANIFEST=https://example.org/manifest.csv \
+  USER=cli_user
+```
 
 ## Resume An Existing Import
 
@@ -71,4 +85,5 @@ Resume mode is useful if a large ingest stops partway through because of a valid
 - The manifest CSV should have `filename,remote_url` columns.
 - Each `filename` in the CSV must match a `<tufts:filename>` value in the XML exactly.
 - The XML must include a non-empty `<tufts:visibility>` value for each record.
+- Remote `XML` and `MANIFEST` URLs must be publicly accessible from the MIRA host.
 - Logs and per-row results are written under `tmp/remote_url_ingest/xml_import_<id>/`.
