@@ -10,7 +10,7 @@ RSpec.describe Tufts::RemoteUrlIngestService, :batch, :clean, :workflow do
   let(:progress_io) { StringIO.new }
   let(:manifest_file) do
     Tempfile.new(['remote_url_manifest', '.csv']).tap do |file|
-      file.write("filename,remote_url\n")
+      file.write("\uFEFFfilename,remote_url\n")
       file.write("pdf-sample.pdf,https://box.example.test/pdf-sample.pdf\n")
       file.write("2.pdf,https://box.example.test/2.pdf\n")
       file.rewind

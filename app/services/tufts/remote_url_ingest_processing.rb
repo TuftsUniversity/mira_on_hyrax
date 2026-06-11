@@ -47,7 +47,7 @@ module Tufts
     end
 
     def process_manifest!
-      CSV.foreach(manifest_path, headers: true, header_converters: header_converter) do |row|
+      CSV.foreach(manifest_path, **manifest_csv_options) do |row|
         process_row(row)
         submission_buffer.flush! if submission_buffer.size >= batch_size
       end

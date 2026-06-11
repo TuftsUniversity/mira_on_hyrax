@@ -62,8 +62,16 @@ module Tufts
       end
     end
 
+    def manifest_csv_options
+      {
+        headers: true,
+        header_converters: header_converter,
+        encoding: 'bom|utf-8'
+      }
+    end
+
     def manifest_headers
-      CSV.open(manifest_path, 'rb', headers: true, header_converters: header_converter, &:readline).headers
+      CSV.open(manifest_path, 'r', **manifest_csv_options, &:readline).headers
     end
 
     def setup_run!
