@@ -5,6 +5,7 @@ require 'tempfile'
 require 'uri'
 
 module Tufts
+  # rubocop:disable Metrics/ModuleLength
   module RemoteUrlIngestSetup
     private
 
@@ -170,4 +171,5 @@ module Tufts
       end
     end
   end
+  # rubocop:enable Metrics/ModuleLength
 end
